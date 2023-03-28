@@ -1,0 +1,18 @@
+.verification-container {
+    height: 100%;
+    margin-bottom: 5em;
+}
+.otp-verify-container{
+    display: flex;
+    justify-content: center;
+}
+.otp-verification-image{
+    width: 81px;
+    height: 92px;   
+    object-fit: contain;
+}
+.otp-verification-section{
+    display: grid;
+    justify-content: center;
+    margin-top: 2em;
+}
