@@ -3,10 +3,12 @@ import '../Css/Otpv.css';
 import { Card, CardContent, Button, Typography } from "@mui/material";
 import OTPInput, { ResendOTP } from "otp-input-react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router-dom';
 
 const Otpv = () =>{
     const [OTP, setOTP] = useState("");
     const [WarnMsg, setWarnMsg] = useState(false);
+    const navigator = useNavigate();
 
     let loginType = localStorage.getItem('loginType')
 
@@ -15,7 +17,7 @@ const Otpv = () =>{
     }
     console.log(loginType)
     const handleSubmit = (e) => {
-        
+        navigator("/home");
     }
     const renderButton = buttonProps => {
         return <button style={{ background: 'none', border: 'none', float: 'right', marginRight: '20px', cursor: 'pointer' }} {...buttonProps}>Resend</button>;
