@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import '../Css/Emailv.css';
+import "./Emailv.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import EmailIcon from '@mui/icons-material/Email';
 import { useNavigate } from "react-router-dom";
@@ -21,7 +21,7 @@ const Emailv = () => {
             
             <div className="row justify-content-center">
                 <div className="col-5 box" style={{marginTop:"150px", padding:"80px"}}>
-                        <h1 className="title" >Get Started</h1>
+                        <h1 className="title" >Login Admin</h1>
                         <p className="Para">Please enter your details</p>
                      
                         <input className="form-control email-form " id="email" type='email' placeholder="Enter your email" value={email} name="email" onChange={getEmail} required  />
@@ -35,5 +35,4 @@ const Emailv = () => {
         </>
     )
 }
-
 export default Emailv;

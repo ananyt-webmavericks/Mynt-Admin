@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import '../Css/Otpv.css';
+import "./Otpv.css"
 import { Card, CardContent, Button, Typography } from "@mui/material";
 import OTPInput, { ResendOTP } from "otp-input-react";
 import 'bootstrap/dist/css/bootstrap.min.css';

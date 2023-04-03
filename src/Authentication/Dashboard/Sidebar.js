@@ -7,10 +7,14 @@ import * as BsIcons from 'react-icons/bs';
 import * as GiIcons from 'react-icons/gi';
 import * as FcIcons from 'react-icons/fc';
 
-
-
-
 export const SidebarData = [
+  {
+    title: 'Home',
+    path: '/home',
+    icon: <AiIcons.AiFillHome />,
+    cName: 'nav-text', 
+    
+  },
   {
     title: 'Campaign',
     path: '/home/campaign',
