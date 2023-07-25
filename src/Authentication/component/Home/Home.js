@@ -167,7 +167,7 @@ const Home = () => {
         <div className="col-4 mb-3">
           <div
             style={{
-              background: "#dc3545",
+              background: "#9bc173",
               height: "250px",
               borderRadius: "15px",
             }}
@@ -184,7 +184,7 @@ const Home = () => {
         <div className="col-4 mb-3">
           <div
             style={{
-              background: "#dc3545",
+              background: "#e7cde4",
               height: "250px",
               borderRadius: "15px",
             }}
@@ -201,7 +201,7 @@ const Home = () => {
         <div className="col-4 mb-3">
           <div
             style={{
-              background: "#dc3545",
+              background: "#9bc173",
               height: "250px",
               borderRadius: "15px",
             }}
@@ -218,7 +218,7 @@ const Home = () => {
         <div className="col-4 mb-3">
           <div
             style={{
-              background: "#dc3545",
+              background: "#dccfdb",
               height: "250px",
               borderRadius: "15px",
             }}
@@ -234,7 +234,7 @@ const Home = () => {
         <div className="col-4 mb-3">
           <div
             style={{
-              background: "#dc3545",
+              background: "#c8b9d5",
               height: "250px",
               borderRadius: "15px",
             }}
@@ -250,7 +250,7 @@ const Home = () => {
         <div className="col-4 mb-3">
           <div
             style={{
-              background: "#dc3545",
+              background: "#bcd2ee",
               height: "250px",
               borderRadius: "15px",
             }}
