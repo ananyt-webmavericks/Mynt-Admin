@@ -1,14 +1,14 @@
 import React from "react";
 import Emailv from "../src/Authentication/component/Emailv";
-import {Routes , Route} from "react-router-dom";
-
+import { Routes, Route } from "react-router-dom";
+import './App.css';
 import File from "../src/Authentication/component/Company/Card";
 import Campaign from "./Authentication/component/Campaign/Campaign";
 import Deal_term from "./Authentication/component/Deal_Term/Deal_term";
 import Deal_type from "./Authentication/component/DealType/Deal_type";
 import FAQs from "./Authentication/component/FAQS/FAQs";
-import Rewards from "./Authentication/component/Rewards/Rewards"
-import Highlights from "./Authentication/component/Highlights/Highlights"
+import Rewards from "./Authentication/component/Rewards/Rewards";
+import Highlights from "./Authentication/component/Highlights/Highlights";
 import Investor_KYC from "./Authentication/component/Investor_KYC/Investor_KYC";
 import Investor_consents from "./Authentication/component/Investor_Consents/Investor_consents";
 import User from "./Authentication/component/User/User";
@@ -56,73 +56,186 @@ import CampHighlight from "./Authentication/component/CampUnderReview/CampaignRe
 import CampReward from "./Authentication/component/CampUnderReview/CampaignRelatedDetials.js/CampReward";
 import CampFaqs from "./Authentication/component/CampUnderReview/CampaignRelatedDetials.js/CampFaqs";
 import CampCampaign from "./Authentication/component/CampUnderReview/CampaignRelatedDetials.js/CampCampaign";
+import Dashboard from "./Authentication/Dashboard/Dashboard";
+import FounderContract from "./Authentication/component/founderContract";
 
-
-
-
-
-
-const App = () =>{
-  return(
-    <>
-    <Routes>
-    <Route path="/" element={<Emailv />} exact/>
-    <Route path="/home" element={<Home />} exact />
-    <Route path="/home/company" element={<File />} exact />
-    <Route path="/home/campaign" element={<Campaign />} exact />
-    <Route path="/home/deal_term" element={<Deal_term />} exact />
-    <Route path="/home/deal_type" element={<Deal_type />} exact />
-    <Route path="/home/documents" element={<Documents />} exact />
-    <Route path="/home/faqs" element={<FAQs />} exact />
-    <Route path="/home/rewards" element={<Rewards />} exact />
-    <Route path="/home/highlights" element={<Highlights />} exact />
-    <Route path="/home/investor_kyc" element={<Investor_KYC />} exact />
-    <Route path="/home/investor_consents" element={<Investor_consents />} exact />
-    <Route path="/home/user" element={<User />} exact />
-    <Route path="/home/people" element={<People />} exact />
-    <Route path="/home/press" element={<Press />} exact />
-    <Route path="/campaign/:id" element={<Campaign_Form />} exact/>  
-    <Route path="/company/:id" element={<Company_Form />} exact/> 
-    <Route path="/deal_term/:id" element={<Deal_Term_Form />} exact/> 
-    <Route path="/deal_type/:id" element={<Deal_Type_Form />} exact/> 
-    <Route path="/documents/:id" element={<Documents_Form />} exact/> 
-    <Route path="/faqs/:id" element={<Faqs_Form />} exact/> 
-    <Route path="/highlights/:id" element={<Highlight_Form />} exact/> 
-    <Route path="/investor_Kyc/:id" element={<Investor_Kyc_Form />} exact/>   
-    <Route path="/investor_consents/:user_id" element={<Investor_Consent_Form />} exact/>  
-    <Route path="/user/:id" element={<User_Form />} exact/>  
-    <Route path="/people/:id" element={<People_Form />} exact/> 
-    <Route path="/press/:id" element={<Press_Form />} exact/> 
-    <Route path="/rewards/:id" element={<Reward_Form />} exact/> 
-    <Route path="/home/faqs/insert" element={<Faqs_Insert_data />} exact />
-    <Route path="/home/campaign/insert" element={<Campaign_Insert_data />} exact />
-    <Route path="/home/company/insert" element={<Company_Insert_data />} exact />
-    <Route path="/home/deal_term/insert" element={<Deal_Term_Insert_data />} exact />
-    <Route path="/home/deal_type/insert"  element ={<Deal_Type_Insert_data />} exact />
-    <Route path="/home/highlights/insert" element={<Highlights_Insert_data />} exact />
-    <Route path="/home/investor_consents/insert" element={<Investor_Consents_Insert_data />} exact />
-    <Route path="/home/investor_kyc/insert" element={<Investor_KYC_Insert_data/>} exact />
-    <Route path="/home/user/insert" element={<User_Insert_data/>} exact />
-    <Route path="/home/people/insert" element={<People_Insert_data />} exact/>
-    <Route path="/home/press/insert" element={<Press_Insert_data/>} exact/>
-    <Route path="/home/rewards/insert" element={<Rewards_Insert_data />} exact/>
-    <Route path="/home/documents/insert" element={<Documents_insert_data />} exact/>
-    <Route path ="/home/payments" element={<Payments   />} exact />
-    <Route path="/home/user-invest" element={<User_Invest />} exact />
-    <Route path="/home/user-invest/insert" element={<User_Invest_Insert/>} exact />
-    <Route path="/user-invest/:id" element={<User_Invest_Form />} exact/>  
-    <Route path="/home/under-review" element={<CampUnderReview />} exact/>  
-    <Route path="/home/under-update/:id" element={<CampUnderUpdate />} exact/>  
-    <Route path="/home/under-update/:id/campcompany" element={<CampCompany />} exact/> 
-    <Route path="/home/under-update/:id/campdocument" element={<CampDocument />} exact/> 
-    <Route path="/home/under-update/:id/camppeople" element={<CampPeople />} exact/> 
-    <Route path="/home/under-update/:id/camppress" element={<CampPress />} exact/> 
-    <Route path="/home/under-update/:id/campcampi" element={<CampCampaign />} exact/>
-    <Route path="/home/under-update/:id/campfaqs" element={<CampFaqs />} exact/>
-    <Route path="/home/under-update/:id/campreward" element={<CampReward />} exact/> 
-    <Route path="/home/under-update/:id/camphighlight" element={<CampHighlight />} exact/> 
-    </Routes>
-    </>
-  )
-}
+const App = () => {
+  return (
+    <div className="row" style={{overflowX:'hidden'}}>
+      <div className="col-3 pe-0" style={{width: '22%'}}><Dashboard /></div>
+      <div className="col-9 pe-0" style={{marginTop: '100px'}}>
+        <Routes>
+          <Route path="/" element={<Emailv />} exact />
+          <Route path="/home" element={<Home />} exact />
+          <Route path="/home/company" element={<File />} exact />
+          <Route path="/home/campaign" element={<Campaign />} exact />
+          <Route path="/home/deal_term" element={<Deal_term />} exact />
+          <Route path="/home/deal_type" element={<Deal_type />} exact />
+          <Route path="/home/documents" element={<Documents />} exact />
+          <Route path="/home/faqs" element={<FAQs />} exact />
+          <Route path="/home/rewards" element={<Rewards />} exact />
+          <Route path="/home/highlights" element={<Highlights />} exact />
+          <Route path="/home/investor_kyc" element={<Investor_KYC />} exact />
+          <Route
+            path="/home/investor_consents"
+            element={<Investor_consents />}
+            exact
+          />
+          <Route path="/home/user" element={<User />} exact />
+          <Route path="/home/people" element={<People />} exact />
+          <Route path="/home/press" element={<Press />} exact />
+          <Route path="/campaign/:id" element={<Campaign_Form />} exact />
+          <Route path="/company/:id" element={<Company_Form />} exact />
+          <Route path="/deal_term/:id" element={<Deal_Term_Form />} exact />
+          <Route path="/deal_type/:id" element={<Deal_Type_Form />} exact />
+          <Route path="/documents/:id" element={<Documents_Form />} exact />
+          <Route path="/faqs/:id" element={<Faqs_Form />} exact />
+          <Route path="/highlights/:id" element={<Highlight_Form />} exact />
+          <Route
+            path="/investor_Kyc/:id"
+            element={<Investor_Kyc_Form />}
+            exact
+          />
+          <Route
+            path="/investor_consents/:user_id"
+            element={<Investor_Consent_Form />}
+            exact
+          />
+          <Route path="/user/:id" element={<User_Form />} exact />
+          <Route path="/people/:id" element={<People_Form />} exact />
+          <Route path="/press/:id" element={<Press_Form />} exact />
+          <Route path="/rewards/:id" element={<Reward_Form />} exact />
+          <Route
+            path="/home/faqs/insert"
+            element={<Faqs_Insert_data />}
+            exact
+          />
+          <Route
+            path="/home/campaign/insert"
+            element={<Campaign_Insert_data />}
+            exact
+          />
+          <Route
+            path="/home/company/insert"
+            element={<Company_Insert_data />}
+            exact
+          />
+          <Route
+            path="/home/deal_term/insert"
+            element={<Deal_Term_Insert_data />}
+            exact
+          />
+          <Route
+            path="/home/deal_type/insert"
+            element={<Deal_Type_Insert_data />}
+            exact
+          />
+          <Route
+            path="/home/highlights/insert"
+            element={<Highlights_Insert_data />}
+            exact
+          />
+          <Route
+            path="/home/investor_consents/insert"
+            element={<Investor_Consents_Insert_data />}
+            exact
+          />
+          <Route
+            path="/home/investor_kyc/insert"
+            element={<Investor_KYC_Insert_data />}
+            exact
+          />
+          <Route
+            path="/home/user/insert"
+            element={<User_Insert_data />}
+            exact
+          />
+          <Route
+            path="/home/people/insert"
+            element={<People_Insert_data />}
+            exact
+          />
+          <Route
+            path="/home/press/insert"
+            element={<Press_Insert_data />}
+            exact
+          />
+          <Route
+            path="/home/rewards/insert"
+            element={<Rewards_Insert_data />}
+            exact
+          />
+          <Route
+            path="/home/documents/insert"
+            element={<Documents_insert_data />}
+            exact
+          />
+          <Route path="/home/payments" element={<Payments />} exact />
+          <Route path="/home/user-invest" element={<User_Invest />} exact />
+          <Route
+            path="/home/user-invest/insert"
+            element={<User_Invest_Insert />}
+            exact
+          />
+          <Route path="/user-invest/:id" element={<User_Invest_Form />} exact />
+          <Route
+            path="/home/under-review"
+            element={<CampUnderReview />}
+            exact
+          />
+          <Route
+            path="/home/under-update/:id"
+            element={<CampUnderUpdate />}
+            exact
+          />
+          <Route
+            path="/home/under-update/:id/campcompany"
+            element={<CampCompany />}
+            exact
+          />
+          <Route
+            path="/home/under-update/:id/campdocument"
+            element={<CampDocument />}
+            exact
+          />
+          <Route
+            path="/home/under-update/:id/camppeople"
+            element={<CampPeople />}
+            exact
+          />
+          <Route
+            path="/home/under-update/:id/camppress"
+            element={<CampPress />}
+            exact
+          />
+          <Route
+            path="/home/under-update/:id/campcampi"
+            element={<CampCampaign />}
+            exact
+          />
+          <Route
+            path="/home/under-update/:id/campfaqs"
+            element={<CampFaqs />}
+            exact
+          />
+          <Route
+            path="/home/under-update/:id/campreward"
+            element={<CampReward />}
+            exact
+          />
+          <Route
+            path="/home/under-update/:id/camphighlight"
+            element={<CampHighlight />}
+            exact
+          />
+           <Route
+            path="/home/contract-with-founder"
+            element={<FounderContract />}
+            exact
+          />
+        </Routes>
+      </div>
+    </div>
+  );
+};
 export default App;

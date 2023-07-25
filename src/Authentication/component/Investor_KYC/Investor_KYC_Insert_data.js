@@ -84,17 +84,16 @@ getUploadedDocs();
     return(
         <>
           <div className='container-fluid'>
-        <div className='row'>
+        {/* <div className='row'>
           
             <Dashboard 
             f1 = {false}
             f2 = {true}
             />
           
-        </div>
-        </div>
-        <div className='row'>
-          <div className='col-7' style={{marginTop:"130px", marginLeft:"450px", borderRadius:"20px", backgroundColor:"#BACDDB"}}>
+        </div> */}
+        <div className="row justify-content-center mb-5">
+        <div style={{borderRadius: "20px",backgroundColor: "#BACDDB",}}>
           <form style={{padding:"40px" , borderRadius:"20px"}} onSubmit={gotoAdd}>
                 <h1 style={{textAlign:"center",color:"#070A52"}}>Add Investor Kyc Data</h1>
 
@@ -106,9 +105,9 @@ getUploadedDocs();
                   items && items.map((item) =>{
                     return (
                       <option onClick={()=>{add(item.id)}} >{item.id}</option>
-                    )
-                  })
-                }
+                      )
+                    })
+                  }
                 </select>
               
               </div>
@@ -116,7 +115,7 @@ getUploadedDocs();
                 
 
                 <label for="exampleInputName" className="form-label">Pan Card</label>
-                <input type="text" className="form-control" id="exampleInputName" value={pan_card} onChange={updatepan_card}/>
+                <input type="number" className="form-control" id="exampleInputName" value={pan_card} onChange={updatepan_card}/>
               
               
                 <label for="exampleInputRollnum" className="form-label">Birth Date</label>
@@ -132,11 +131,12 @@ getUploadedDocs();
               
               
                 
-                <button type="submit" className="btn btn-success" style={{marginTop:"30px"}}>Submit</button>
+                <button type="submit" className="btn btn-success" style={{marginTop:"30px", backgroundColor: '#1a83ff'}}>Submit</button>
             </form>
         </div>
         </div>
       
+                  </div>
         </>
     )
 }

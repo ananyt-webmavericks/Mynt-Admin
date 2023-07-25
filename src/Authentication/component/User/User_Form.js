@@ -53,17 +53,16 @@ const User_Form = () =>{
     return(
         <>
           <div className='container-fluid'>
-        <div className='row'>
+        {/* <div className='row'>
           
             <Dashboard
               f1 = {true}
               f2 = {false}
             />
           
-        </div>
-        </div>
-        <div className='row'>
-          <div className='col-7' style={{marginTop:"140px", marginLeft:"450px", borderRadius:"20px", backgroundColor:"#BACDDB"}}>
+        </div> */}
+      <div className="row justify-content-center mb-5">
+        <div style={{ borderRadius: "20px", backgroundColor: "#BACDDB" }} >
           <form style={{padding:"50px",borderRadius:"20px"}} onSubmit={e => {
             e.preventDefault();
             gotoAdd()
@@ -78,13 +77,14 @@ const User_Form = () =>{
 
               
               <label for="exampleInputRegistrationnum" className="form-label">Profile Image</label>
-              <input  type="text" className="form-control" id="exampleInputeRegistrationnum" value={profile} onChange={updateProfile}/>
+              <input  type="file" className="form-control" id="exampleInputeRegistrationnum" value={profile} onChange={updateProfile}/>
           
-            <button type="submit" className="btn btn-success" style={{marginTop:"30px"}} >Submit</button>
+            <button type="submit" className="btn btn-success" style={{marginTop:"30px", backgroundColor: '#1a83ff'}} >Submit</button>
           </form>
         </div>
         </div>
     
+            </div>
       </>
     )
 }

@@ -92,15 +92,14 @@ getUploaded();
     return(
       <>
        <div className='container-fluid'>
-        <div className='row'>
+        {/* <div className='row'>
             <Dashboard 
             f1 = {true}
             f2 = {false}
             />
-        </div>
-        </div>
-        <div className='row'>
-          <div className='col-7' style={{marginTop:"130px", marginLeft:"450px", borderRadius:"20px", backgroundColor:"#BACDDB"}}>
+        </div> */}
+        <div className="row justify-content-center mb-5">
+        <div style={{borderRadius: "20px",backgroundColor: "#BACDDB",}}>
           <form style={{padding:"50px",borderRadius:"20px"}}>
               <h1 style={{textAlign:"center",color:"#070A52",marginBottom:"20px"}}>Add Reward Data</h1>
                
@@ -112,9 +111,9 @@ getUploaded();
                   items2 && items2.map((item) =>{
                     return (
                       <option onClick={()=>{add(item.id)}} >{item.id}</option>
-                    )
-                  })
-                }
+                      )
+                    })
+                  }
                 </select>
               </div>
 
@@ -128,10 +127,11 @@ getUploaded();
               <label for="exampleInputRegistrationnum" className="form-label">Discounted Price</label>
               <input  type="number" className="form-control" id="exampleInputeRegistrationnum" value={discount} onChange={updateDiscount}/>
           
-              <button type="submit" className="btn btn-success" style={{marginTop:"30px"}} onClick={gotoAdd}>Submit</button>
+              <button type="submit" className="btn btn-success" style={{marginTop:"30px", backgroundColor: '#1a83ff'}} onClick={gotoAdd}>Submit</button>
           </form>
         </div>
         </div>
+                  </div>
   </>
     )
 }

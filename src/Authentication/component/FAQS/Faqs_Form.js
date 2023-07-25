@@ -67,15 +67,14 @@ getUploaded();
     return(
       <>
        <div className='container-fluid'>
-        <div className='row'>
+        {/* <div className='row'>
             <Dashboard 
             f1 = {true}
             f2 = {false}
             />
-        </div>
-        </div>
-        <div className='row'>
-          <div className='col-7' style={{marginTop:"170px", marginLeft:"450px", borderRadius:"20px", backgroundColor:"#BACDDB"}}>
+        </div> */}
+        <div className='row justify-content-center mb-5'>
+          <div style={{ borderRadius: "20px", backgroundColor: "#BACDDB" }}>
           <form style={{padding:"50px", borderRadius:"20px"}} onSubmit={e => {
             e.preventDefault();
             gotoAdd()
@@ -90,9 +89,9 @@ getUploaded();
                   items2 && items2.map((item) =>{
                     return (
                       <option onClick={()=>{add(item.id)}} >{item.id}</option>
-                    )
-                  })
-                }
+                      )
+                    })
+                  }
                 </select>
               </div>
               
@@ -102,10 +101,11 @@ getUploaded();
               <label for="exampleInputRegistrationnum" className="form-label">Answer</label>
               <input  type="text" className="form-control" id="exampleInputeRegistrationnum" value={answer} onChange={updateanswer}/>
 
-              <button type="submit" className="btn btn-success" style={{marginTop:"30px"}}>Submit</button>
+              <button type="submit" className="btn btn-success" style={{marginTop:"30px", backgroundColor: '#1a83ff'}}>Submit</button>
           </form>
         </div>
         </div>
+                  </div>
   </>
     )
 }

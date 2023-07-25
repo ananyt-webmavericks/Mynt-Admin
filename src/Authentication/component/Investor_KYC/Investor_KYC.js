@@ -43,18 +43,20 @@ getUploadedDocs();
   return (
     <> 
       <div className='container-fluid'>
-            <div className='row'>
+            {/* <div className='row'>
               
                 <Dashboard 
                  f1 = {false}
                  f2 = {true}
                  />
               
-            </div>
-        </div>
+            </div> */}
         <div className='row'>
-          <div className='col-8' style={{marginTop:"150px", marginLeft:"350px"}}>
+        <div className="d-flex justify-content-end">
           <Button variant="contained" className="addIcon" style={{marginBottom:"1%"}} onClick={goToAdd} >Add Investor Kyc<AddIcon/></Button>
+          </div>
+          <div style={{ overflowX: "auto", height: "550px" }}>
+
             <table class="table table-hover table-bordered" style={{border:"2px solid"}}>
                 <thead className='thead'>
                   <tr>
@@ -87,11 +89,11 @@ getUploadedDocs();
                 {
                   items && items.map( (item) => {
                     return (
-                            <tr>
+                      <tr>
                               <td scope="col">{item.id}</td>
                               <td scope="col">{item.user_id}</td>
                               <td scope="col">{item.pan_card}</td>
-                              <td scope="col">{item.pan_card_verified}</td>
+                              <td scope="col">{item.pan_card_verified ? 'TRUE' : 'FALSE'}</td>
                               <td scope="col">{item.birth_date}</td>
                               <td scope="col">{item.birth_month}</td>
                               <td scope="col">{item.birth_year}</td>
@@ -104,12 +106,12 @@ getUploadedDocs();
                               <td scope="col">{item.bank_name}</td>
                               <td scope="col">{item.bank_account}</td>
                               <td scope="col">{item.ifsc_code}</td>
-                              <td scope="col">{item.bank_account_verified}</td>
+                              <td scope="col">{item.bank_account_verified ? 'TRUE' : 'FALSE'}</td>
                               <td scope="col">{item.mobile_number}</td>
                               <td scope="col">{item.mobile_number_otp}</td>
-                              <td scope="col">{item.mobile_number_verified}</td>
+                              <td scope="col">{item.mobile_number_verified ? 'TRUE' : 'FALSE'}</td>
                               <td scope="col">{item.aadhaar_card_number}</td>
-                              <td scope="col">{item.aadhaar_card_verified}</td>
+                              <td scope="col">{item.aadhaar_card_verified ? 'TRUE' : 'FALSE'}</td>
                               <td >  <button className="btn btn1">
                                     <CreateIcon 
                                   onClick={() => {update(item)}} />
@@ -124,6 +126,7 @@ getUploadedDocs();
           </div>
        
       </div>
+                </div>
     </>
   );
 }

@@ -38,6 +38,7 @@
     padding: 4px 0px 4px 8px;
     list-style: none;
     height: 38px;
+    width: 95%;
   }
   
   .nav-text a {
@@ -71,4 +72,13 @@
   
   span {
     margin-left: 16px;
+  }
+
+  .dropdown:hover>.dropdown-menu {
+    display: block;
+  }
+  
+  .dropdown>.dropdown-toggle:active {
+    /*Without this, clicking will make it sticky*/
+      pointer-events: none;
   }

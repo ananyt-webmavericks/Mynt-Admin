@@ -109,18 +109,18 @@ getUploaded();
     return(
         <>
           <div className='container-fluid'>
-        <div className='row'>
+        {/* <div className='row'>
           
             <Dashboard 
             f1 = {true}
             f2 = {false}
             />
           
+        </div> */}
         </div>
-        </div>
-        <div className='row'>
-          <div className='col-7' style={{marginTop:"130px", marginLeft:"450px", borderRadius:"20px", backgroundColor:"#BACDDB"}}>
-          <form style={{padding:"50px"}} onSubmit={e=>{
+        <div className='row justify-content-center mb-5'>
+          <div style={{ borderRadius: "20px", backgroundColor: "#BACDDB" }}>
+          <form style={{padding:"40px"}} onSubmit={e=>{
             e.preventDefault()
             goToAdd()
           }}>
@@ -170,7 +170,7 @@ getUploaded();
                 </select>
               </div>
               
-            <button type="submit"  className="btn btn-success" style={{marginTop:"30px"}}>Submit</button>
+            <button type="submit"  className="btn btn-success" style={{marginTop:"30px", backgroundColor: '#1a83ff'}}>Submit</button>
         </form>
         </div>
         </div>

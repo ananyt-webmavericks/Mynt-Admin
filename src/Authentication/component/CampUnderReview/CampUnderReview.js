@@ -39,13 +39,13 @@ function CampUnderReview (){
     return(
         <>
         <div className="container-fluid">
-            <div className="row">
+            {/* <div className="row">
                 <Dashboard />
-            </div>
-        </div>
+            </div> */}
         <div className="row">
             
-        <div className="col-8" style={{marginTop:"100px", marginLeft:"350px"}}>
+        <div className="d-flex justify-content-end">
+           </div>
             <div  className="row" style={{marginLeft:"4%", border:"3px solid", width:"25%", borderRadius:"5px", marginBottom:"10px"}}>
                 <ul>
                     <p style={{color:"#9BABB8"}}>• Company<span style={{color:"violet", marginLeft:"10%"}}>• Document</span></p>
@@ -56,8 +56,8 @@ function CampUnderReview (){
                 </ul>
                
             </div>
-           
-               
+            <div style={{ overflowX: "auto", height: "550px" }}>
+
             
             <table className="table table-hover table-bordered" style={{border:"2px solid"}}>
                 <thead className="thead">
@@ -137,10 +137,10 @@ function CampUnderReview (){
                 <tbody>
 
                      {
-                        camp_id && camp_id.map( (val, ind)=> {
-                                return <Listing id={val.id} />
-                        } )
-                    }  
+                         camp_id && camp_id.map( (val, ind)=> {
+                             return <Listing id={val.id} />
+                            } )
+                        }  
 
                  
                 </tbody>
@@ -149,6 +149,7 @@ function CampUnderReview (){
 
         </div>
         </div>
+                        </div>
 
         </>
     )

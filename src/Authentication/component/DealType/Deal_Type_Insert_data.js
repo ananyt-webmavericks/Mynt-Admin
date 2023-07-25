@@ -48,15 +48,17 @@ const Deal_Type_Insert_data = () =>{
     return(
         <>
           <div className='container-fluid'>
-        <div className='row'>
+        {/* <div className='row'>
             <Dashboard 
             f1 = {true}
             f2 = {false}
             />
-        </div>
-        </div>
-        <div className='row'>
-          <div className='col-7' style={{marginTop:"170px", marginLeft:"450px", borderRadius:"20px", backgroundColor:"#BACDDB"}}>
+        </div> */}
+        <div className='row justify-content-center mb-5'>
+          <div style={{
+              borderRadius: "20px",
+              backgroundColor: "#BACDDB",
+            }}>
           <form  style={{padding:"50px"}}>
               <h1 style={{textAlign:"center",color:"#070A52"}}>Add Deal Type Data</h1>
 
@@ -65,8 +67,9 @@ const Deal_Type_Insert_data = () =>{
               <input type="text"  className="form-control" id="exampleInputName" value={name} onChange={updateName}/>
   
           
-              <button type="submit" className="btn btn-success" style={{marginTop:"30px"}} onClick={gotoAdd}>Submit</button>
+              <button type="submit" className="btn btn-success" style={{marginTop:"30px", backgroundColor: '#1a83ff'}} onClick={gotoAdd}>Submit</button>
           </form>
+        </div>
         </div>
         </div>
       

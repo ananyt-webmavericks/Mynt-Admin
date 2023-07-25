@@ -91,22 +91,21 @@ const Investor_Kyc_Form = () =>{
     return(
         <>
           <div className='container-fluid'>
-        <div className='row'>
+        {/* <div className='row'>
           
             <Dashboard 
             f1 = {false}
             f2 = {true}
             />
           
-        </div>
-        </div>
-        <div className='row'>
-          <div className='col-7' style={{marginTop:"130px", marginLeft:"450px", borderRadius:"20px", backgroundColor:"#BACDDB"}}>
+        </div> */}
+      <div className="row justify-content-center mb-5">
+      <div style={{ borderRadius: "20px", backgroundColor: "#BACDDB" }} >
           <form style={{padding:"40px",borderRadius:"20px"}} onSubmit={e=>{e.preventDefault()
           gotoAdd()}}>
                 <h1 style={{textAlign:"center",color:"#070A52"}}>Investor Kyc Update</h1>
                 <label for="exampleInputName" className="form-label">Aadhaar Card Number</label>
-                <input type="text" className="form-control" id="exampleInputName" value={aadhaar_card_number} onChange={updateaadhaar_card_number}/>
+                <input type="number" className="form-control" id="exampleInputName" value={aadhaar_card_number} onChange={updateaadhaar_card_number}/>
   
               
                 <label for="exampleInputRollnum" className="form-label">Address Line 1</label>
@@ -125,7 +124,7 @@ const Investor_Kyc_Form = () =>{
                 <input  type="text" className="form-control" id="exampleInputPassword1" value={state} onChange={updatestate}/>
 
                 <label for="exampleInputRegistrationnum" className="form-label">Pincode</label>
-                <input  type="text" className="form-control" id="exampleInputeRegistrationnum" value={pincode} onChange={updatepincode}/>
+                <input  type="number" className="form-control" id="exampleInputeRegistrationnum" value={pincode} onChange={updatepincode}/>
               
               
                 <label for="exampleInputBranch" className="form-label">Bank Name</label>
@@ -133,16 +132,17 @@ const Investor_Kyc_Form = () =>{
               
               
                 <label for="exampleInputpassword" className="form-label">Bank Account</label>
-                <input  type="text" className="form-control" id="exampleInputPassword1" value={bank_account} onChange={updatebank_account}/>
+                <input  type="number" className="form-control" id="exampleInputPassword1" value={bank_account} onChange={updatebank_account}/>
 
                 <label for="exampleInputpassword" className="form-label">Ifsc Code</label>
                 <input  type="text" className="form-control" id="exampleInputPassword1" value={ifsc_code} onChange={updateifsc_code}/>
 
-                <button type="submit" className="btn btn-success" style={{marginTop:"30px"}}>Submit</button>
+                <button type="submit" className="btn btn-success" style={{marginTop:"30px", backgroundColor: '#1a83ff'}}>Submit</button>
             </form>
         </div>
         </div>
       
+            </div>
         </>
     )
 }

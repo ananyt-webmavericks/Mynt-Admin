@@ -18,7 +18,7 @@ import PaymentsIcon from '@mui/icons-material/Payments';
 
 export const SidebarData = [
   {
-    title: 'Dahboard',
+    title: 'Dashboard',
     path: '/home',
     icon: <DashboardIcon />,
     cName: 'nav-text',  
@@ -29,8 +29,6 @@ export const SidebarData = [
     icon: <CampaignIcon />,
     cName: 'nav-text',
     path1 : '/home/campaign/insert',
-
-    
   },
   {
     title: 'Company',
@@ -150,5 +148,12 @@ export const SidebarData = [
     cName: 'nav-text', 
     // path1 : '/home/payments/insert',
     
+  },
+  {
+    title: 'Contract With Founder',
+    path: '/home/contract-with-founder',
+    icon: <CampaignIcon/>,
+    cName: 'nav-text', 
+    // path1 : '/home/payments/insert',
   },
 ];

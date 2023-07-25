@@ -165,13 +165,12 @@ const CampCompany = () =>{
     return(
         <>
           <div className='container-fluid'>
-        <div className='row'>
+        {/* <div className='row'>
             <Dashboard 
             /> 
-        </div>
-        </div>
+        </div> */}
         <div className='row'>
-          <div className='col-7' style={{marginTop:"170px", marginLeft:"450px", borderRadius:"20px", backgroundColor:"#BACDDB"}}>
+        <div  style={{margin:'auto',backgroundColor:"#BACDDB"}}>
           <form style={{padding:"40px",borderRadius:"20px"}} onSubmit={e=> {
             e.preventDefault();
             gotoAdd()
@@ -198,7 +197,7 @@ const CampCompany = () =>{
             
             
               <label for="exampleInputBranch" className="form-label">Company Linked In Profile</label>
-              <input  type="text" className="form-control" id="exampleInputBranch" value={company_linked_in_profile} onChange={updatecompany_linked_in_profile}/>
+              <input  type="link" className="form-control" id="exampleInputBranch" value={company_linked_in_profile} onChange={updatecompany_linked_in_profile}/>
             
             
               <label for="exampleInputpassword" className="form-label">Website Url</label>
@@ -274,8 +273,9 @@ const CampCompany = () =>{
               <input  type="text" className="form-control" id="exampleInputBranch" value={number_of_employees} onChange={updatenumber_of_employees}/>
               
           
-            <button type="submit" className="btn btn-success" style={{marginTop:"30px"}}>Submit</button>
+            <button type="submit" className="btn btn-success" style={{marginTop:"30px", backgroundColor: '#1a83ff'}}>Submit</button>
         </form>
+        </div>
         </div>
         </div>
         </>

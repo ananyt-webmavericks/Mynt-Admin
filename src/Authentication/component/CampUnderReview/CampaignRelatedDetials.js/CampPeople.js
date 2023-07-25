@@ -87,18 +87,19 @@ getUploadedDocs();
     return(
         <>
           <div className='container-fluid'>
-        <div className='row'>
+        {/* <div className='row'>
             <Dashboard 
            
             />
-        </div>
+        </div> */}
         </div>
         <div className='row'>
-          <div className='col-7' style={{marginTop:"130px", marginLeft:"450px", borderRadius:"20px", backgroundColor:"#BACDDB"}} onSubmit={e => {
+        <div style={{margin:'auto',backgroundColor:"#BACDDB"}}>
+  
+          <form style={{padding:"40px" , borderRadius:"20px"}} onSubmit={e => {
             e.preventDefault();
             gotoAdd()
           }}>
-          <form style={{padding:"40px" , borderRadius:"20px"}}>
               <h1 style={{textAlign:"center",color:"#070A52",marginBottom:"20px"}}>Update People Data</h1>
 
               <label for="exampleInputName" className="form-label">People Id</label>
@@ -148,7 +149,7 @@ getUploadedDocs();
               <label for="exampleInputBranch" className="form-label">Profile Image</label>
               <input  type="text" className="form-control" id="exampleInputBranch" value={profile} onChange={updateProfile}/>
             
-            <button type="submit" className="btn btn-success" style={{marginTop:"30px"}}>Submit</button>
+            <button type="submit" className="btn btn-success" style={{marginTop:"30px", backgroundColor: '#1a83ff'}}>Submit</button>
           </form>
         </div>
         </div>

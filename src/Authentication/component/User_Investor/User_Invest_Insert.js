@@ -73,17 +73,17 @@ const User_Invest_Insert = () =>{
     return(
         <>
           <div className='container-fluid'>
-        <div className='row'>
+        {/* <div className='row'>
           
             <Dashboard 
                 f1 = {false}
                 f2 = {true}
                  />
           
+        </div> */}
         </div>
-        </div>
-        <div className='row'>
-          <div className='col-7' style={{marginTop:"130px", marginLeft:"450px", borderRadius:"20px", backgroundColor:"#BACDDB"}}>
+        <div className="row justify-content-center mb-5">
+        <div style={{borderRadius: "20px",backgroundColor: "#BACDDB",}}className="col-7">
           <form style={{padding:"50px",borderRadius:"20px"}} onSubmit={e=>{
             e.preventDefault();
             gotoAdd()}}>

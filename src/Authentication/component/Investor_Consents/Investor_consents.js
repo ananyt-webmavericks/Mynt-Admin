@@ -42,18 +42,20 @@ const goToAdd = () =>{
   return (
     <> 
       <div className='container-fluid'>
-            <div className='row'>
+            {/* <div className='row'>
               
                 <Dashboard 
                    f1 = {false}
                    f2 = {true}
                  />
               
-            </div>
-        </div>
+            </div> */}
         <div className='row'>
-          <div className='col-8' style={{marginTop:"150px", marginLeft:"350px"}}>
+        <div className="d-flex justify-content-end">
           <Button variant="contained" className="addIcon" style={{marginBottom:"1%"}} onClick={goToAdd} >Add Investor Consents<AddIcon/></Button>
+           </div>
+           <div style={{ overflowX: "auto", height: "550px" }}>
+
             <table class="table table-hover table-bordered" style={{border:"2px solid"}}>
                 <thead className='thead'>
                   <tr>
@@ -69,9 +71,9 @@ const goToAdd = () =>{
                 </thead>
                 <tbody>
                 {
-                    items && items.map( (item ) => {
-                      return (
-                        <>
+                  items && items.map( (item ) => {
+                    return (
+                      <>
                           <tr>
                           <td scope="col-2" >{item.id}</td>
                           <td scope="col-2" >{item.user_id}</td>
@@ -94,6 +96,7 @@ const goToAdd = () =>{
           </div>
     
       </div>
+                  </div>
     </>
   );
 }

@@ -17,8 +17,39 @@ const People_Insert_data = () =>{
   const[profile,setProfile] = useState();
   const[items , setItems] =useState();
   const [post, setPost] = React.useState(null);
+  const [pitchUrl, setPitchUrl] = useState(null);
+  const [pitch, setPitch] = useState();
+
 
   const navigator = useNavigate();
+
+  
+
+ const updatePitch = async (e) => {
+  setPitch(e.target.files?.[0] ?? null);
+  if (e.target.files?.[0]) {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+    const formData = new FormData();
+    formData.append("file", file);
+
+    await authAxios
+      .post(`${Base_url}/api/users/upload-files`, formData)
+
+      .then((response) => {
+        setPitchUrl(response.data?.message ?? '');
+      })
+      .catch((err) => {
+        console.log("error");
+        setPitchUrl(null);
+      });
+  } else {
+    setPitchUrl(null);
+  }
+};
 
   const updateId = (e) =>{
     setId(e.target.value)
@@ -125,17 +156,16 @@ getUploadedDocs();
     return(
         <>
           <div className='container-fluid'>
-        <div className='row'>
+        {/* <div className='row'>
           
             <Dashboard 
             f1 = {true}
             f2 = {false}
             />
           
-        </div>
-        </div>
-        <div className='row'>
-          <div className='col-7' style={{marginTop:"120px", marginLeft:"450px", borderRadius:"20px", backgroundColor:"#BACDDB"}}>
+        </div> */}
+        <div className="row justify-content-center mb-5">
+        <div style={{borderRadius: "20px",backgroundColor: "#BACDDB",}}>
           <form style={{padding:"40px" , borderRadius:"20px"}}>
               <h1 style={{textAlign:"center",color:"#070A52", marginBottom:"20px"}}>Add People Data</h1>
 
@@ -146,9 +176,9 @@ getUploadedDocs();
                   items && items.map((item) =>{
                     return (
                       <option onClick={()=>{add(item.user_id)}} >{item.company_name}</option>
-                    )
-                  })
-                }
+                      )
+                    })
+                  }
               </select>
             </div>
 
@@ -180,13 +210,30 @@ getUploadedDocs();
               <input  type="text" className="form-control" id="exampleInputBranch" value={description} onChange={updateDescription}/>
 
               
-              <label for="exampleInputBranch" className="form-label">Profile Image</label>
-              <input  type="link" className="form-control" id="exampleInputBranch" value={profile} onChange={updateProfile}/>
-            
-            <button type="submit" className="btn btn-success" style={{marginTop:"30px"}} onClick={gotoAdd}>Submit</button>
+              <label for="exampleInputRegistrationnum" className="form-label">
+  Profile Image
+</label>
+<input
+  onChange={updatePitch}
+  type="file"
+  className="form-control"
+  id="exampleInputBranch"
+/>
+<div className="pt-3">
+  <input
+    type="text"
+    className="form-control"
+    id="exampleInputeRegistrationnum"
+    defaultValue={pitchUrl}
+    // onChange={updatePitch}
+    disabled
+  />
+  </div>
+            <button type="submit" className="btn btn-success" style={{marginTop:"30px", backgroundColor: '#1a83ff'}} onClick={gotoAdd}>Submit</button>
           </form>
         </div>
         </div>
+                  </div>
     </>
     )
 }

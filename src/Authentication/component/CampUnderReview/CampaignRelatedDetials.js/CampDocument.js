@@ -59,16 +59,15 @@ const CampDocument = () =>{
     return(
       <>
        <div className='container-fluid'>
-        <div className='row'>
+        {/* <div className='row'>
           
             <Dashboard 
            
             />
           
-        </div>
-        </div>
+        </div> */}
         <div className='row'>
-          <div className='col-7' style={{marginTop:"170px", marginLeft:"450px", borderRadius:"20px", backgroundColor:"#BACDDB"}}>
+        <div style={{margin:'auto',backgroundColor:"#BACDDB"}}>
           <form style={{padding:"50px"}} onSubmit={e => {
             e.preventDefault();
             gotoAdd()
@@ -83,9 +82,9 @@ const CampDocument = () =>{
                       ind && ind.map((item) =>{
                         return (
                           <option onClick={()=>{add1(item.id)}} >{item.id}</option>
-                        )
-                      })
-                    }
+                          )
+                        })
+                      }
                   </select>
                 </div>
 
@@ -102,11 +101,12 @@ const CampDocument = () =>{
             
               
           
-              <button type="submit" className="btn btn-success" style={{marginTop:"30px"}}>Submit</button>
+              <button type="submit" className="btn btn-success" style={{marginTop:"30px", backgroundColor: '#1a83ff'}}>Submit</button>
           </form>
         </div>
         </div>
       
+                      </div>
 
   </>
     )

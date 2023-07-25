@@ -64,14 +64,14 @@ getUploadedDocs();
     return(
         <>
           <div className='container-fluid'>
-        <div className='row'>
+        {/* <div className='row'>
             <Dashboard 
            
             />
-        </div>
+        </div> */}
         </div>
         <div className='row'>
-          <div className='col-7' style={{marginTop:"120px", marginLeft:"450px", borderRadius:"20px", backgroundColor:"#BACDDB"}}>
+          <div style={{margin:'auto',backgroundColor:"#BACDDB"}}>
           <form style={{padding:"40px",borderRadius:"20px" , marginBottom:"20px"}} onSubmit={e => {
             e.preventDefault();
             gotoAdd()
@@ -107,7 +107,7 @@ getUploadedDocs();
                 <label for="exampleInputBranch" className="form-label">Banner</label>
                 <input  type="text" className="form-control" id="exampleInputBranch" value={banner} onChange={updateBanner}/>
 
-              <button type="submit" className="btn btn-success" style={{marginTop:"30px"}}>Submit</button>
+              <button type="submit" className="btn btn-success" style={{marginTop:"30px", backgroundColor: '#1a83ff'}}>Submit</button>
           </form>
         </div>
         </div>

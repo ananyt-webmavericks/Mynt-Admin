@@ -93,16 +93,20 @@ getUploadedDocs();
     return(
       <>
        <div className='container-fluid'>
-        <div className='row'>
+        {/* <div className='row'>
             <Dashboard 
             f1 = {true}
             f2 = {false}
             />
-        </div>
-        </div>
-        <div className='row'>
-          <div className='col-7' style={{marginTop:"170px", marginLeft:"450px", borderRadius:"20px", backgroundColor:"#BACDDB"}}>
-          <form style={{padding:"20px",borderRadius:"20px"}}>
+        </div> */}
+        <div className="row justify-content-center mb-5">
+        <div
+            style={{
+              borderRadius: "20px",
+              backgroundColor: "#BACDDB",
+            }}
+         
+            >          <form style={{padding:"20px",borderRadius:"20px"}}>
               <h1 style={{textAlign:"center",color:"#070A52"}}>Add Faqs Data</h1>
 
               <label for="exampleInputName" className="form-label">Campaign Id</label>
@@ -113,9 +117,9 @@ getUploadedDocs();
                   items2 && items2.map((item) =>{
                     return (
                       <option onClick={()=>{add(item.id)}} >{item.id}</option>
-                    )
-                  })
-                }
+                      )
+                    })
+                  }
                 </select>
               </div>
 
@@ -132,10 +136,11 @@ getUploadedDocs();
               <label for="exampleInputRollnum" className="form-label">Answer 2</label>
               <input  type="text" className="form-control" id="exampleInputRollnum" value={answer_2} onChange={updateanswer_2}/>
             
-              <button type="submit" className="btn btn-success" style={{marginTop:"30px"}} onClick={gotoAdd}>Submit</button>
+              <button type="submit" className="btn btn-success" style={{marginTop:"30px", backgroundColor: '#1a83ff'}} onClick={gotoAdd}>Submit</button>
           </form>
         </div>
         </div>
+                  </div>
   </>
     )
 }

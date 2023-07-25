@@ -35,12 +35,15 @@ getUploadedDocs();
   return (
     <>  
       <div className='container-fluid'>
-        <div className='row'>
+        {/* <div className='row'>
             <Dashboard /> 
-        </div>
+        </div> */}
         </div>
         <div className='row'>
-          <div className='col-8' style={{marginTop:"150px", marginLeft:"320px"}}>
+        <div className="d-flex justify-content-end">
+          </div>
+          <div style={{ overflowX: "auto", height: "550px" }}>
+
           <table class="table table-hover table-bordered" style={{border:"2px solid"}}>
                 <thead className='thead'>
                   <tr>
