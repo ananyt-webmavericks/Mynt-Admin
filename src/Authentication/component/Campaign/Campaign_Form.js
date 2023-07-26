@@ -6,7 +6,7 @@ import { authAxios } from "../../../Services/auth.service";
 
 const Campaign_Form = () => {
   const location1 = useLocation();
-  const [comp_id, setComp_id] = useState();
+  const [comp_id, setComp_id] = useState(location1.state.bio.company_id);
   const [youtube_link, setYoutube_link] = useState(
     location1.state.bio.youtube_link
   );
@@ -90,17 +90,11 @@ const Campaign_Form = () => {
   const gotoAdd = async () => {
     const values = {
       campaign_id: location1.state.bio.id,
-
       company_id: comp_id,
-
       youtube_link: youtube_link,
-
       ama_date: ama_date,
-
       ama_meet_link: ama_meet,
-
       ama_youtube_video: ama_youtube,
-
       pitch: pitchUrl,
       status: status,
     };
@@ -132,13 +126,15 @@ const Campaign_Form = () => {
             </h1>
 
             <label for="exampleInputName" className="form-label">
-              Company Id
+              Company Name
             </label>
             <div class="input-group">
               <select
                 class="form-select"
                 id="inputGroupSelect04"
                 aria-label="Example select with button addon"
+                onChange={(e)=>{add(e.target.value)}}
+                value={comp_id}
               >
                 <option selected className="active">
                   Select Company Name
@@ -147,9 +143,10 @@ const Campaign_Form = () => {
                   items.map((item) => {
                     return (
                       <option
-                        onClick={() => {
-                          add(item.user_id);
-                        }}
+                        // onClick={() => {
+                        //   add(item.user_id);
+                        // }}
+                        value={item.user_id}
                       >
                         {item.company_name}
                       </option>
@@ -240,18 +237,20 @@ const Campaign_Form = () => {
                 class="form-select"
                 id="inputGroupSelect04"
                 aria-label="Example select with button addon"
+                onChange={updateStatus}
+                value={status}
               >
                 <option selected className="active">
                   Select Option
                 </option>
-                <option onClick={updateStatus}>CREATED</option>
-                <option onClick={updateStatus}>UNDER REVIEW</option>
-                <option onClick={updateStatus}>CHANGES REQUESTED</option>
-                <option onClick={updateStatus}>APPROVED</option>
-                <option onClick={updateStatus}>LIVE</option>
-                <option onClick={updateStatus}>COMPLETED</option>
-                <option onClick={updateStatus}>REFUNDED</option>
-                <option onClick={updateStatus}>CLOSED</option>
+                <option  value="CREATED">CREATED</option>
+                <option value="UNDER REVIEW">UNDER REVIEW</option>
+                <option value="CHANGES REQUESTED">CHANGES REQUESTED</option>
+                <option value="APPROVED">APPROVED</option>
+                <option value="LIVE">LIVE</option>
+                <option value="COMPLETED">COMPLETED</option>
+                <option value="REFUNDED">REFUNDED</option>
+                <option value="CLOSED">CLOSED</option>
               </select>
             </div>
             <button

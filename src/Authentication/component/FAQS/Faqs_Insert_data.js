@@ -75,15 +75,11 @@ getUploadedDocs();
   const gotoAdd = async(e) => {
     e.preventDefault();
     const values = {
-      campaign_id :  +campaign_id,
+      campaign_id :  campaign_id,
       faqs:[
               {
                   question:question_1,
                   answer:answer_1,
-              },
-              {
-                  question:question_2,
-                  answer:answer_2
               }
               ]
     }
@@ -111,30 +107,29 @@ getUploadedDocs();
 
               <label for="exampleInputName" className="form-label">Campaign Id</label>
               <div class="input-group">
-              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={(e)=>{add(e.target.value)}} value={campaign_id}>
                 <option selected  className="active">Select campaign id</option>
                 {
                   items2 && items2.map((item) =>{
                     return (
-                      <option onClick={()=>{add(item.id)}} >{item.id}</option>
+                      <option
+                      //  onClick={()=>{add(item.id)}}
+                      value={item.id}
+                      >{item.id}</option>
                       )
                     })
                   }
                 </select>
               </div>
 
-              <label for="exampleInputRollnum" className="form-label">Question 1</label>
+              <label for="exampleInputRollnum" className="form-label">Question</label>
               <input  type="text" className="form-control" id="exampleInputRollnum" value={question_1} onChange={updatequestion_1}/>
             
             
-              <label for="exampleInputRegistrationnum" className="form-label">Answer 1</label>
+              <label for="exampleInputRegistrationnum" className="form-label">Answer</label>
               <input  type="text" className="form-control" id="exampleInputeRegistrationnum" value={answer_1} onChange={updateanswer_1}/>
 
-              <label for="exampleInputRegistrationnum" className="form-label">Question 2</label>
-              <input  type="text" className="form-control" id="exampleInputeRegistrationnum" value={question_2} onChange={updatequestion_2}/>
-
-              <label for="exampleInputRollnum" className="form-label">Answer 2</label>
-              <input  type="text" className="form-control" id="exampleInputRollnum" value={answer_2} onChange={updateanswer_2}/>
+    
             
               <button type="submit" className="btn btn-success" style={{marginTop:"30px", backgroundColor: '#1a83ff'}} onClick={gotoAdd}>Submit</button>
           </form>

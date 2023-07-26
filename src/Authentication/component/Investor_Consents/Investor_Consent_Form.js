@@ -9,14 +9,12 @@ import { authAxios } from "../../../Services/auth.service";
 const Investor_Consent_Form = () =>{
   const location1 = useLocation()
   const navigator = useNavigate()
-  const[risk_consent , setrisk_consent] = useState();
-  const[limited_transfer_consent , setlimited_transfer_consent] = useState();
-  const[diversification_consent , setdiversification_consent] = useState();
-  const[cancellation_consent,setcancellation_consent] = useState();
-  const[research_consent,setresearch_consent] = useState();
+  const[risk_consent , setrisk_consent] = useState(location1.state.bio.risk_consent ? "true" : "false");
+  const[limited_transfer_consent , setlimited_transfer_consent] = useState(location1.state.bio.limited_transfer_consent? "true" : "false");
+  const[diversification_consent , setdiversification_consent] = useState(location1.state.bio.diversification_consent? "true" : "false");
+  const[cancellation_consent,setcancellation_consent] = useState(location1.state.bio.cancellation_consent? "true" : "false");
+  const[research_consent,setresearch_consent] = useState(location1.state.bio.research_consent? "true" : "false");
   
-    
-
   const updaterisk_consent = (e) =>{
     setrisk_consent(e.target.value)
   }
@@ -48,15 +46,15 @@ const Investor_Consent_Form = () =>{
      user_id : location1.state.bio.user_id,
 
      
-     risk_consent : risk_consent.toLowerCase() === "true" ? true : false,
+     risk_consent : risk_consent,
      
-     limited_transfer_consent :limited_transfer_consent.toLowerCase() === "true" ? true : false,
+     limited_transfer_consent :limited_transfer_consent,
 
-     diversification_consent :diversification_consent.toLowerCase() === "true" ? true : false,
+     diversification_consent :diversification_consent,
 
-     cancellation_consent : cancellation_consent.toLowerCase() === "true" ? true : false,
+     cancellation_consent : cancellation_consent,
 
-     research_consent : research_consent.toLowerCase() === "true" ? true : false,
+     research_consent : research_consent,
      
      
      
@@ -94,19 +92,19 @@ navigator("/home/investor_consents")
       
               <label for="exampleInputName" className="form-label">Risk Consent</label>
               <div class="input-group">
-                <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" >
+                <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={updaterisk_consent} value={risk_consent}>
                 <option selected  className="active">Select Option</option>
-                <option onClick={updaterisk_consent}>true</option>
-                <option onClick={updaterisk_consent}>false</option>   
+                <option value={true}>True</option>
+                <option value={false}>False</option>   
                 </select>
               </div>              
               
                 <label for="exampleInputRollnum" className="form-label">Limited Transfer Consent</label>
                 <div class="input-group">
-                  <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" >
+                  <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={updatelimited_transfer_consent} value={limited_transfer_consent} >
                   <option selected  className="active">Select Option</option>
-                  <option onClick={updatelimited_transfer_consent}>true</option>
-                  <option onClick={updatelimited_transfer_consent}>false</option>   
+                  <option value={true}>True</option>
+                <option value={false}>False</option>    
                   </select>
                 </div>              
               
@@ -114,30 +112,30 @@ navigator("/home/investor_consents")
               
                 <label for="exampleInputRegistrationnum" className="form-label">Diversification consent</label>
                 <div class="input-group">
-                <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" >
+                <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={updatediversification_consent} value={diversification_consent}>
                   <option selected  className="active">Select Option</option>
-                  <option onClick={updatediversification_consent}>true</option>
-                  <option onClick={updatediversification_consent}>false</option>   
+                  <option value={true}>True</option>
+                <option value={false}>False</option> 
                 </select>
                 </div>              
               
               
                 <label for="exampleInputBranch" className="form-label">Cancellation consent</label>
                 <div class="input-group">
-                <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" >
+                <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={updatecancellation_consent} value={cancellation_consent} >
                   <option selected  className="active">Select Option</option>
-                  <option onClick={updatecancellation_consent}>true</option>
-                  <option onClick={updatecancellation_consent}>false</option>   
+                  <option value={true}>True</option>
+                <option value={false}>False</option> 
                 </select>
                 </div>  
               
               
                 <label for="exampleInputpassword" className="form-label">Research consent</label>
                 <div class="input-group">
-                <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" >
+                <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={updateresearch_consent} value={research_consent} >
                   <option selected  className="active">Select Option</option>
-                  <option onClick={updateresearch_consent}>true</option>
-                  <option onClick={updateresearch_consent}>false</option>   
+                  <option value={true}>True</option>
+                <option value={false}>False</option> 
                 </select>
                 </div>  
             

@@ -47,7 +47,7 @@ const location1 = useLocation();
 
   const gotoAdd = async() => {
     const values = { 
-      highlight_id : +highlight_id,
+      highlight_id : highlight_id,
       campaign_id : location1.state.bio.id,
       title : title ,
       description : description , 
@@ -76,12 +76,15 @@ const location1 = useLocation();
 
               <label for="exampleInputName" className="form-label">Highlight Id</label>
               <div className="input-group">
-                  <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                  <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={(e)=>{add1(e.target.value)}} value={highlight_id}>
                     <option selected  className="active">Select Highlight ID</option>
                     {
                       ind && ind.map((item) =>{
                         return (
-                          <option onClick={()=>{add1(item.id)}} >{item.id}</option>
+                          <option 
+                          // onClick={()=>{add1(item.id)}} 
+                          value={item.id}
+                          >{item.id}</option>
                           )
                         })
                       }

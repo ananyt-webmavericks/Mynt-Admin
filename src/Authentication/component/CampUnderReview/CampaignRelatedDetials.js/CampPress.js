@@ -42,7 +42,7 @@ getUploadedDocs();
   const gotoAdd = async() => {
     
     const values = {
-      press_id : +press_id,
+      press_id : press_id,
        title : title,
        link : link,
        description : description,
@@ -80,12 +80,15 @@ getUploadedDocs();
 
                 <label for="exampleInputName" className="form-label">Press Id</label>
               <div className="input-group">
-                  <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                  <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" value={press_id} onChange={(e)=>{add1(e.target.value)}}>
                     <option selected  className="active">Select Press ID</option>
                     {
                       ind && ind.map((item) =>{
                         return (
-                          <option onClick={()=>{add1(item.id)}} >{item.id}</option>
+                          <option 
+                          // onClick={()=>{add1(item.id)}} 
+                          value={item.id}
+                          >{item.id}</option>
                         )
                       })
                     }

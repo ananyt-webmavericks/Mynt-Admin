@@ -2,8 +2,15 @@ import React from "react";
 import { useState } from "react";
 import { authAxios } from "../../../Services/auth.service";
 import Base_url from "../Base_url";
+import { useEffect } from "react";
 
 const FounderContract = () => {
+
+  const [comp_id, setComp_id] = useState();
+  
+  const [post, setPost] = React.useState(null);
+  const [items, setItems] = useState([]);
+
 
   const [values,setValues] = useState({
     contract_url: '',
@@ -16,9 +23,27 @@ const FounderContract = () => {
 
   const [selectedFile,setSelectedFile] = useState(null)
 
-  const gotoAdd = () => {
+  const gotoAdd = async (e) => {
+    e.preventDefault();
 
-  }
+    await authAxios
+      .post(`${Base_url}/api/campaign/manage`, {
+        company_id: comp_id,
+
+      })
+
+      .then((response) => {
+        setPost(response.data);
+      })
+      .catch((err) => {
+        console.log("error");
+      });
+    navigator("/home/campaign");
+  };
+
+  const add = (x) => {
+    setComp_id(x);
+  };
 
   const updatePitch = async (e) => {
     setSelectedFile(e.target.files?.[0] ?? null);
@@ -46,6 +71,24 @@ const FounderContract = () => {
     }
   };
 
+  
+  useEffect(() => {
+    const getUploadedDocs = async () => {
+      try {
+        const response = await authAxios.get(`${Base_url}/api/company/manage`);
+        console.log(response.data);
+        setItems(response.data);
+        return response.data;
+      } catch (error) {
+        if (error) {
+          console.log(error);
+        }
+        return error;
+      }
+    };
+    getUploadedDocs();
+  }, []);
+
   return (
     <>
       <div className="container-fluid">
@@ -67,6 +110,35 @@ const FounderContract = () => {
               >
                 Contract With Founder
               </h1>
+              <label for="exampleInputRegistrationnum" className="form-label">
+                Company Name
+              </label>
+              <div class="input-group">
+                <select
+                  class="form-select"
+                  id="inputGroupSelect04"
+                  aria-label="Example select with button addon"
+                  onChange={(e)=>add(e.target.value)}
+                  value={comp_id}
+                >
+                  <option selected className="active">
+                    Select Company Name
+                  </option>
+                  {items &&
+                    items.map((item) => {
+                      return (
+                        <option
+                          // onClick={() => {
+                          //   add(item.user_id);
+                          // }}
+                          value={item.user_id}
+                        >
+                          {item.company_name}
+                        </option>
+                      );
+                    })}
+                </select>
+              </div>
               <label for="exampleInputRegistrationnum" className="form-label">
                 Upload Document
               </label>

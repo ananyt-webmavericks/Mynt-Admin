@@ -39,7 +39,7 @@ getUploaded();
 
   const gotoAdd = async() => {
     const values = {
-      faqs_id : +faqs_id,
+      faqs_id : faqs_id,
       campaign_id : location1.state.bio.id,
      
       question : question ,
@@ -75,12 +75,15 @@ getUploaded();
 
               <label for="exampleInputName" className="form-label">Faqs Id</label>
               <div className="input-group">
-                  <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                  <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={(e)=>{add1(e.target.value)}} value={faqs_id}>
                     <option selected  className="active">Select Faqs ID</option>
                     {
                       ind && ind.map((item) =>{
                         return (
-                          <option onClick={()=>{add1(item.id)}} >{item.id}</option>
+                          <option 
+                          // onClick={()=>{add1(item.id)}}
+                          value={item.id}
+                           >{item.id}</option>
                           )
                         })
                       }

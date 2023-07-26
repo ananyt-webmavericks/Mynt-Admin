@@ -101,16 +101,16 @@ const CampCampaign = () =>{
 
               <label for="exampleInput" className="form-label">Status</label>
               <div class="input-group">
-              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" >
+              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={updateStatus} value={status} >
                 <option selected  className="active">Select Option</option>
-                <option onClick={updateStatus}>CREATED</option>
-                <option onClick={updateStatus}>UNDER REVIEW</option> 
-                <option onClick={updateStatus}>CHANGES REQUESTED</option> 
-                <option onClick={updateStatus}>APPROVED</option>   
-                <option onClick={updateStatus}>LIVE</option>   
-                <option onClick={updateStatus}>COMPLETED</option>
-                <option onClick={updateStatus}>REFUNDED</option>  
-                <option onClick={updateStatus}>CLOSED</option>       
+                <option  value={'CREATED'}>CREATED</option>
+                <option  value={'UNDER REVIEW'}>UNDER REVIEW</option> 
+                <option  value={'CHANGES REQUESTED'}>CHANGES REQUESTED</option> 
+                <option  value={'APPROVED'}>APPROVED</option>   
+                <option  value={'LIVE'}>LIVE</option>   
+                <option  value={'COMPLEDTED'}>COMPLETED</option>
+                <option  value={'REFUNDED'}>REFUNDED</option>  
+                <option  value={'CLOSED'}>CLOSED</option>       
                 </select>
               </div>
             <button type="submit"  className="btn btn-success" style={{marginTop:"30px", backgroundColor: '#1a83ff'}} >Submit</button>

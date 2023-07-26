@@ -109,12 +109,15 @@ getUploadedDocs();
 
               <label for="exampleInputName" className="form-label">Company Id</label>
               <div className="input-group">
-                  <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                  <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={(e)=>{add(e.target.value)}} value={company_id}>
                     <option selected  className="active">Select Company Name</option>
                     {
                       items && items.map((item) =>{
                         return (
-                          <option onClick={()=>{add(item.user_id)}} >{item.company_name}</option>
+                          <option 
+                          // onClick={()=>{add(item.user_id)}}
+                          value={item.id}
+                           >{item.company_name}</option>
                           )
                         })
                       }

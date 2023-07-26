@@ -76,7 +76,7 @@ const Campaign_Insert_data = () => {
 
     await authAxios
       .post(`${Base_url}/api/campaign/manage`, {
-        company_id: +c_id,
+        company_id: c_id,
         pitch: pitchUrl,
         status: status,
       })
@@ -116,6 +116,8 @@ const Campaign_Insert_data = () => {
                   class="form-select"
                   id="inputGroupSelect04"
                   aria-label="Example select with button addon"
+                  onChange={(e)=>add(e.target.value)}
+                  value={c_id}
                 >
                   <option selected className="active">
                     Select Company Name
@@ -124,9 +126,10 @@ const Campaign_Insert_data = () => {
                     items.map((item) => {
                       return (
                         <option
-                          onClick={() => {
-                            add(item.user_id);
-                          }}
+                          // onClick={() => {
+                          //   add(item.user_id);
+                          // }}
+                          value={item.user_id}
                         >
                           {item.company_name}
                         </option>

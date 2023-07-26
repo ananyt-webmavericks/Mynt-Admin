@@ -146,17 +146,17 @@ const CampCompany = () =>{
     country:country,
     state:state,
     city:city,
-    pincode:+pincode,
+    pincode:pincode,
     company_address:company_address,
     facebook_link:facebook_link,
     instagram_link:instagram_link,
     legal_name:legal_name,
-    cin:+cin,
+    cin:cin,
     date_of_incorporation:date_of_incorporation,
     incorporation_type:incorporation_type,
     sector:sector,
     invested_so_far:invested_so_far,
-    number_of_employees:+number_of_employees,
+    number_of_employees:number_of_employees,
     status : status,   
        },
        )
@@ -179,10 +179,10 @@ const CampCompany = () =>{
 
               <label for="exampleInput" className="form-label">Status</label>
               <div class="input-group">
-              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" >
+              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={updatestatus} value={status} >
                 <option selected  className="active">Select Option</option>
-                <option onClick={updatestatus}>ACTIVE</option>
-                <option onClick={updatestatus}>INACTIVE</option>       
+                <option value={'ACTIVE'} >ACTIVE</option>
+                <option value={'INACTIVE'} >INACTIVE</option>       
                 </select>
               </div>
               <label for="exampleInputRollnum" className="form-label">Company Logo</label>

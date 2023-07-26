@@ -51,7 +51,7 @@ const User_Insert_data = () =>{
       email : email,
       
       social_login : false,
-      user_type : "INVESTOR",
+      user_type :user_type,
       
       
       }
@@ -103,11 +103,11 @@ const User_Insert_data = () =>{
 
               <label  className="form-label">User Type</label>
               <div class="input-group">
-              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" >
+              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={updateuser_type} value={user_type}>
                 <option selected  className="active">Select user type</option>
-                <option onClick={updateuser_type}>ADMIN</option>
-                <option onClick={updateuser_type}>INVESTOR</option>
-                <option onClick={updateuser_type}>FOUNDER</option>      
+                <option value={'ADMIN'}>ADMIN</option>
+                <option value={'INVESTOR'}>INVESTOR</option>
+                <option value={'FOUNDER'}>FOUNDER</option>      
                 </select>
               </div>
 

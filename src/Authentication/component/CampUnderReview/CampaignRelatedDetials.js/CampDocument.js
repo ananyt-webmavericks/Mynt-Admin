@@ -37,7 +37,7 @@ const CampDocument = () =>{
   const gotoAdd = async() => {
     
     const values = {
-      document_id : +document_id,
+      document_id : document_id,
      
       document_type :document_type,
       document_name : document_name,
@@ -76,12 +76,15 @@ const CampDocument = () =>{
 
               <label for="exampleInputName" className="form-label">Document Id</label>
               <div className="input-group">
-                  <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                  <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={(e)=>{add1(e.target.value)}} value={document_id}>
                     <option selected  className="active">Select Document ID</option>
                     {
                       ind && ind.map((item) =>{
                         return (
-                          <option onClick={()=>{add1(item.id)}} >{item.id}</option>
+                          <option 
+                          // onClick={()=>{add1(item.id)}}
+                          value={item.id}
+                           >{item.id}</option>
                           )
                         })
                       }

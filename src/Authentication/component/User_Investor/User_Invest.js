@@ -20,7 +20,7 @@ function User_Invest() {
     const getUploadedDocs = async () => {
   
       try {
-          const response = await authAxios.get(`${Base_url}/api/users/manage`);
+          const response = await authAxios.get(`${Base_url}/api/users/manage?user_type=INVESTOR`);
           console.log(response.data)
           setItems(response.data)
           return response.data;

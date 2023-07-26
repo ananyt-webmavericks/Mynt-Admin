@@ -142,12 +142,15 @@ getUploadedDocs();
                 <h1 style={{textAlign:"center",color:"#070A52",marginBottom:"20px"}}>Add Press Data</h1>
 
                 <div class="input-group">
-                  <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                  <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={(e)=>{add(e.target.value)}} value={c_id}>
                     <option selected  className="active">Select Company Name</option>
                     {
                       items && items.map((item) =>{
                         return (
-                          <option onClick={()=>{add(item.user_id)}} >{item.company_name}</option>
+                          <option
+                          //  onClick={()=>{add(item.user_id)}}
+                          value={item.user_id}
+                           >{item.company_name}</option>
                           )
                         })
                       }

@@ -1,28 +1,30 @@
 import React, { useState } from "react";
 import { Line } from "react-chartjs-2";
 import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-  } from "chart.js";
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
 import "../../Dashboard/Dashboard.css";
+import CardHome from "./CardHome";
+import Base_url from "../Base_url";
 
 ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
-  );
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
-const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
+const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 
 const options = {
   responsive: true,
@@ -71,7 +73,7 @@ const options = {
 const labels = ["January", "February", "March", "April", "May", "June", "July"];
 
 const data = {
-    labels,
+  labels,
   datasets: [
     {
       data: [
@@ -81,7 +83,7 @@ const data = {
         random(70, 80),
         random(70, 80),
         random(70, 80),
-        random(70, 80)
+        random(70, 80),
       ],
       borderColor: "#fff",
       backgroundColor: "#fff",
@@ -90,7 +92,7 @@ const data = {
 };
 
 const data2 = {
-    labels,
+  labels,
   datasets: [
     {
       data: [
@@ -100,7 +102,7 @@ const data2 = {
         random(90, 100),
         random(90, 100),
         random(90, 100),
-        random(90, 100)
+        random(90, 100),
       ],
       borderColor: "#fff",
       backgroundColor: "#fff",
@@ -109,7 +111,7 @@ const data2 = {
 };
 
 const data3 = {
-    labels,
+  labels,
   datasets: [
     {
       data: [
@@ -119,7 +121,7 @@ const data3 = {
         random(80, 89),
         random(80, 89),
         random(80, 89),
-        random(80, 89)
+        random(80, 89),
       ],
       borderColor: "#fff",
       backgroundColor: "#fff",
@@ -132,137 +134,46 @@ const Home = () => {
   return (
     <div className="container fluid">
       <div className=" row mt-5 pe-0 ps-0">
-        <div className="col-4 mb-3">
-          <div
-            style={{
-              background: "#321fdb",
-              height: "250px",
-              borderRadius: "15px",
-            }}
-            className="p-4 text-light"
-          >
-            <h1>26K</h1>
-            <h4>Founders</h4>
-            <div style={{width: '100%',height:'100px', paddingTop: '20px'}}>
-              <Line options={options} data={data} />
-            </div>
-          </div>
-        </div>
-        <div className="col-4 mb-3">
-          <div
-            style={{
-              background: "#ffc107",
-              height: "250px",
-              borderRadius: "15px",
-            }}
-            className="p-4 text-light"
-          >
-            <h1>26K</h1>
-            <h4>Investors</h4>
-            <div style={{width: '100%',height:'100px', paddingTop: '20px'}}>
-              <Line options={options} data={data} />
-            </div>
-          </div>
-        </div>
-        <div className="col-4 mb-3">
-          <div
-            style={{
-              background: "#9bc173",
-              height: "250px",
-              borderRadius: "15px",
-            }}
-            className="p-4 text-light"
-          >
-            <h1>26K</h1>
-            <h4>Campaigns Created</h4>
-            <div style={{width: '100%',height:'100px', paddingTop: '20px'}}>
-              <Line options={options} data={data} />
-            </div>
-          </div>
-        </div>
-
-        <div className="col-4 mb-3">
-          <div
-            style={{
-              background: "#e7cde4",
-              height: "250px",
-              borderRadius: "15px",
-            }}
-            className="p-4 text-light"
-          >
-            <h1>26K</h1>
-            <h4>Companies Onboard</h4>
-            <div style={{width: '100%',height:'100px', paddingTop: '20px'}}>
-              <Line options={options} data={data} />
-            </div>
-          </div>
-        </div>
-
-        <div className="col-4 mb-3">
-          <div
-            style={{
-              background: "#9bc173",
-              height: "250px",
-              borderRadius: "15px",
-            }}
-            className="p-4 text-light"
-          >
-            <h1>26K</h1>
-            <h4>Companies Application</h4>
-            <div style={{width: '100%',height:'100px', paddingTop: '20px'}}>
-              <Line options={options} data={data} />
-            </div>
-          </div>
-        </div>
-
-        <div className="col-4 mb-3">
-          <div
-            style={{
-              background: "#dccfdb",
-              height: "250px",
-              borderRadius: "15px",
-            }}
-            className="p-4 text-light"
-          >
-            <h1>26K</h1>
-            <h4>Campaigns Live</h4>
-            <div style={{width: '100%',height:'100px', paddingTop: '20px'}}>
-              <Line options={options} data={data} />
-            </div>
-          </div>
-        </div>
-        <div className="col-4 mb-3">
-          <div
-            style={{
-              background: "#c8b9d5",
-              height: "250px",
-              borderRadius: "15px",
-            }}
-            className="p-4 text-light"
-          >
-            <h1>26K</h1>
-            <h4>Campaigns Completed</h4>
-            <div style={{width: '100%',height:'100px', paddingTop: '20px'}}>
-              <Line options={options} data={data} />
-            </div>
-          </div>
-        </div>
-        <div className="col-4 mb-3">
-          <div
-            style={{
-              background: "#bcd2ee",
-              height: "250px",
-              borderRadius: "15px",
-            }}
-            className="p-4 text-light"
-          >
-            <h1>26K</h1>
-            <h4>Campaigns Refunded</h4>
-            <div style={{width: '100%',height:'100px', paddingTop: '20px'}}>
-              <Line options={options} data={data} />
-            </div>
-          </div>
-        </div>
+        <CardHome
+          title="Founders"
+          url={`${Base_url}/api/users/count?user_type=FOUNDER`}
+          color={"#321fdb"}
+        />
+        <CardHome
+          title="Investors"
+          color={"#ffc107"}
+          url={`${Base_url}/api/users/count?user_type=INVESTOR`}
+        />
+        <CardHome
+          title="Campaigns Created"
+          color={"#9bc173"}
+          url={`${Base_url}/api/campaign/count?status=CREATED`}
+        />
+        <CardHome
+          title="Companies Onboard"
+          color={"#bcd2ee"}
+          url={`${Base_url}/api/company/count?status=ONBOARD`}
+        />
+        <CardHome
+          title="Companies Application"
+          url={`${Base_url}/api/company/count?status=PENDING`}
+          color="#c8b9d5"
+        />
+        <CardHome
+          title="Campaigns Live"
+          color={"#e7cde4"}
+          url={`${Base_url}/api/campaign/count?status=LIVE`}
+        />
+        <CardHome
+          title="Campaigns Completed"
+          color={"#9bc173"}
+          url={`${Base_url}/api/campaign/count?status=COMPLETED`}
+        />
+        <CardHome
+          title="Campaigns Refunded"
+          color={"#dccfdb"}
+          url={`${Base_url}/api/campaign/count?status=REFUNDED`}
+        />
       </div>
     </div>
   );

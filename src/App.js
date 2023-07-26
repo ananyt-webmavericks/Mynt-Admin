@@ -1,7 +1,7 @@
 import React from "react";
 import Emailv from "../src/Authentication/component/Emailv";
-import { Routes, Route } from "react-router-dom";
-import './App.css';
+import { Routes, Route, useLocation } from "react-router-dom";
+import "./App.css";
 import File from "../src/Authentication/component/Company/Card";
 import Campaign from "./Authentication/component/Campaign/Campaign";
 import Deal_term from "./Authentication/component/Deal_Term/Deal_term";
@@ -60,10 +60,14 @@ import Dashboard from "./Authentication/Dashboard/Dashboard";
 import FounderContract from "./Authentication/component/founderContract";
 
 const App = () => {
+  const location = useLocation();
   return (
-    <div className="row" style={{overflowX:'hidden'}}>
-      <div className="col-3 pe-0" style={{width: '22%'}}><Dashboard /></div>
-      <div className="col-9 pe-0" style={{marginTop: '100px'}}>
+    
+    <div className="row" style={{ overflowX: "hidden" }}>
+      <div className={location.pathname!=='/' ? "col-3 pe-0" : ''} style={{ width: "22%" }}>
+        <Dashboard />
+      </div>
+      <div className={location.pathname!=='/' ? "col-9 pe-0" : ''} style={{ marginTop: location.pathname!=='/' ? "100px": "0" }}>
         <Routes>
           <Route path="/" element={<Emailv />} exact />
           <Route path="/home" element={<Home />} exact />
@@ -228,7 +232,7 @@ const App = () => {
             element={<CampHighlight />}
             exact
           />
-           <Route
+          <Route
             path="/home/contract-with-founder"
             element={<FounderContract />}
             exact

@@ -19,11 +19,12 @@ const Company_Insert_data = () => {
   const [exist, setExist] = useState();
   const [pitch, setPitch] = useState();
   const [pitchUrl, setPitchUrl] = useState(null);
+  const [logoUrl,setLogoUrl] = useState(null)
 
   const navigator = useNavigate();
-  const updateLogo = (e) => {
-    setLogo(e.target.value)
-  }
+  // const updateLogo = (e) => {
+  //   setLogo(e.target.value)
+  // }
   const updatefounder_linked_in_profile = (e) => {
     setfounder_linked_in_profile(e.target.value)
   }
@@ -57,6 +58,7 @@ const Company_Insert_data = () => {
   const updateExist = (e) => {
     setExist(e.target.value)
   }
+
   const updatePitch = async (e) => {
     setPitch(e.target.files?.[0] ?? null);
     if (e.target.files?.[0]) {
@@ -83,6 +85,33 @@ const Company_Insert_data = () => {
     }
   };
 
+  const updateLogo = async (e) => {
+    // setPitch(e.target.files?.[0] ?? null);
+    setLogo(e.target.files?.[0] ?? null)
+    if (e.target.files?.[0]) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+      const formData = new FormData();
+      formData.append("file", file);
+
+      await authAxios
+        .post(`${Base_url}/api/users/upload-files`, formData)
+
+        .then((response) => {
+          setLogoUrl(response.data?.message ?? '');
+        })
+        .catch((err) => {
+          console.log("error");
+          setLogoUrl(null);
+        });
+    } else {
+      setLogoUrl(null);
+    }
+  };
+
 
   
   const gotoAdd = async (e) => {
@@ -91,7 +120,7 @@ const Company_Insert_data = () => {
 
     await authAxios.post(`${Base_url}/api/company/create`, {
 
-      company_logo: logo,
+      company_logo: logoUrl,
       founder_linked_in_profile: founder_linked_in_profile,
       company_name: company,
 
@@ -104,7 +133,7 @@ const Company_Insert_data = () => {
       reason_for_community_round: reason_com,
       reason_for_mynt: reason_mynt,
       existing_commitments: exist,
-      company_pitch: pitch,
+      company_pitch: pitchUrl,
 
     },
     )
@@ -131,7 +160,7 @@ const Company_Insert_data = () => {
                 Company Logo
               </label>
               <input
-                onChange={updatePitch}
+                onChange={updateLogo}
                 type="file"
                 className="form-control"
                 id="exampleInputBranch"
@@ -141,7 +170,7 @@ const Company_Insert_data = () => {
                   type="text"
                   className="form-control"
                   id="exampleInputeRegistrationnum"
-                  defaultValue={pitchUrl}
+                  defaultValue={logoUrl}
                   // onChange={updatePitch}
                   disabled
                 />
@@ -184,8 +213,23 @@ const Company_Insert_data = () => {
               <input type="text" className="form-control" id="exampleInputBranch" value={exist} onChange={updateExist} />
 
               <label for="exampleInputBranch" className="form-label">Company Pitch</label>
-              <input type="link" className="form-control" id="exampleInputBranch" value={pitch} onChange={updatePitch} />
-
+              {/* <input type="link" className="form-control" id="exampleInputBranch" value={pitch} onChange={updatePitch} /> */}
+              <input
+                onChange={updatePitch}
+                type="file"
+                className="form-control"
+                id="exampleInputBranch"
+              />
+              <div className="pt-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="exampleInputeRegistrationnum"
+                  defaultValue={pitchUrl}
+                  // onChange={updatePitch}
+                  disabled
+                />
+                </div>
               <button type="submit" className="btn btn-success" style={{ marginTop: "30px", backgroundColor: '#1a83ff' }} onClick={gotoAdd}>Submit</button>
             </form>
           </div>

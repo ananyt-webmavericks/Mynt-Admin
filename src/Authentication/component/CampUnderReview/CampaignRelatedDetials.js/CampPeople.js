@@ -66,7 +66,7 @@ getUploadedDocs();
         
             const values = {           
             
-            people_id : +people_id,
+            people_id : people_id,
             
             company_id : location.state.bio.company_id.peoples[0].company_id,
             
@@ -104,12 +104,15 @@ getUploadedDocs();
 
               <label for="exampleInputName" className="form-label">People Id</label>
               <div className="input-group">
-                  <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                  <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" value={people_id} onChange={(e)=>{add1(e.target.value)}}>
                     <option selected  className="active">Select People ID</option>
                     {
                       ind && ind.map((item) =>{
                         return (
-                          <option onClick={()=>{add1(item.id)}} >{item.id}</option>
+                          <option 
+                          // onClick={()=>{add1(item.id)}} 
+                          value={item.id}
+                          >{item.id}</option>
                         )
                       })
                     }

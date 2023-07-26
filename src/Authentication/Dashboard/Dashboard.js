@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import * as IoIcons from "react-icons/io";
 import { SidebarData } from "./Sidebar";
 import "./Dashboard.css";
@@ -14,11 +14,13 @@ import { TrendingUp } from "@mui/icons-material";
 import { useEffect } from "react";
 
 function Dashboard(props) {
+  const navigator = useNavigate();
+
   const [sidebar, setSidebar] = useState(true);
   const [currentLocation,setCurrentLocation] = useState('/home')
   const [f1, setF1] = useState(props.f1);
   const [f2, setF2] = useState(props.f2);
-  const location = window.location.pathname;
+  const location =  useLocation();
 
   const f1set = () => {
     setF1(!f1);
@@ -31,10 +33,16 @@ function Dashboard(props) {
   };
 
   useEffect(()=>{
-    setCurrentLocation(location)
+    setCurrentLocation(location.pathname)
   },[location])
 
+  const logout = () => {
+    localStorage.removeItem('access_token');
+    navigator("/");
+  }
+
   return (
+    currentLocation !== '/' ? 
     <>
       <div className="row mx-0">
         <div
@@ -84,7 +92,7 @@ function Dashboard(props) {
                     aria-expanded="false" style={{backgroundColor:'orange', height:'40px' ,width:'40px', marginRight:'60px' }}>
                     <p style={{justifyContent:'center', padding:'7px 0px 0px 12px' , color:'white' , textDecoration:'none'}}>N</p>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style={{marginTop:'-5px'}}>
-                    <li><a class="dropdown-item" href="/">Logout</a></li>
+                    <li><a class="dropdown-item" href="/" onClick={logout}>Logout</a></li>
                   </ul>
                 </div>
             </div>
@@ -421,7 +429,7 @@ function Dashboard(props) {
           </IconContext.Provider>
         </div>
       </div>
-    </>
+    </> : null
   );
 }
 export default Dashboard;

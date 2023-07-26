@@ -7,8 +7,8 @@ import { authAxios } from "../../../Services/auth.service";
 
 const Deal_Term_Form = () =>{
   const location1 = useLocation();
-  const[campaign_id , setCampaign_id] = useState();
-  const[security_id, setSecurity_type] = useState(location1.state.bio.security_type);
+  const[campaign_id , setCampaign_id] = useState(location1.state.bio.campaign_id.id);
+  const[security_id, setSecurity_type] = useState(location1.state.bio.security_type.id);
   const[discount , setDiscount] = useState(location1.state.bio.discount);
   const[valuation_cap , setValuation_cap] = useState(location1.state.bio.valuation_cap);
   const[min_subscription,setMin_subscription] = useState(location1.state.bio.min_subscription);
@@ -82,7 +82,7 @@ getUploaded();
             
       deal_term_id : location1.state.bio.id,
       
-      security_type_id : +security_id,
+      security_type_id : Number(security_id),
       
       discount : discount,
 
@@ -93,7 +93,7 @@ getUploaded();
       target : target,
 
       end_date : end_date,
-      campaign_id : +campaign_id   
+      campaign_id : campaign_id   
       },
       )
 
@@ -125,14 +125,17 @@ getUploaded();
             goToAdd()
           }}>
               <h1 style={{textAlign:"center",color:"#070A52"}}>Update Deal Term Data</h1>
-              <label for="exampleInputName" className="form-label">security type id</label>
+              <label for="exampleInputName" className="form-label">security type</label>
               <div class="input-group">
-              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={(e)=>{updateSecurity(e.target.value)}} value={security_id}>
                 <option selected  className="active">Select deal type id</option>
                 {
                   items && items.map((item) =>{
                     return (
-                      <option onClick={()=>{updateSecurity(item.id)}} >{item.id}</option>
+                      <option 
+                      // onClick={()=>{updateSecurity(item.id)}}
+                      value={item.id}
+                       >{item.deal_name}</option>
                     )
                   })
                 }
@@ -158,12 +161,15 @@ getUploaded();
               <input defaultValue={end_date}  type="date" className="form-control" id="exampleInputBranch" value={end_date} onChange={updateEnd}/>
               <label for="exampleInputName" className="form-label">Campaign id</label>
               <div class="input-group">
-              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon"
+                value={campaign_id}
+                onChange={(e)=>updatecampaign_id(e.target.value)}
+              >
                 <option selected  className="active">Select campaign id</option>
                 {
                   items2 && items2.map((item) =>{
                     return (
-                      <option onClick={()=>{updatecampaign_id(item.id)}} >{item.id}</option>
+                      <option value={item.id} >{item.id}</option>
                     )
                   })
                 }

@@ -30,7 +30,7 @@ const Investor_KYC_Insert_data= () =>{
   }
   
 
-  const add =(x)=>{
+  const add = (x)=>{
     console.log(x);
     setId(x);
   }
@@ -59,7 +59,7 @@ getUploadedDocs();
     e.preventDefault();
       
     const values = {
-      user_id: +id,
+      user_id: id,
       pan_card:pan_card,
       birth_date:birth_date,
       birth_month:birth_month,
@@ -99,12 +99,15 @@ getUploadedDocs();
 
                 <label  className="form-label">User ID</label>
               <div class="input-group">
-              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={(e)=>{add(e.target.value)}} value={id}>
                 <option selected  className="active">Select user id</option>
                 {
                   items && items.map((item) =>{
                     return (
-                      <option onClick={()=>{add(item.id)}} >{item.id}</option>
+                      <option 
+                      // onClick={()=>{add(item.id)}} 
+                      value={item.id}
+                      >{item.id}</option>
                       )
                     })
                   }

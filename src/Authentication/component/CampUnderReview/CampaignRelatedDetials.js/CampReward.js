@@ -35,11 +35,11 @@ const CampReward = () =>{
     
     const values = {           
        
-      reward_id : +reward_id,
+      reward_id : reward_id,
 
        campaign_id : location1.state.bio.id, 
        
-       discounted_price : +discounted_price,
+       discounted_price : discounted_price,
 
        product_name : product,
        }
@@ -69,12 +69,15 @@ const CampReward = () =>{
 
               <label for="exampleInputName" className="form-label">Reward Id</label>
               <div className="input-group">
-                  <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                  <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" value={reward_id} onChange={(e)=>{add1(e.target.value)}}>
                     <option selected  className="active">Select Reward ID</option>
                     {
                       ind && ind.map((item) =>{
                         return (
-                          <option onClick={()=>{add1(item.id)}} >{item.id}</option>
+                          <option 
+                          // onClick={()=>{add1(item.id)}} 
+                          value={item.id}
+                          >{item.id}</option>
                           )
                         })
                       }

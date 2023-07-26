@@ -49,13 +49,13 @@ const Reward_Form = () =>{
        
       reward_id : location1.state.bio.id,
 
-       campaign_id : +campaign_id, 
+       campaign_id : campaign_id, 
        
-       discounted_price : +discounted_price,
+       discounted_price : discounted_price,
 
        product_name : product,
 
-       campaign_id : +campaign_id,
+       campaign_id : campaign_id,
        }
        
       await authAxios.patch(`${Base_url}/api/rewards/manage`,values);
@@ -79,12 +79,16 @@ const Reward_Form = () =>{
               <h1 style={{textAlign:"center",color:"#070A52",marginBottom:"20px"}}>Update Reward Data</h1>
               <label for="exampleInputName" className="form-label">Campaign Id</label>
               <div class="input-group">
-              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={(e)=>{add(e.target.value)}} value={campaign_id}>
                 <option selected  className="active">Select campaign id</option>
                 {
                   items2 && items2.map((item) =>{
                     return (
-                      <option onClick={()=>{add(item.id)}} >{item.id}</option>
+                      <option 
+                      // onClick={()=>{add(item.id)}} 
+                      value={item.id}
+                      >{item.id}
+                      </option>
                       )
                     })
                   }
