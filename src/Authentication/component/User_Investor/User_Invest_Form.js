@@ -12,8 +12,34 @@ const User_Invest_Form= () =>{
   const[social,setSocial] = useState(location1.state.bio.social_login);
   const[profile,setProfile] = useState(location1.state.bio.profile_image);
   // const [post, setPost] = React.useState(null);
+  const [pitch, setPitch] = useState(null);
+  const [pitchUrl, setPitchUrl] = useState(location1.state.bio.pitch);
+  const updatePitch = async (e) => {
+    setPitch(e.target.files?.[0] ?? null);
+    if (e.target.files?.[0]) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+      const formData = new FormData();
+      formData.append("file", file);
 
+      await authAxios
+        .post(`${Base_url}/api/users/upload-files`, formData)
 
+        .then((response) => {
+          setPitchUrl(response.data?.message ?? '');
+        })
+        .catch((err) => {
+          console.log("error");
+          setPitchUrl(null);
+        });
+    } else {
+      setPitchUrl(null);
+    }
+  };
+ 
 
  
   const updateEmail = (e) =>{
@@ -39,7 +65,7 @@ const User_Invest_Form= () =>{
        
        email : email,
        social_login : social,
-       profile_image : profile,
+       profile_image : pitchUrl,
 
        
        }
@@ -77,9 +103,25 @@ const User_Invest_Form= () =>{
               <input  type="text" className="form-control" id="exampleInputeRegistrationnum" value={social} onChange={updateSocial}/>
 
               
-              <label for="exampleInputRegistrationnum" className="form-label">Profile Image</label>
-              <input  type="file" className="form-control" id="exampleInputeRegistrationnum" value={profile} onChange={updateProfile}/>
-          
+              <label for="exampleInputRegistrationnum" className="form-label">
+                Profile Image
+              </label>
+              <input
+                onChange={updatePitch}
+                type="file"
+                className="form-control"
+                id="exampleInputBranch"
+              />
+              <div className="pt-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="exampleInputeRegistrationnum"
+                  defaultValue={pitchUrl}
+                  // onChange={updatePitch}
+                  disabled
+                />
+              </div>
             <button type="submit" className="btn btn-success" style={{marginTop:"30px"}} >Submit</button>
           </form>
         </div>

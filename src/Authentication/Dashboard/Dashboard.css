@@ -55,6 +55,9 @@
   
   .nav-text a:hover {
     background-color: #1a83ff;
+    border-radius: 15px;
+    padding: 19px 16px;
+
   }
   
   .nav-menu-items {

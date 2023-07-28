@@ -141,7 +141,7 @@ getUploadedDocs();
               <input  type="link" className="form-control" id="exampleInputBranch" value={insta} onChange={updateInsta}/>
 
               
-              <label for="exampleInputBranch" className="form-label">Linked In Link</label>
+              <label for="exampleInputBranch" className="form-label">LinkedIn Link</label>
               <input  type="link" className="form-control" id="exampleInputBranch" value={linked} onChange={updateLinked}/>
 
               

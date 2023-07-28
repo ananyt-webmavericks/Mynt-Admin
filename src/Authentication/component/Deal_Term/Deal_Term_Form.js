@@ -8,7 +8,7 @@ import { authAxios } from "../../../Services/auth.service";
 const Deal_Term_Form = () =>{
   const location1 = useLocation();
   const[campaign_id , setCampaign_id] = useState(location1.state.bio.campaign_id.id);
-  const[security_id, setSecurity_type] = useState(location1.state.bio.security_type.id);
+  const [security_type, setSecurity_type] = useState(location1.state.bio.security_type.id);
   const[discount , setDiscount] = useState(location1.state.bio.discount);
   const[valuation_cap , setValuation_cap] = useState(location1.state.bio.valuation_cap);
   const[min_subscription,setMin_subscription] = useState(location1.state.bio.min_subscription);
@@ -82,7 +82,7 @@ getUploaded();
             
       deal_term_id : location1.state.bio.id,
       
-      security_type_id : Number(security_id),
+      security_type_id : security_type,
       
       discount : discount,
 
@@ -125,10 +125,10 @@ getUploaded();
             goToAdd()
           }}>
               <h1 style={{textAlign:"center",color:"#070A52"}}>Update Deal Term Data</h1>
-              <label for="exampleInputName" className="form-label">security type</label>
+              <label for="exampleInputName" className="form-label">Security Type</label>
               <div class="input-group">
-              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={(e)=>{updateSecurity(e.target.value)}} value={security_id}>
-                <option selected  className="active">Select deal type id</option>
+              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={(e)=>{updateSecurity(e.target.value)}} value={security_type}>
+                <option selected  className="active">Select security type</option>
                 {
                   items && items.map((item) =>{
                     return (
@@ -143,19 +143,19 @@ getUploaded();
               </div>
 
               <label for="exampleInputRollnum" className="form-label">Discount</label>
-              <input  defaultValue={discount} type="text" className="form-control" id="exampleInputRollnum" value={discount} onChange={updateDiscount}/>
+              <input  defaultValue={discount} type="number" className="form-control" id="exampleInputRollnum" value={discount} onChange={updateDiscount}/>
             
             
               <label for="exampleInputRegistrationnum" className="form-label">Valuation Cap</label>
-              <input defaultValue={valuation_cap}  type="text" className="form-control" id="exampleInputeRegistrationnum" value={valuation_cap} onChange={updateValue}/>
+              <input defaultValue={valuation_cap}  type="number" className="form-control" id="exampleInputeRegistrationnum" value={valuation_cap} onChange={updateValue}/>
             
             
               <label for="exampleInputBranch" className="form-label">Min Subscription</label>
-              <input defaultValue={min_subscription}  type="text" className="form-control" id="exampleInputBranch" value={min_subscription} onChange={updateMin}/>
+              <input defaultValue={min_subscription}  type="number" className="form-control" id="exampleInputBranch" value={min_subscription} onChange={updateMin}/>
             
             
               <label for="exampleInputpassword" className="form-label">Target</label>
-              <input defaultValue={target}  type="text" className="form-control" id="exampleInputPassword1" value={target} onChange={updateTarget}/>
+              <input defaultValue={target}  type="number" className="form-control" id="exampleInputPassword1" value={target} onChange={updateTarget}/>
 
               <label for="exampleInputBranch" className="form-label">End Date</label>
               <input defaultValue={end_date}  type="date" className="form-control" id="exampleInputBranch" value={end_date} onChange={updateEnd}/>

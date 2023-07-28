@@ -80,7 +80,7 @@ function Documents() {
                           <td scope="col-2" >{item.company_id}</td>
                           <td scope="col-2" >{item.document_type}</td>
                           <td scope="col-2" >{item.document_name}</td>
-                          <td scope="col-2" >{item.document_url ? "null" : "null"}</td>
+                          <td scope="col-2" >{item?.document_url ? item.document_url : "null"}</td>
                           <td scope="col-2" >{item.agreement_status}</td>
                           <td scope="col-2" >
                             <button className="btn btn1">

@@ -11,12 +11,17 @@ const CampReward = () =>{
   const[product , setProduct] = useState();
   const [reward_id, setReward_id] = useState()
   const [ind, setInd] = useState() 
+  const[amount, setAmount] = useState(location1.state.bio.amount);
+
  
   const updatediscounted_price = (e) =>{
     setdiscounted_price(e.target.value)
   }
   const updateProduct = (e) =>{
     setProduct(e.target.value)
+  }
+  const updateAmount = (e) =>{
+    setAmount(e.target.value)
   }
   const navigator = useNavigate();
 
@@ -49,8 +54,12 @@ const CampReward = () =>{
     }
 
     const add1 = (x) => {
-        setReward_id(x)
-      } 
+      setReward_id(x);
+      const rd = ind?.find(i => i.id == x) ?? {};
+      setdiscounted_price(rd?.discounted_price ?? '');
+      setProduct(rd?.product_name ?? '');
+      // setAmou(rd?.product ?? '');
+    } 
 
     return(
       <>
@@ -84,7 +93,9 @@ const CampReward = () =>{
                   </select>
                 </div>
 
-
+                <label for="exampleInputRollnum" className="form-label">Amount</label>
+              <input  type="number" className="form-control" id="exampleInputRollnum" value={amount} onChange={updateAmount}/>
+            
 
               <label for="exampleInputRollnum" className="form-label">Discounted Price</label>
               <input  type="number" className="form-control" id="exampleInputRollnum" value={discounted_price} onChange={updatediscounted_price}/>

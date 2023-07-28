@@ -12,15 +12,16 @@ import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import HailIcon from "@mui/icons-material/Hail";
 import { TrendingUp } from "@mui/icons-material";
 import { useEffect } from "react";
+import { ToastContainer } from "react-toastify";
 
 function Dashboard(props) {
   const navigator = useNavigate();
 
   const [sidebar, setSidebar] = useState(true);
-  const [currentLocation,setCurrentLocation] = useState('/home')
+  const [currentLocation, setCurrentLocation] = useState("/home");
   const [f1, setF1] = useState(props.f1);
   const [f2, setF2] = useState(props.f2);
-  const location =  useLocation();
+  const location = useLocation();
 
   const f1set = () => {
     setF1(!f1);
@@ -32,22 +33,26 @@ function Dashboard(props) {
     setF1(false);
   };
 
-  useEffect(()=>{
-    setCurrentLocation(location.pathname)
-  },[location])
+  useEffect(() => {
+    setCurrentLocation(location.pathname);
+  }, [location]);
 
   const logout = () => {
-    localStorage.removeItem('access_token');
+    localStorage.removeItem("access_token");
     navigator("/");
-  }
+  };
 
-  return (
-    currentLocation !== '/' ? 
+  return currentLocation !== "/" ? (
     <>
       <div className="row mx-0">
         <div
           className="col"
-          style={{ position: "fixed", padding: "0", zIndex: "1", width: '100%' }}
+          style={{
+            position: "fixed",
+            padding: "0",
+            zIndex: "1",
+            width: "100%",
+          }}
         >
           <nav class="navbar bg-body-tertiary">
             <div
@@ -84,32 +89,58 @@ function Dashboard(props) {
                   Mynt Admin Portal
                 </h1>
               </div>
-              
-                <div class=" rounded-circle dropdown " 
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-mdb-toggle="dropdown"
-                    aria-expanded="false" style={{backgroundColor:'orange', height:'40px' ,width:'40px', marginRight:'60px' }}>
-                    <p style={{justifyContent:'center', padding:'7px 0px 0px 12px' , color:'white' , textDecoration:'none'}}>N</p>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style={{marginTop:'-5px'}}>
-                    <li><a class="dropdown-item" href="/" onClick={logout}>Logout</a></li>
-                  </ul>
-                </div>
+
+              <div
+                class=" rounded-circle dropdown "
+                type="button"
+                id="dropdownMenuButton"
+                data-mdb-toggle="dropdown"
+                aria-expanded="false"
+                style={{
+                  backgroundColor: "orange",
+                  height: "40px",
+                  width: "40px",
+                  marginRight: "60px",
+                }}
+              >
+                <p
+                  style={{
+                    justifyContent: "center",
+                    padding: "7px 0px 0px 12px",
+                    color: "white",
+                    textDecoration: "none",
+                  }}
+                >
+                  N
+                </p>
+                <ul
+                  class="dropdown-menu"
+                  aria-labelledby="dropdownMenuButton"
+                  style={{ marginTop: "-5px" }}
+                >
+                  <li>
+                    <a class="dropdown-item" href="/" onClick={logout}>
+                      Logout
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </nav>
         </div>
       </div>
-      <div className="row">
-        <div className="col-lg-8">
+
+      <div className="row" >
+        <div className="col-lg-8" >
           <IconContext.Provider value={{ color: "#fff" }}>
             <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
-              <ul className="nav-menu-items">
+              <ul className="nav-menu-items" style={{overflow:'scroll'}}>
                 <li
                   key={0}
                   className={SidebarData[0].cName}
                   style={
                     currentLocation == SidebarData[0].path ||
-                      currentLocation == SidebarData[0].path1
+                    currentLocation == SidebarData[0].path1
                       ? { backgroundColor: "#1a83ff", borderRadius: "15px" }
                       : null
                   }
@@ -140,7 +171,7 @@ function Dashboard(props) {
                       className={SidebarData[1].cName}
                       style={
                         currentLocation == SidebarData[1].path ||
-                          currentLocation == SidebarData[1].path1
+                        currentLocation == SidebarData[1].path1
                           ? { backgroundColor: "#1a83ff", borderRadius: "15px" }
                           : null
                       }
@@ -155,7 +186,7 @@ function Dashboard(props) {
                       className={SidebarData[2].cName}
                       style={
                         currentLocation == SidebarData[2].path ||
-                          currentLocation == SidebarData[2].path1
+                        currentLocation == SidebarData[2].path1
                           ? { backgroundColor: "#1a83ff", borderRadius: "15px" }
                           : null
                       }
@@ -170,7 +201,7 @@ function Dashboard(props) {
                       className={SidebarData[3].cName}
                       style={
                         currentLocation == SidebarData[3].path ||
-                          currentLocation == SidebarData[3].path1
+                        currentLocation == SidebarData[3].path1
                           ? { backgroundColor: "#1a83ff", borderRadius: "15px" }
                           : null
                       }
@@ -185,7 +216,7 @@ function Dashboard(props) {
                       className={SidebarData[4].cName}
                       style={
                         currentLocation == SidebarData[4].path ||
-                          currentLocation == SidebarData[4].path1
+                        currentLocation == SidebarData[4].path1
                           ? { backgroundColor: "#1a83ff", borderRadius: "15px" }
                           : null
                       }
@@ -200,7 +231,7 @@ function Dashboard(props) {
                       className={SidebarData[5].cName}
                       style={
                         currentLocation == SidebarData[5].path ||
-                          currentLocation == SidebarData[5].path1
+                        currentLocation == SidebarData[5].path1
                           ? { backgroundColor: "#1a83ff", borderRadius: "15px" }
                           : null
                       }
@@ -215,7 +246,7 @@ function Dashboard(props) {
                       className={SidebarData[6].cName}
                       style={
                         currentLocation == SidebarData[6].path ||
-                          currentLocation == SidebarData[6].path1
+                        currentLocation == SidebarData[6].path1
                           ? { backgroundColor: "#1a83ff", borderRadius: "15px" }
                           : null
                       }
@@ -230,7 +261,7 @@ function Dashboard(props) {
                       className={SidebarData[7].cName}
                       style={
                         currentLocation == SidebarData[7].path ||
-                          currentLocation == SidebarData[7].path1
+                        currentLocation == SidebarData[7].path1
                           ? { backgroundColor: "#1a83ff", borderRadius: "15px" }
                           : null
                       }
@@ -245,7 +276,7 @@ function Dashboard(props) {
                       className={SidebarData[10].cName}
                       style={
                         currentLocation == SidebarData[10].path ||
-                          currentLocation == SidebarData[10].path1
+                        currentLocation == SidebarData[10].path1
                           ? { backgroundColor: "#1a83ff", borderRadius: "15px" }
                           : null
                       }
@@ -260,7 +291,7 @@ function Dashboard(props) {
                       className={SidebarData[11].cName}
                       style={
                         currentLocation == SidebarData[11].path ||
-                          currentLocation == SidebarData[11].path1
+                        currentLocation == SidebarData[11].path1
                           ? { backgroundColor: "#1a83ff", borderRadius: "15px" }
                           : null
                       }
@@ -275,7 +306,7 @@ function Dashboard(props) {
                       className={SidebarData[12].cName}
                       style={
                         currentLocation == SidebarData[12].path ||
-                          currentLocation == SidebarData[12].path1
+                        currentLocation == SidebarData[12].path1
                           ? { backgroundColor: "#1a83ff", borderRadius: "15px" }
                           : null
                       }
@@ -290,7 +321,7 @@ function Dashboard(props) {
                       className={SidebarData[13].cName}
                       style={
                         currentLocation == SidebarData[13].path ||
-                          currentLocation == SidebarData[13].path1
+                        currentLocation == SidebarData[13].path1
                           ? { backgroundColor: "#1a83ff", borderRadius: "15px" }
                           : null
                       }
@@ -321,7 +352,7 @@ function Dashboard(props) {
                       className={SidebarData[8].cName}
                       style={
                         currentLocation == SidebarData[8].path ||
-                          currentLocation == SidebarData[8].path1
+                        currentLocation == SidebarData[8].path1
                           ? { backgroundColor: "#1a83ff", borderRadius: "15px" }
                           : null
                       }
@@ -336,7 +367,7 @@ function Dashboard(props) {
                       className={SidebarData[9].cName}
                       style={
                         currentLocation == SidebarData[9].path ||
-                          currentLocation == SidebarData[9].path1
+                        currentLocation == SidebarData[9].path1
                           ? { backgroundColor: "#1a83ff", borderRadius: "15px" }
                           : null
                       }
@@ -351,7 +382,7 @@ function Dashboard(props) {
                       className={SidebarData[15].cName}
                       style={
                         currentLocation == SidebarData[15].path ||
-                          currentLocation == SidebarData[15].path1
+                        currentLocation == SidebarData[15].path1
                           ? { backgroundColor: "#1a83ff", borderRadius: "15px" }
                           : null
                       }
@@ -369,7 +400,7 @@ function Dashboard(props) {
                   className={SidebarData[14].cName}
                   style={
                     currentLocation == SidebarData[14].path ||
-                      currentLocation == SidebarData[14].path1
+                    currentLocation == SidebarData[14].path1
                       ? { backgroundColor: "#1a83ff", borderRadius: "15px" }
                       : null
                   }
@@ -385,7 +416,7 @@ function Dashboard(props) {
                   className={SidebarData[16].cName}
                   style={
                     currentLocation == SidebarData[16].path ||
-                      currentLocation == SidebarData[16].path1
+                    currentLocation == SidebarData[16].path1
                       ? { backgroundColor: "#1a83ff", borderRadius: "15px" }
                       : null
                   }
@@ -401,7 +432,7 @@ function Dashboard(props) {
                   className={SidebarData[17].cName}
                   style={
                     currentLocation === SidebarData[17].path ||
-                      currentLocation === SidebarData[17].path1
+                    currentLocation === SidebarData[17].path1
                       ? { backgroundColor: "#1a83ff", borderRadius: "15px" }
                       : null
                   }
@@ -429,7 +460,7 @@ function Dashboard(props) {
           </IconContext.Provider>
         </div>
       </div>
-    </> : null
-  );
+    </>
+  ) : null;
 }
 export default Dashboard;

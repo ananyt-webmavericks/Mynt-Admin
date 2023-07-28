@@ -16,6 +16,10 @@ const CampDocument = () =>{
   const[agreement_status , setagreement_status] = useState(); 
   const [document_id, setDocument_id] = useState()
   const [ind, setInd] = useState() 
+  const [document_url, setdocumentUrl] = useState();
+  const [document, setdocument] = useState();
+
+
 
   const updatedocument_type = (e) =>{
     setdocument_type(e.target.value)
@@ -34,6 +38,31 @@ const CampDocument = () =>{
   }):[])
   })
 
+  const updateDocument = async (e) => {
+    setdocument(e.target.files?.[0] ?? null);
+    if (e.target.files?.[0]) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+      const formData = new FormData();
+      formData.append("file", file);
+
+      await authAxios
+        .post(`${Base_url}/api/users/upload-files`, formData)
+
+        .then((response) => {
+          setdocumentUrl(response.data?.message ?? '');
+        })
+        .catch((err) => {
+          console.log("error");
+          setdocumentUrl(null);
+        });
+    } else {
+      setdocumentUrl(null);
+    }
+  };
   const gotoAdd = async() => {
     
     const values = {
@@ -102,7 +131,25 @@ const CampDocument = () =>{
               <label for="exampleInputRegistrationnum" className="form-label">Agreement Status</label>
               <input  type="text" className="form-control" id="exampleInputeRegistrationnum" value={agreement_status} onChange={updateagreement_status}/>
             
-              
+              <label for="exampleInputRegistrationnum" className="form-label">
+                Document
+              </label>
+              <input
+                onChange={updateDocument}
+                type="file"
+                className="form-control"
+                id="exampleInputBranch"
+              />
+              <div className="pt-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="exampleInputeRegistrationnum"
+                  defaultValue={document_url}
+                  // onChange={updatePitch}
+                  disabled
+                />
+              </div>
           
               <button type="submit" className="btn btn-success" style={{marginTop:"30px", backgroundColor: '#1a83ff'}}>Submit</button>
           </form>

@@ -35,7 +35,8 @@ const CampCompany = () =>{
     const[sector,setsector] = useState(location1.state.bio.company_id.sector);
     const[invested_so_far,setinvested_so_far] = useState(location1.state.bio.company_id.invested_so_far);
     const[number_of_employees,setnumber_of_employees] = useState(location1.state.bio.company_id.number_of_employees);
-  
+    const [logoUrl,setLogoUrl] = useState(location1.state.bio.company_logo)
+
    
     const updatestatus= (e) =>{
       setstatus(e.target.value)
@@ -119,6 +120,32 @@ const CampCompany = () =>{
     const updatenumber_of_employees = (e) =>{
       setnumber_of_employees(e.target.value)
     }
+    const updateLogo = async (e) => {
+      // setPitch(e.target.files?.[0] ?? null);
+      setcompany_logo(e.target.files?.[0] ?? null);
+      if (e.target.files?.[0]) {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        if (file) {
+          reader.readAsDataURL(file);
+        }
+        const formData = new FormData();
+        formData.append("file", file);
+  
+        await authAxios
+          .post(`${Base_url}/api/users/upload-files`, formData)
+  
+          .then((response) => {
+            setLogoUrl(response.data?.message ?? "");
+          })
+          .catch((err) => {
+            console.log("error");
+            setLogoUrl(null);
+          });
+      } else {
+        setLogoUrl(null);
+      }
+    };
     const gotoAdd = async() => {
 
   
@@ -185,9 +212,27 @@ const CampCompany = () =>{
                 <option value={'INACTIVE'} >INACTIVE</option>       
                 </select>
               </div>
-              <label for="exampleInputRollnum" className="form-label">Company Logo</label>
-              <input  type="link" className="form-control" id="exampleInputRollnum" value={company_logo} onChange={updatecompany_logo}/>
-              
+              <label for="exampleInputRollnum" className="form-label">
+                Company Logo
+              </label>
+              {/* <input type="text" className="form-control" id="exampleInputRollnum" value={company_logo} onChange={updatecompany_logo} /> */}
+              <input
+                onChange={updateLogo}
+                type="file"
+                className="form-control"
+                id="exampleInputBranch"
+              />
+              <div className="pt-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="exampleInputeRegistrationnum"
+                  defaultValue={logoUrl}
+                  // onChange={updatePitch}
+                  disabled
+                />
+              </div>
+
               <label for="exampleInputRollnum" className="form-label">founder_linked_in_profile</label>
               <input  type="link" className="form-control" id="exampleInputRollnum" value={founder_linked_in_profile} onChange={updatefounder_linked_in_profile}/>
             

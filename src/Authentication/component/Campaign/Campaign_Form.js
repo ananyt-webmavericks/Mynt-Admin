@@ -15,9 +15,9 @@ const Campaign_Form = () => {
   const [ama_youtube, setAma_youtube] = useState(
     location1.state.bio.ama_youtube
   );
-  const [pitch, setPitch] = useState(null);
   const [status, setStatus] = useState(location1.state.bio.status);
   const [items, setItems] = useState();
+  const [pitch, setPitch] = useState(null);
   const [pitchUrl, setPitchUrl] = useState(location1.state.bio.pitch);
 
 

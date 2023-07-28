@@ -17,8 +17,35 @@ const People_Form = () =>{
   const[description , setDescription] = useState(location1.state.bio.description);
   const[profile,setProfile] = useState(location1.state.bio.profile_image);
   const[items, setItems] = useState();
+  const [pitchUrl, setPitchUrl] = useState(null);
+  const [pitch, setPitch] = useState();
 
-  
+  const updatePitch = async (e) => {
+    setPitch(e.target.files?.[0] ?? null);
+    if (e.target.files?.[0]) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+      const formData = new FormData();
+      formData.append("file", file);
+
+      await authAxios
+        .post(`${Base_url}/api/users/upload-files`, formData)
+
+        .then((response) => {
+          setPitchUrl(response.data?.message ?? '');
+        })
+        .catch((err) => {
+          console.log("error");
+          setPitchUrl(null);
+        });
+    } else {
+      setPitchUrl(null);
+    }
+  };
+
   const updateType = (e) =>{
     setType(e.target.value)
   }
@@ -145,7 +172,7 @@ getUploadedDocs();
               <input  type="link" className="form-control" id="exampleInputBranch" value={insta} onChange={updateInsta}/>
 
               
-              <label for="exampleInputBranch" className="form-label">Linked In Link</label>
+              <label for="exampleInputBranch" className="form-label">LinkedIn Link</label>
               <input  type="link" className="form-control" id="exampleInputBranch" value={linked} onChange={updateLinked}/>
 
               
@@ -153,9 +180,25 @@ getUploadedDocs();
               <input  type="text" className="form-control" id="exampleInputBranch" value={description} onChange={updateDescription}/>
 
               
-              <label for="exampleInputBranch" className="form-label">Profile Image</label>
-              <input  type="text" className="form-control" id="exampleInputBranch" value={profile} onChange={updateProfile}/>
-            
+              <label for="exampleInputRegistrationnum" className="form-label">
+                Profile Image
+              </label>
+              <input
+                onChange={updatePitch}
+                type="file"
+                className="form-control"
+                id="exampleInputBranch"
+              />
+              <div className="pt-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="exampleInputeRegistrationnum"
+                  defaultValue={pitchUrl}
+                  // onChange={updatePitch}
+                  disabled
+                />
+              </div>
             <button type="submit" className="btn btn-success" style={{marginTop:"30px", backgroundColor: '#1a83ff'}}>Submit</button>
           </form>
         </div>

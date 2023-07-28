@@ -152,11 +152,11 @@ const Home = () => {
         <CardHome
           title="Companies Onboard"
           color={"#bcd2ee"}
-          url={`${Base_url}/api/company/count?status=ONBOARD`}
+          url={`${Base_url}/api/company/count?status=ACTIVE`}
         />
         <CardHome
           title="Companies Application"
-          url={`${Base_url}/api/company/count?status=PENDING`}
+          url={`${Base_url}/api/company/count?status=INACTIVE`}
           color="#c8b9d5"
         />
         <CardHome

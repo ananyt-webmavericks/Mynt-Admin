@@ -7,12 +7,17 @@ import { authAxios } from "../../../Services/auth.service";
 const Reward_Form = () =>{
   const location1 = useLocation();
   const[campaign_id , setCampaignid] = useState();
+  const[amount, setAmount] = useState(location1.state.bio.amount);
+
   const[discounted_price, setdiscounted_price] = useState(location1.state.bio.discounted_price);
   const[product , setProduct] = useState(location1.state.bio.product_name);
   const[items2 , setItems2] =useState([]); 
  
   const updatediscounted_price = (e) =>{
     setdiscounted_price(e.target.value)
+  }
+  const updateAmount = (e) =>{
+    setAmount(e.target.value)
   }
   const updateProduct = (e) =>{
     setProduct(e.target.value)
@@ -50,6 +55,8 @@ const Reward_Form = () =>{
       reward_id : location1.state.bio.id,
 
        campaign_id : campaign_id, 
+
+       amount: amount,
        
        discounted_price : discounted_price,
 
@@ -95,6 +102,9 @@ const Reward_Form = () =>{
                 </select>
               </div>
 
+              <label for="exampleInputRollnum" className="form-label">Amount</label>
+              <input  type="number" className="form-control" id="exampleInputRollnum" value={amount} onChange={updateAmount}/>
+            
 
               <label for="exampleInputRollnum" className="form-label">Discounted Price</label>
               <input  type="number" className="form-control" id="exampleInputRollnum" value={discounted_price} onChange={updatediscounted_price}/>

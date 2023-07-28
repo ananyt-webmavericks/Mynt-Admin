@@ -12,8 +12,36 @@ const Press_Form = () =>{
   const[description,setDescription] = useState(location1.state.bio.description);
   const[banner,setBanner] = useState(location1.state.bio.banner);
   const[company_id,setcompany_id] = useState(location1.state.bio.company_id);
-  const [items , setItems] = useState()
+  const [items , setItems] = useState();
+  const [pitchUrl, setPitchUrl] = useState(null);
+  const [pitch, setPitch] = useState();
  
+
+  const updatePitch = async (e) => {
+    setPitch(e.target.files?.[0] ?? null);
+    if (e.target.files?.[0]) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+      const formData = new FormData();
+      formData.append("file", file);
+
+      await authAxios
+        .post(`${Base_url}/api/users/upload-files`, formData)
+
+        .then((response) => {
+          setPitchUrl(response.data?.message ?? '');
+        })
+        .catch((err) => {
+          console.log("error");
+          setPitchUrl(null);
+        });
+    } else {
+      setPitchUrl(null);
+    }
+  };
   const updateTitle = (e) =>{
     setTitle(e.target.value)
   }
@@ -59,7 +87,7 @@ getUploadedDocs();
        title : title,
        link : link,
        description : description,
-       banner : banner,
+       banner : pitchUrl,
        company_id : company_id
        }
        
@@ -114,9 +142,25 @@ getUploadedDocs();
                 <label for="exampleInputBranch" className="form-label">Description</label>
                 <input  type="text" className="form-control" id="exampleInputBranch" value={description} onChange={updateDescription}/>
 
-                <label for="exampleInputBranch" className="form-label">Banner</label>
-                <input  type="text" className="form-control" id="exampleInputBranch" value={banner} onChange={updateBanner}/>
-
+                <label for="exampleInputRegistrationnum" className="form-label">
+  Banner
+</label>
+<input
+  onChange={updatePitch}
+  type="file"
+  className="form-control"
+  id="exampleInputBranch"
+/>
+<div className="pt-3">
+  <input
+    type="text"
+    className="form-control"
+    id="exampleInputeRegistrationnum"
+    defaultValue={pitchUrl}
+    // onChange={updatePitch}
+    disabled
+  />
+  </div>
               <button type="submit" className="btn btn-success" style={{marginTop:"30px", backgroundColor: '#1a83ff'}}>Submit</button>
           </form>
         </div>

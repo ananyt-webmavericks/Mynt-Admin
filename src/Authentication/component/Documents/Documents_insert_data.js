@@ -10,9 +10,6 @@ const Documents_insert_data = () => {
   const [document_type, setdocumentType] = useState('AGREEMENTS');
   const [document_name, setdocumentName] = useState();
   const [agreement_status, setagreementStatus] = useState('SIGNED BY ADMIN');
-  const [document_type_2, setdocument_type_2] = useState();
-  const [document_name_2, setdocument_name_2] = useState();
-  const [agreement_status_2, setagreement_status_2] = useState();
   const [document_url, setdocumentUrl] = useState();
   const [document, setdocument] = useState();
   const [items, setItems] = useState([]);
@@ -32,18 +29,10 @@ const Documents_insert_data = () => {
   const updatedocument_name_1 = (e) => {
     setdocumentName(e.target.value);
   };
-  const updateagreement_status_1 = (e) => {
+  const updateagreement_status = (e) => {
     setagreementStatus(e.target.value);
   };
-  const updatedocument_type_2 = (e) => {
-    setdocument_type_2(e.target.value);
-  };
-  const updatedocument_name_2 = (e) => {
-    setdocument_name_2(e.target.value);
-  };
-  const updateagreement_status_2 = (e) => {
-    setagreement_status_2(e.target.value);
-  };
+ 
   // const updatedocument_url1 = (e) => {
   //   setdocument_url1(e.target.value);
   // };
@@ -227,14 +216,17 @@ const Documents_insert_data = () => {
                   class="form-select"
                   id="inputGroupSelect04"
                   aria-label="Example select with button addon"
-                  value={document_type}
-                  onChange={updatedocument_type_1}
+                  value={agreement_status}
+                  onChange={updateagreement_status}
                 >
                   <option  className="active" value={"SIGNED BY ADMIN"}>
                   SIGNED BY ADMIN
                   </option>
                   <option  className="active" value={"SIGNED BY FOUNDER"}>
                   SIGNED BY FOUNDER
+                  </option>
+                  <option  className="active" value={"UPLOADED BY ADMIN"}>
+                  UPLOADED BY ADMIN
                   </option>
                 </select>
 

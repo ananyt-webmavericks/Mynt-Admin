@@ -54,7 +54,10 @@ getUploaded();
     }
 
     const add1 = (x) => {
-        setFaqs_id(x)
+        setFaqs_id(x);
+        const fq = ind?.find(i => i.id == x) ?? {};
+        setanswer(fq?.answer ?? '');
+        setquestion(fq?.question ?? '');
       } 
   
 

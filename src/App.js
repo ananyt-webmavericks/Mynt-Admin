@@ -58,6 +58,8 @@ import CampFaqs from "./Authentication/component/CampUnderReview/CampaignRelated
 import CampCampaign from "./Authentication/component/CampUnderReview/CampaignRelatedDetials.js/CampCampaign";
 import Dashboard from "./Authentication/Dashboard/Dashboard";
 import FounderContract from "./Authentication/component/founderContract";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   const location = useLocation();
@@ -67,7 +69,14 @@ const App = () => {
       <div className={location.pathname!=='/' ? "col-3 pe-0" : ''} style={{ width: "22%" }}>
         <Dashboard />
       </div>
+      
       <div className={location.pathname!=='/' ? "col-9 pe-0" : ''} style={{ marginTop: location.pathname!=='/' ? "100px": "0" }}>
+      <ToastContainer
+        position="top-right" 
+        autoClose={4000} 
+        // style={{position:'absolute',top: '100px'}} 
+        containerId="toaster"
+      />
         <Routes>
           <Route path="/" element={<Emailv />} exact />
           <Route path="/home" element={<Home />} exact />

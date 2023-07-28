@@ -15,6 +15,8 @@ const CampCampaign = () =>{
   const[ama_youtube,setAma_youtube] = useState(location1.state.bio.ama_youtube);
   const[pitch,setPitch] = useState(location1.state.bio.pitch);
   const[status,setStatus] = useState();
+  const [pitchUrl, setPitchUrl] = useState(location1.state.bio.pitch);
+
  
 
   const navigator = useNavigate();
@@ -31,15 +33,37 @@ const CampCampaign = () =>{
   const updateAmayoutube = (e) =>{
     setAma_youtube(e.target.value)
   }
-  const updatePitch = (e) =>{
-    setPitch(e.target.value)
-  }
+  
   const updateStatus = (e) =>{
    
     setStatus(e.target.value)
   }
 
+  const updatePitch = async (e) => {
+    setPitch(e.target.files?.[0] ?? null);
+    if (e.target.files?.[0]) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+      const formData = new FormData();
+      formData.append("file", file);
 
+      await authAxios
+        .post(`${Base_url}/api/users/upload-files`, formData)
+
+        .then((response) => {
+          setPitchUrl(response.data?.message ?? '');
+        })
+        .catch((err) => {
+          console.log("error");
+          setPitchUrl(null);
+        });
+    } else {
+      setPitchUrl(null);
+    }
+  };
   const gotoAdd = async() => {
     
     const values = { 
@@ -96,8 +120,25 @@ const CampCampaign = () =>{
               <label for="exampleInputRegistrationnum" className="form-label">Ama Youtube</label>
               <input   type="link" className="form-control" id="exampleInputeRegistrationnum" value={ama_youtube} onChange={updateAmayoutube}/>
 
-              <label for="exampleInputRegistrationnum" className="form-label">Pitch</label>
-              <input   type="text" className="form-control" id="exampleInputeRegistrationnum" value={pitch} onChange={updatePitch}/>
+              <label for="exampleInputRegistrationnum" className="form-label">
+                Pitch
+              </label>
+              <input
+                onChange={updatePitch}
+                type="file"
+                className="form-control"
+                id="exampleInputBranch"
+              />
+              <div className="pt-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  id="exampleInputeRegistrationnum"
+                  defaultValue={pitchUrl}
+                  // onChange={updatePitch}
+                  disabled
+                />
+              </div>
 
               <label for="exampleInput" className="form-label">Status</label>
               <div class="input-group">

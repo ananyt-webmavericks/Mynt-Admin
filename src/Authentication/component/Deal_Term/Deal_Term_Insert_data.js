@@ -19,6 +19,9 @@ const Deal_Term_Insert_data = () => {
 
   const navigator = useNavigate();
 
+  const updateSecurity = (e) =>{
+    setSecurity_type(e)
+  }
   const updateDiscount = (e) => {
     setDiscount(e.target.value)
   }
@@ -90,7 +93,7 @@ const Deal_Term_Insert_data = () => {
 
       campaign_id: +campaign_id,
 
-      security_type_id: +security_type,
+      security_type_id: security_type,
 
       discount: discount,
 
@@ -141,14 +144,14 @@ const Deal_Term_Insert_data = () => {
                   }
                 </select>
               </div>
-              <label for="exampleInputName" className="form-label">Security Type Id</label>
+              <label for="exampleInputName" className="form-label">Security Type</label>
               <div class="input-group">
-                <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-                  <option selected className="active">Select deal type id</option>
+                <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={(e)=>{updateSecurity(e.target.value)}} value={security_type}>
+                  <option selected className="active">Select security type</option>
                   {
                     items && items.map((item) => {
                       return (
-                        <option onClick={() => { add1(item.id) }} >{item.id}</option>
+                        <option value={item.id} >{item.deal_name}</option>
                       )
                     })
                   }

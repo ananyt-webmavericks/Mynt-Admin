@@ -118,18 +118,18 @@ function CampUnderReview (){
                     <th scope="col" style={{backgroundColor:"#070A52"}}>Ama Meet Link</th>
                     <th scope="col" style={{backgroundColor:"#070A52"}}>Ama Youtube Video</th>
                     <th scope="col" style={{backgroundColor:"#070A52"}}>Pitch</th>
-                    <th scope="col" style={{backgroundColor:"green"}}>Faqs : ID</th>
-                    <th scope="col" style={{backgroundColor:"green"}}>Question</th>
-                    <th scope="col"style={{backgroundColor:"green"}} >Answer</th>
-                    <th scope="col" style={{backgroundColor:"red"}}>Reward : ID</th>
-                    <th scope="col" style={{backgroundColor:"red"}}>Amount</th>
+                    <th scope="col" style={{backgroundColor:"green"}}>Faqs </th>
+                    {/* <th scope="col" style={{backgroundColor:"green"}}>Question</th> */}
+                    {/* <th scope="col"style={{backgroundColor:"green"}} >Answer</th> */}
+                    <th scope="col" style={{backgroundColor:"red"}}>Rewards</th>
+                    {/* <th scope="col" style={{backgroundColor:"red"}}>Amount</th>
                     <th scope="col" style={{backgroundColor:"red"}}>Product Name</th>
-                    <th scope="col" style={{backgroundColor:"red"}}>Discounted Price</th>
-                    <th scope="col" style={{backgroundColor:"orange"}}>Highlight : Id</th>
-                    <th scope="col" style={{backgroundColor:"orange"}}>Title</th>
+                    <th scope="col" style={{backgroundColor:"red"}}>Discounted Price</th> */}
+                    <th scope="col" style={{backgroundColor:"orange"}}>Highlight</th>
+                    {/* <th scope="col" style={{backgroundColor:"orange"}}>Title</th>
                     <th scope="col" style={{backgroundColor:"orange"}}>Description</th>
                     <th scope="col" style={{backgroundColor:"orange"}}>Highlight Image</th>
-                    <th scope="col" style={{backgroundColor:"orange"}}>Status</th>
+                    <th scope="col" style={{backgroundColor:"orange"}}>Status</th> */}
                     <th scope="col">Action</th>
                  </tr>
 

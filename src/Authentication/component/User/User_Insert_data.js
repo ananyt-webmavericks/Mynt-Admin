@@ -16,7 +16,7 @@ const User_Insert_data = () =>{
 
   const navigator = useNavigate();
 
-  
+ 
   const updateFname = (e) =>{
     setFname(e.target.value)
   }
@@ -50,8 +50,8 @@ const User_Insert_data = () =>{
       
       email : email,
       
-      social_login : false,
-      user_type :user_type,
+      social_login : social=="true"?true:"false",
+      user_type :"FOUNDER",
       
       
       }
@@ -99,16 +99,14 @@ const User_Insert_data = () =>{
               <input  type="email" className="form-control" id="exampleInputRollnum" value={email} onChange={updateEmail}/>
               
               <label for="exampleInputRegistrationnum" className="form-label">Social Login</label>
-              <input  type="text" className="form-control" id="exampleInputeRegistrationnum" value={social} onChange={updateSocial}/>
-
+              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={updateSocial} value={social} >
+                <option selected  className="active">Social Login</option>
+                <option value={true}>True</option>
+                <option value={false}>False</option>
+                </select>
               <label  className="form-label">User Type</label>
               <div class="input-group">
-              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={updateuser_type} value={user_type}>
-                <option selected  className="active">Select user type</option>
-                <option value={'ADMIN'}>ADMIN</option>
-                <option value={'INVESTOR'}>INVESTOR</option>
-                <option value={'FOUNDER'}>FOUNDER</option>      
-                </select>
+              <input  type="text" className="form-control" id="exampleInputeRegistrationnum" defaultValue={'FOUNDER'} disabled/>
               </div>
 
             <button type="submit" className="btn btn-success" style={{marginTop:"30px" , backgroundColor: '#1a83ff'}}>Submit</button>
