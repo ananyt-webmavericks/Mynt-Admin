@@ -134,7 +134,7 @@ function Dashboard(props) {
         <div className="col-lg-8" >
           <IconContext.Provider value={{ color: "#fff" }}>
             <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
-              <ul className="nav-menu-items" style={{overflow:'scroll'}}>
+              <ul className="nav-menu-items" style={{overflowY:'auto',overflowX: 'hidden', marginBottom : '100px'}}>
                 <li
                   key={0}
                   className={SidebarData[0].cName}

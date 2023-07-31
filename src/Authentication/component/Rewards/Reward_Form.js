@@ -6,7 +6,7 @@ import { authAxios } from "../../../Services/auth.service";
 
 const Reward_Form = () =>{
   const location1 = useLocation();
-  const[campaign_id , setCampaignid] = useState();
+  const[campaign_id , setCampaignid] = useState(location1.state.bio.campaign_id);
   const[amount, setAmount] = useState(location1.state.bio.amount);
 
   const[discounted_price, setdiscounted_price] = useState(location1.state.bio.discounted_price);
@@ -32,7 +32,7 @@ const Reward_Form = () =>{
   useEffect(()=>{
     const getUploaded = async () => {  
       try {
-          const response = await authAxios.get(`${Base_url}/api/campaign/manage`);
+          const response = await authAxios.get(`${Base_url}/api/campaign/manage/admin`);
           // console.log(response.data)
           setItems2(response.data)
           return response.data;

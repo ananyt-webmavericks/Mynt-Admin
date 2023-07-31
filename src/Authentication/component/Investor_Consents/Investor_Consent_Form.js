@@ -46,15 +46,15 @@ const Investor_Consent_Form = () =>{
      user_id : location1.state.bio.user_id,
 
      
-     risk_consent : risk_consent,
+     risk_consent : risk_consent=== "true"?true:false,
      
-     limited_transfer_consent :limited_transfer_consent,
+     limited_transfer_consent :limited_transfer_consent=== "true"?true:false,
 
-     diversification_consent :diversification_consent,
+     diversification_consent :diversification_consent=== "true"?true:false,
 
-     cancellation_consent : cancellation_consent,
+     cancellation_consent : cancellation_consent=== "true"?true:false,
 
-     research_consent : research_consent,
+     research_consent : research_consent=== "true"?true:false,
      
      
      

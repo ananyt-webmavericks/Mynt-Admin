@@ -66,7 +66,7 @@ const App = () => {
   return (
     
     <div className="row" style={{ overflowX: "hidden" }}>
-      <div className={location.pathname!=='/' ? "col-3 pe-0" : ''} style={{ width: "22%" }}>
+      <div className={location.pathname!=='/' ? "col-3 pe-0" : ''} style={{ width: "23%" }}>
         <Dashboard />
       </div>
       

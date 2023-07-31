@@ -15,11 +15,11 @@ import Listing from "./Listing";
 
 function CampUnderReview (){
         
-        const [camp_id, setCamp_id] = useState()
+        const [camp_id, setCamp_id] = useState([])
         useEffect ( () => {
             const getUploadedDocs = async () => {
               try {
-                  const response = await authAxios.get(`${Base_url}/api/campaign/manage`);
+                  const response = await authAxios.get(`${Base_url}/api/campaign/manage/admin`);
                   
                 setCamp_id(response.data)
                   
@@ -93,25 +93,25 @@ function CampUnderReview (){
                     <th scope="col" style={{backgroundColor:"#9BABB8"}}>Invested so far</th>
                     <th scope="col" style={{backgroundColor:"#9BABB8"}}>Number of Employees</th>
                     <th scope="col" style={{backgroundColor:"#9BABB8"}}>Status</th>
-                    <th scope="col" style={{backgroundColor:"violet"}}>Documents : ID</th>
-                    <th scope="col" style={{backgroundColor:"violet"}}>Document Type</th>
+                    <th scope="col" style={{backgroundColor:"violet"}}>Documents</th>
+                    {/* <th scope="col" style={{backgroundColor:"violet"}}>Document Type</th>
                     <th scope="col"style={{backgroundColor:"violet"}}>Document Name</th>
                     <th scope="col" style={{backgroundColor:"violet"}}>Document Url</th>
-                    <th scope="col" style={{backgroundColor:"violet"}}>Agreement Status</th>
-                    <th scope="col" style={{backgroundColor:"#9376E0"}}>Peoples: ID</th>
-                    <th scope="col" style={{backgroundColor:"#9376E0"}}>Type</th>
+                    <th scope="col" style={{backgroundColor:"violet"}}>Agreement Status</th> */}
+                    <th scope="col" style={{backgroundColor:"#9376E0"}}>Peoples</th>
+                    {/* <th scope="col" style={{backgroundColor:"#9376E0"}}>Type</th>
                     <th scope="col" style={{backgroundColor:"#9376E0"}}>Name</th>
                     <th scope="col" style={{backgroundColor:"#9376E0"}}>Position</th>
                     <th scope="col" style={{backgroundColor:"#9376E0"}}>Facebook Link</th>
                     <th scope="col" style={{backgroundColor:"#9376E0"}}>Instagram Link</th>
                     <th scope="col" style={{backgroundColor:"#9376E0"}}>Linked In Link</th>
                     <th scope="col" style={{backgroundColor:"#9376E0"}}>Description</th>
-                    <th scope="col" style={{backgroundColor:"#9376E0"}}>Profile Image</th>
-                    <th scope="col" style={{backgroundColor:"pink"}}>Press : ID</th>
-                    <th scope="col" style={{backgroundColor:"pink"}}>Title</th>
+                    <th scope="col" style={{backgroundColor:"#9376E0"}}>Profile Image</th> */}
+                    <th scope="col" style={{backgroundColor:"pink"}}>Press </th>
+                    {/* <th scope="col" style={{backgroundColor:"pink"}}>Title</th>
                     <th scope="col" style={{backgroundColor:"pink"}}>Link</th>
                     <th scope="col" style={{backgroundColor:"pink"}}>Description</th>
-                    <th scope="col" style={{backgroundColor:"pink"}}>Banner</th>
+                    <th scope="col" style={{backgroundColor:"pink"}}>Banner</th> */}
                      <th scope="col" style={{backgroundColor:"#070A52"}}>Status</th>
                     <th scope="col" style={{backgroundColor:"#070A52"}}>Youtube Link</th>
                     <th scope="col" style={{backgroundColor:"#070A52"}}>Ama Date</th>
@@ -137,7 +137,7 @@ function CampUnderReview (){
                 <tbody>
 
                      {
-                         camp_id && camp_id.map( (val, ind)=> {
+                         camp_id && camp_id?.map( (val, ind)=> {
                              return <Listing id={val.id} />
                             } )
                         }  

@@ -57,7 +57,7 @@ getUploadedDocs();
 
         const getUploaded = async () => {
           try {
-              const response = await authAxios.get(`${Base_url}/api/campaign/manage`);
+              const response = await authAxios.get(`${Base_url}/api/campaign/manage/admin`);
               console.log(response.data)
               setItems2(response.data)
               return response.data;

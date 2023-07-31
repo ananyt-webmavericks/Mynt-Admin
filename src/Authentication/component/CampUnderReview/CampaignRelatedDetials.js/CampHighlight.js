@@ -4,6 +4,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Base_url from '../../Base_url';
 import { authAxios } from '../../../../Services/auth.service';
 import { useState } from 'react';
+import { toast } from "react-toastify";
+
 
 
 const CampHighlight = () =>{
@@ -14,7 +16,7 @@ const location1 = useLocation();
   const[status,setStatus] = useState();
   const [highlight_id, setHighlight_id] = useState()
   const [ind, setInd] = useState()  
-  const [highlight_image_url,sethighlightImageUrl] = useState(null)
+  const [highlight_image_url,sethighlightImageUrl] = useState()
 
 
   const updatetitle = (e) =>{
@@ -69,6 +71,14 @@ const location1 = useLocation();
       } 
 
       const updateImage = async (e) => {
+        const allowedFiles = ['jpg','jpeg','png'];
+        const fileType = e.target.files?.[0] ? e.target.files?.[0]?.name.split('.').pop() : null
+        if(allowedFiles.indexOf(fileType?.toLowerCase()) === -1 || !fileType){
+          toast.error("Please select valid file");
+          sethighlight_image(null);
+          sethighlightImageUrl(null);
+          return null
+        }
         sethighlight_image(e.target.files?.[0] ?? null);
         if (e.target.files?.[0]) {
           const file = e.target.files[0];
@@ -83,7 +93,7 @@ const location1 = useLocation();
             .post(`${Base_url}/api/users/upload-files`, formData)
     
             .then((response) => {
-              sethighlightImageUrl(response.data?.message ?? '');
+              sethighlightImageUrl(response.data?.message ?? "");
             })
             .catch((err) => {
               console.log("error");
@@ -144,12 +154,15 @@ const location1 = useLocation();
               {/* <label for="exampleInputRollnum" className="form-label">HighLight Image</label>
               <input  type="text" className="form-control" id="exampleInputRollnum" value={highlight_image} onChange={updatehighlight_image}/> */}
 
-<label className="form-label">HighLight Image : </label>
+<label className="form-label">HighLight Image (jpeg, png, jpg)
+ </label>
               <input
                 onChange={(updateImage)}
                 type="file"
                 className="form-control"
                 id="exampleInputBranch"
+                accept=".jpg,.png,.jpeg"
+
               />
               <div className="pt-3">
                 <input
@@ -157,7 +170,7 @@ const location1 = useLocation();
                   className="form-control"
                   id="exampleInputeRegistrationnum"
                   // defaultValue={highlight_image_url}
-                  value={highlight_image_url}
+                  value={highlight_image}
                   // onChange={updatePitch}
                   disabled
                 />

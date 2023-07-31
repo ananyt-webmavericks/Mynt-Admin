@@ -3,6 +3,7 @@ import Dashboard from "../../Dashboard/Dashboard";
 import Base_url from "../Base_url";
 import { useLocation, useNavigate } from "react-router-dom";
 import { authAxios } from "../../../Services/auth.service";
+import { toast } from "react-toastify";
 
 const Company_Form = () => {
   const navigator = useNavigate();
@@ -156,7 +157,14 @@ const Company_Form = () => {
   };
 
   const updateLogo = async (e) => {
-    // setPitch(e.target.files?.[0] ?? null);
+    const allowedFiles = ['jpg','jpeg','png'];
+    const fileType = e.target.files?.[0] ? e.target.files?.[0]?.name.split('.').pop() : null
+    if(allowedFiles.indexOf(fileType?.toLowerCase()) === -1 || !fileType){
+      toast.error("Please select valid file");
+      setcompany_logo(null);
+      setLogoUrl(null);
+      return null
+    }
     setcompany_logo(e.target.files?.[0] ?? null);
     if (e.target.files?.[0]) {
       const file = e.target.files[0];
@@ -182,6 +190,12 @@ const Company_Form = () => {
     }
   };
   const gotoAdd = async () => {
+
+    if(!logoUrl){
+      toast.error("Please select valid file");
+      return
+    }
+
     await authAxios.patch(`${Base_url}/api/company/manage`, {
       company_id: location1.state.bio.id,
 
@@ -256,7 +270,7 @@ const Company_Form = () => {
                 </select>
               </div>
               <label for="exampleInputRollnum" className="form-label">
-                Company Logo
+              Company Logo (jpeg, png, jpg)
               </label>
               {/* <input type="text" className="form-control" id="exampleInputRollnum" value={company_logo} onChange={updatecompany_logo} /> */}
               <input
@@ -264,6 +278,8 @@ const Company_Form = () => {
                 type="file"
                 className="form-control"
                 id="exampleInputBranch"
+                accept=".jpg,.png,.jpeg"
+
               />
               <div className="pt-3">
                 <input

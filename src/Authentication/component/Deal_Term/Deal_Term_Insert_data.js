@@ -68,7 +68,7 @@ const Deal_Term_Insert_data = () => {
     const getUploaded = async () => {
 
       try {
-        const response = await authAxios.get(`${Base_url}/api/campaign/manage`);
+        const response = await authAxios.get(`${Base_url}/api/campaign/manage/admin`);
         console.log(response.data)
         setItems2(response.data)
         return response.data;
@@ -158,19 +158,19 @@ const Deal_Term_Insert_data = () => {
                 </select>
               </div>
               <label for="exampleInputRollnum" className="form-label">Discount</label>
-              <input type="text" className="form-control" id="exampleInputRollnum" value={discount} onChange={updateDiscount} />
+              <input type="number" className="form-control" id="exampleInputRollnum" value={discount} onChange={updateDiscount} />
 
 
               <label for="exampleInputRegistrationnum" className="form-label">Valuation Cap</label>
-              <input type="text" className="form-control" id="exampleInputeRegistrationnum" value={valuation_cap} onChange={updateValue} />
+              <input type="number" className="form-control" id="exampleInputeRegistrationnum" value={valuation_cap} onChange={updateValue} />
 
 
               <label for="exampleInputBranch" className="form-label">Min Subscription</label>
-              <input type="text" className="form-control" id="exampleInputBranch" value={min_subscription} onChange={updateMin} />
+              <input type="number" className="form-control" id="exampleInputBranch" value={min_subscription} onChange={updateMin} />
 
 
               <label for="exampleInputpassword" className="form-label">Target</label>
-              <input type="text" className="form-control" id="exampleInputPassword1" value={target} onChange={updateTarget} />
+              <input type="number" className="form-control" id="exampleInputPassword1" value={target} onChange={updateTarget} />
 
               <label for="exampleInputBranch" className="form-label">End Date</label>
               <input type="date" className="form-control" id="exampleInputBranch" value={end_date} onChange={updateEnd} />

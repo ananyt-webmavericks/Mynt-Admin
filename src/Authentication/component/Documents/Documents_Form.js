@@ -1,25 +1,38 @@
 import React, { useState, useEffect } from "react";
-import Dashboard from '../../Dashboard/Dashboard';
+import Dashboard from "../../Dashboard/Dashboard";
 import { useLocation, useNavigate } from "react-router-dom";
 import Base_url from "../Base_url";
 import { authAxios } from "../../../Services/auth.service";
+import { toast } from "react-toastify";
 
 
-
-
-const Documents_Form = () =>{
+const Documents_Form = () => {
   const location1 = useLocation();
-  const[document_type, setdocumentType] = useState(location1.state.bio.document_type);
-  const[document_name , setdocument_name ]= useState(location1.state.bio.document_name);
-  const[agreement_status , setagreement_status] = useState(location1.state.bio.agreement_status);  
+  const [document_type, setdocumentType] = useState(
+    location1.state.bio.document_type
+  );
+  const [document_name, setdocument_name] = useState(
+    location1.state.bio.document_name
+  );
+  const [agreement_status, setagreement_status] = useState(
+    location1.state.bio.agreement_status
+  );
   const [company_id, setcompany_id] = useState(location1.state.bio.company_id);
-  const [document_url, setdocumentUrl] = useState();
+  const [document_url, setdocumentUrl] = useState(
+    location1.state.bio.document_url
+  );
   const [items, setItems] = useState([]);
   const [document, setdocument] = useState();
 
-
-
   const updateDocument = async (e) => {
+    const allowedFiles = '.pdf';
+    const fileType = e.target.files?.[0] ? e.target.files?.[0]?.name.split('.').pop() : null
+    if(allowedFiles.indexOf(fileType?.toLowerCase()) === -1 || !fileType){
+      toast.error("Please select valid file");
+      setdocument(null);
+      setdocumentUrl(null);
+      return null
+    }
     setdocument(e.target.files?.[0] ?? null);
     if (e.target.files?.[0]) {
       const file = e.target.files[0];
@@ -34,7 +47,7 @@ const Documents_Form = () =>{
         .post(`${Base_url}/api/users/upload-files`, formData)
 
         .then((response) => {
-          setdocumentUrl(response.data?.message ?? '');
+          setdocumentUrl(response.data?.message ?? "");
         })
         .catch((err) => {
           console.log("error");
@@ -45,20 +58,18 @@ const Documents_Form = () =>{
     }
   };
 
- 
   const add = (x) => {
-    console.log(x);
     setcompany_id(x);
   };
   const updatedocument_type_1 = (e) => {
     setdocumentType(e.target.value);
   };
-  const updatedocument_name = (e) =>{
-    setdocument_name(e.target.value)
-  }
-  const updateagreement_status = (e) =>{
-    setagreement_status(e.target.value)
-  }
+  const updatedocument_name = (e) => {
+    setdocument_name(e.target.value);
+  };
+  const updateagreement_status = (e) => {
+    setagreement_status(e.target.value);
+  };
 
   const updateItems = (e) => {
     setItems(e.target.value);
@@ -81,31 +92,28 @@ const Documents_Form = () =>{
     getUploadedDocs();
   }, []);
 
-  const gotoAdd = async() => {
-    
-    const values = {
-      
-      company_id: company_id,
-      documents: [
-        {
-          document_type: document_type,
-          document_name: document_name,
-          agreement_status: agreement_status,
-          document_url : document_url
-        },
-      ],
-    };
-       
-      await authAxios.patch(`${Base_url}/api/documents/manage`,values)
-      
-     navigator("/home/documents")
-    
+  const gotoAdd = async () => {
+    if(!document_url){
+      toast.error("Please select valid file");
+      return
     }
-  
+    const values = {
+      company_id: Number(company_id),
+      document_type: document_type,
+      document_name: document_name,
+      agreement_status: agreement_status,
+      document_url: document_url,
+      document_id: location1.state.bio.id,
+    };
 
-    return(
-      <>
-       <div className='container-fluid'>
+    await authAxios.patch(`${Base_url}/api/documents/manage`, values);
+
+    navigator("/home/documents");
+  };
+
+  return (
+    <>
+      <div className="container-fluid">
         {/* <div className='row'>
           
             <Dashboard 
@@ -116,11 +124,16 @@ const Documents_Form = () =>{
         </div> */}
         <div className="row justify-content-center mb-5">
           <div style={{ borderRadius: "20px", backgroundColor: "#BACDDB" }}>
-          <form style={{padding:"50px"}} onSubmit={e => {
-            e.preventDefault();
-            gotoAdd()
-          }}>
-              <h1 style={{textAlign:"center",color:"#070A52"}}>Update Documents Data</h1>
+            <form
+              style={{ padding: "50px" }}
+              onSubmit={(e) => {
+                e.preventDefault();
+                gotoAdd();
+              }}
+            >
+              <h1 style={{ textAlign: "center", color: "#070A52" }}>
+                Update Documents Data
+              </h1>
               <label className="form-label">Company Name</label>
               <div class="input-group">
                 <select
@@ -128,7 +141,7 @@ const Documents_Form = () =>{
                   id="inputGroupSelect04"
                   aria-label="Example select with button addon"
                   value={company_id}
-                  onChange={(e)=>add(e.target.value)}
+                  onChange={(e) => add(e.target.value)}
                 >
                   <option selected className="active">
                     Select Company Name
@@ -140,7 +153,7 @@ const Documents_Form = () =>{
                           // onClick={() => {
                           //   add(item.user_id);
                           // }}
-                          value={item.user_id}
+                          value={item.id}
                         >
                           {item.company_name}
                         </option>
@@ -151,57 +164,65 @@ const Documents_Form = () =>{
               <label for="exampleInputRollnum" className="form-label">
                 Document Type
               </label>
-             
-              <select
-                  class="form-select"
-                  id="inputGroupSelect04"
-                  aria-label="Example select with button addon"
-                  value={document_type}
-                  onChange={updatedocument_type_1}
-                >
-                  <option  className="active" value={"AGREEMENTS"}>
-                  AGREEMENTS
-                  </option>
-                  <option  className="active" value={"DOCUMENTS"}>
-                  DOCUMENTS
-                  </option>
-                </select>
 
-              
+              <select
+                class="form-select"
+                id="inputGroupSelect04"
+                aria-label="Example select with button addon"
+                value={document_type}
+                onChange={updatedocument_type_1}
+              >
+                <option className="active" value={"AGREEMENTS"}>
+                  AGREEMENTS
+                </option>
+                <option className="active" value={"DOCUMENTS"}>
+                  DOCUMENTS
+                </option>
+              </select>
+
               <label for="exampleInputRegistrationnum" className="form-label">
                 Agreement Status
               </label>
-              
-               <select
-                  class="form-select"
-                  id="inputGroupSelect04"
-                  aria-label="Example select with button addon"
-                  value={agreement_status}
-                  onChange={updateagreement_status}
-                >
-                  <option  className="active" value={"SIGNED BY ADMIN"}>
+
+              <select
+                class="form-select"
+                id="inputGroupSelect04"
+                aria-label="Example select with button addon"
+                value={agreement_status}
+                onChange={updateagreement_status}
+              >
+                <option className="active" value={"SIGNED BY ADMIN"}>
                   SIGNED BY ADMIN
-                  </option>
-                  <option  className="active" value={"SIGNED BY FOUNDER"}>
+                </option>
+                <option className="active" value={"SIGNED BY FOUNDER"}>
                   SIGNED BY FOUNDER
-                  </option>
-                  <option  className="active" value={"UPLOADED BY ADMIN"}>
+                </option>
+                <option className="active" value={"UPLOADED BY ADMIN"}>
                   UPLOADED BY ADMIN
-                  </option>
-                </select>
-            
-              <label for="exampleInputRegistrationnum" className="form-label">Document Name</label>
-              <input  type="text" className="form-control" id="exampleInputeRegistrationnum" value={document_name} onChange={updatedocument_name}/>
-              
+                </option>
+              </select>
 
               <label for="exampleInputRegistrationnum" className="form-label">
-                Document
+                Document Name
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="exampleInputeRegistrationnum"
+                value={document_name}
+                onChange={updatedocument_name}
+              />
+
+              <label for="exampleInputRegistrationnum" className="form-label">
+              Document (pdf)
               </label>
               <input
                 onChange={updateDocument}
                 type="file"
                 className="form-control"
                 id="exampleInputBranch"
+                accept=".pdf"
+
               />
               <div className="pt-3">
                 <input
@@ -213,17 +234,19 @@ const Documents_Form = () =>{
                   disabled
                 />
               </div>
-            
-              
-          
-              <button type="submit" className="btn btn-success" style={{marginTop:"30px", backgroundColor: '#1a83ff'}}>Submit</button>
-          </form>
-        </div>
-        </div>
-      
-            </div>
 
-  </>
-    )
-}
+              <button
+                type="submit"
+                className="btn btn-success"
+                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 export default Documents_Form;

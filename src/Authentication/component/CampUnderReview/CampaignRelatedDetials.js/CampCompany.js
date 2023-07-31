@@ -3,6 +3,7 @@ import Dashboard from '../../../Dashboard/Dashboard';
 import { useLocation, useNavigate } from "react-router-dom";
 import Base_url from "../../Base_url";
 import { authAxios } from "../../../../Services/auth.service";
+import { toast } from "react-toastify";
 
 
 const CampCompany = () =>{
@@ -121,7 +122,14 @@ const CampCompany = () =>{
       setnumber_of_employees(e.target.value)
     }
     const updateLogo = async (e) => {
-      // setPitch(e.target.files?.[0] ?? null);
+      const allowedFiles = ['jpg','jpeg','png'];
+      const fileType = e.target.files?.[0] ? e.target.files?.[0]?.name.split('.').pop() : null
+      if(allowedFiles.indexOf(fileType?.toLowerCase()) === -1 || !fileType){
+        toast.error("Please select valid file");
+        setcompany_logo(null);
+        setLogoUrl(null);
+        return null
+      }
       setcompany_logo(e.target.files?.[0] ?? null);
       if (e.target.files?.[0]) {
         const file = e.target.files[0];
@@ -148,7 +156,10 @@ const CampCompany = () =>{
     };
     const gotoAdd = async() => {
 
-  
+      if(!logoUrl){
+        toast.error("Please select valid file");
+        return
+      }
     
     
     
@@ -157,8 +168,7 @@ const CampCompany = () =>{
         
         company_id: location1.state.bio.company_id.id,
   
-       
-       company_logo : company_logo,
+    company_logo : logoUrl,
     founder_linked_in_profile : founder_linked_in_profile,
     company_name:company_name,
     company_linked_in_profile: company_linked_in_profile,
@@ -213,7 +223,8 @@ const CampCompany = () =>{
                 </select>
               </div>
               <label for="exampleInputRollnum" className="form-label">
-                Company Logo
+                Company Logo (jpeg, png, jpg)
+
               </label>
               {/* <input type="text" className="form-control" id="exampleInputRollnum" value={company_logo} onChange={updatecompany_logo} /> */}
               <input
@@ -221,13 +232,15 @@ const CampCompany = () =>{
                 type="file"
                 className="form-control"
                 id="exampleInputBranch"
+                accept=".jpg,.png,.jpeg"
+
               />
               <div className="pt-3">
                 <input
                   type="text"
                   className="form-control"
                   id="exampleInputeRegistrationnum"
-                  defaultValue={logoUrl}
+                  value={company_logo}
                   // onChange={updatePitch}
                   disabled
                 />

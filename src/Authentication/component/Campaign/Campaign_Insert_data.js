@@ -3,6 +3,8 @@ import Dashboard from "../../Dashboard/Dashboard";
 import { useNavigate } from "react-router-dom";
 import Base_url from "../Base_url";
 import { authAxios } from "../../../Services/auth.service";
+import { toast } from "react-toastify";
+
 
 const Campaign_Insert_data = () => {
   const [id, setId] = useState();
@@ -25,6 +27,14 @@ const Campaign_Insert_data = () => {
     setStatus(e.target.value);
   };
   const updatePitch = async (e) => {
+    const allowedFiles = ['pdf'];
+    const fileType = e.target.files?.[0] ? e.target.files?.[0]?.name.split('.').pop() : null
+    if(allowedFiles.indexOf(fileType?.toLowerCase()) === -1 || !fileType){
+      toast.error("Please select valid file");
+      setPitch(null);
+      setPitchUrl(null);
+      return null
+    }
     setPitch(e.target.files?.[0] ?? null);
     if (e.target.files?.[0]) {
       const file = e.target.files[0];
@@ -39,7 +49,7 @@ const Campaign_Insert_data = () => {
         .post(`${Base_url}/api/users/upload-files`, formData)
 
         .then((response) => {
-          setPitchUrl(response.data?.message ?? '');
+          setPitchUrl(response.data?.message ?? "");
         })
         .catch((err) => {
           console.log("error");
@@ -49,6 +59,7 @@ const Campaign_Insert_data = () => {
       setPitchUrl(null);
     }
   };
+
 
   const add = (x) => {
     setC_id(x);
@@ -73,6 +84,10 @@ const Campaign_Insert_data = () => {
 
   const gotoAdd = async (e) => {
     e.preventDefault();
+    if(!pitchUrl){
+      toast.error("Please select valid file");
+      return
+    }
 
     await authAxios
       .post(`${Base_url}/api/campaign/manage`, {
@@ -83,11 +98,13 @@ const Campaign_Insert_data = () => {
 
       .then((response) => {
         setPost(response.data);
+        if(response.status === 200 || response.status === 201) {
+          navigator("/home/campaign");
+        }
       })
       .catch((err) => {
         console.log("error");
       });
-    navigator("/home/campaign");
   };
 
   return (
@@ -96,7 +113,7 @@ const Campaign_Insert_data = () => {
         <div className="row justify-content-center mb-5">
           <div
             style={{ borderRadius: "20px", backgroundColor: "#BACDDB" }}
-            
+
           >
             <form style={{ padding: "50px", borderRadius: "20px" }}>
               <h1
@@ -116,7 +133,7 @@ const Campaign_Insert_data = () => {
                   class="form-select"
                   id="inputGroupSelect04"
                   aria-label="Example select with button addon"
-                  onChange={(e)=>add(e.target.value)}
+                  onChange={(e) => add(e.target.value)}
                   value={c_id}
                 >
                   <option selected className="active">
@@ -129,7 +146,7 @@ const Campaign_Insert_data = () => {
                           // onClick={() => {
                           //   add(item.user_id);
                           // }}
-                          value={item.user_id}
+                          value={item.id}
                         >
                           {item.company_name}
                         </option>
@@ -138,20 +155,21 @@ const Campaign_Insert_data = () => {
                 </select>
               </div>
               <label for="exampleInputRegistrationnum" className="form-label">
-                Pitch
+                Pitch (pdf)
               </label>
               <input
                 onChange={updatePitch}
                 type="file"
                 className="form-control"
                 id="exampleInputBranch"
+                accept=".pdf"
               />
               <div className="pt-3">
                 <input
                   type="text"
                   className="form-control"
                   id="exampleInputeRegistrationnum"
-                  defaultValue={pitchUrl}
+                  value={pitchUrl}
                   // onChange={updatePitch}
                   disabled
                 />
@@ -159,7 +177,7 @@ const Campaign_Insert_data = () => {
               <button
                 type="submit"
                 className="btn btn-success"
-                style={{ marginTop: "30px" , backgroundColor: '#1a83ff'}}
+                style={{ marginTop: "30px", backgroundColor: '#1a83ff' }}
                 onClick={gotoAdd}
               >
                 Submit

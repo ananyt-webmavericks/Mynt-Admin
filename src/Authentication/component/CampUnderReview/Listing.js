@@ -11,6 +11,9 @@ const Listing = (prop) => {
   const [open, setOpen] = React.useState(false);
   const [open1, setOpen1] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
+  const [open3, setOpen3] = React.useState(false);
+  const [open4, setOpen4] = React.useState(false);
+  const [open5, setOpen5] = React.useState(false);
 
   const handleClose = () => {
     setOpen(false);
@@ -32,6 +35,27 @@ const Listing = (prop) => {
 
   const handleOpen2 = () => {
     setOpen2(true);
+  };
+  const handleClose3 = () => {
+    setOpen3(false);
+  };
+
+  const handleOpen3 = () => {
+    setOpen3(true);
+  };
+  const handleClose4 = () => {
+    setOpen4(false);
+  };
+
+  const handleOpen4 = () => {
+    setOpen4(true);
+  };
+  const handleClose5 = () => {
+    setOpen5(false);
+  };
+
+  const handleOpen5 = () => {
+    setOpen5(true);
   };
 
   const [items, setItems] = useState();
@@ -110,101 +134,216 @@ const Listing = (prop) => {
         </td>
         <td scope="col-2">{items ? items.company_id.status : null}</td>
         <td scope="col" style={{ textAlign: "center" }}>
-          {items && items.company_id.documents.length >= 1
-            ? items.company_id.documents[0].id
-            : " - "}
-        </td>
-        <td scope="col" style={{ textAlign: "center" }}>
-          {items && items.company_id.documents.length >= 1
-            ? items.company_id.documents[0].document_type
-            : " - "}
-        </td>
-        <td scope="col" style={{ textAlign: "center" }}>
-          {items && items.company_id.documents.length >= 1
-            ? items.company_id.documents[0].document_name
-            : " - "}
-        </td>
-        <td scope="col" style={{ textAlign: "center" }}>
-          {items && items.company_id.documents.length >= 1
-            ? items.company_id.documents[0].document_url
-            : " - "}
-        </td>
-        <td scope="col" style={{ textAlign: "center" }}>
-          {items && items.company_id.documents.length >= 1
-            ? items.company_id.documents[0].agreement_status
-            : " - "}
+        <div style={{ display: "block", padding: 30 }}>
+            <span
+              onClick={items?.company_id.documents?.length ? ()=>handleOpen5() : ()=>{}}
+              style={{ color: items?.company_id.documents?.length ? "blue" : 'black', cursor: "pointer" }}
+            >
+              {items?.company_id.documents?.length ? 'View' : '-'}
+            </span>
+            <Modal
+              onClose={handleClose5}
+              open={open5}
+              style={{
+                margin: "auto",
+                width: '80%',
+                height: 600
+              }}
+            >
+              <div
+                style={{ width: "100%", height: "100%", background: "white",overflow: 'auto' }}>
+                <table
+                  className="table table-hover table-bordered"
+                  style={{
+                    border: "1px solid black",
+                    zIndex: "1000000",
+                    backgroundColor: "white",
+                  }}
+                >
+                  <thead>
+                    <tr>
+                    <th scope="col" style={{backgroundColor:"violet"}}>Documents : ID</th>
+                    <th scope="col" style={{backgroundColor:"violet"}}>Document Type</th>
+                    <th scope="col"style={{backgroundColor:"violet"}}>Document Name</th>
+                    <th scope="col" style={{backgroundColor:"violet"}}>Document Url</th>
+                    <th scope="col" style={{backgroundColor:"violet"}}>Agreement Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {items?.company_id.documents?.map((i) => {
+                      return (
+                        <tr>
+                          <td scope="col">
+                            {i?.id ?? ''}
+                          </td>
+                          <td scope="col">
+                            {i?.document_type ?? ''}
+                          </td>
+                          <td scope="col">
+                            {i?.document_name ?? ''}
+                          </td>
+                          <td scope="col">
+                            {i?.document_url ?? ''}
+                          </td>
+                          <td scope="col">
+                            {i?.agreement_status ?? ''}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </Modal>
+          </div>
         </td>
 
         <td scope="col" style={{ textAlign: "center" }}>
-          {items && items.company_id.peoples.length >= 1
-            ? items.company_id.peoples[0].id
-            : " - "}
+        <div style={{ display: "block", padding: 30 }}>
+            <span
+              onClick={items?.company_id.peoples?.length ? ()=>handleOpen4() : ()=>{}}
+              style={{ color: items?.company_id.peoples?.length ? "blue" : 'black', cursor: "pointer" }}
+            >
+              {items?.company_id.peoples?.length ? 'View' : '-'}
+            </span>
+            <Modal
+              onClose={handleClose4}
+              open={open4}
+              style={{
+                margin: "auto ",
+                width: '80%',
+                height: 600,
+              }}
+            >
+              <div
+                style={{ width: "100%", height: "100%", background: "white",overflow: 'auto' }}>
+                <table
+                  className="table table-hover table-bordered"
+                  style={{
+                    border: "1px solid black",
+                    zIndex: "1000000",
+                    backgroundColor: "white",
+                  }}
+                >
+                  <thead>
+                    <tr>
+                    <th scope="col" style={{backgroundColor:"#9376E0"}}>Peoples: ID</th>
+                    <th scope="col" style={{backgroundColor:"#9376E0"}}>Type</th>
+                    <th scope="col" style={{backgroundColor:"#9376E0"}}>Name</th>
+                    <th scope="col" style={{backgroundColor:"#9376E0"}}>Position</th>
+                    <th scope="col" style={{backgroundColor:"#9376E0"}}>Facebook Link</th>
+                    <th scope="col" style={{backgroundColor:"#9376E0"}}>Instagram Link</th>
+                    <th scope="col" style={{backgroundColor:"#9376E0"}}>Linked In Link</th>
+                    <th scope="col" style={{backgroundColor:"#9376E0"}}>Description</th>
+                    <th scope="col" style={{backgroundColor:"#9376E0"}}>Profile Image</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {items?.company_id.peoples?.map((i) => {
+                      return (
+                        <tr>
+                          <td scope="col">
+                            {i?.id ?? ''}
+                          </td>
+                          <td scope="col">
+                            {i?.type ?? ''}
+                          </td>
+                          <td scope="col">
+                            {i?.name ?? ''}
+                          </td>
+                          <td scope="col">
+                            {i?.position ?? ''}
+                          </td>
+                          <td scope="col">
+                            {i?.facebook_link ?? ''}
+                          </td>
+                          <td scope="col">
+                            {i?.instagram_link ?? ''}
+                          </td>
+                          <td scope="col">
+                            {i?.linked_in_link ?? ''}
+                          </td>
+                          <td scope="col">
+                            {i?.description ?? ''}
+                          </td>
+                          <td scope="col">
+                            {i?.profile_image ?? ''}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </Modal>
+          </div>
         </td>
+
         <td scope="col" style={{ textAlign: "center" }}>
-          {items && items.company_id.peoples.length >= 1
-            ? items.company_id.peoples[0].type
-            : " - "}
+        <div style={{ display: "block", padding: 30 }}>
+            <span
+              onClick={items?.company_id.press?.length ? ()=>handleOpen3() : ()=>{}}
+              style={{ color: items?.company_id.press?.length ? "blue" : 'black', cursor: "pointer" }}
+            >
+              {items?.company_id.press?.length ? 'View' : '-'}
+            </span>
+            <Modal
+              onClose={handleClose3}
+              open={open3}
+              style={{
+                margin: "auto",
+                width: '80%',
+                height: 600,
+              }}
+            >
+              <div
+                style={{ width: "100%", height: "100%", background: "white",overflow: 'auto' }}>
+                <table
+                  className="table table-hover table-bordered"
+                  style={{
+                    border: "1px solid black",
+                    zIndex: "1000000",
+                    backgroundColor: "white",
+                  }}
+                >
+                  <thead>
+                    <tr>
+                    <th scope="col" style={{backgroundColor:"pink"}}>Press : ID</th>
+                    <th scope="col" style={{backgroundColor:"pink"}}>Title</th>
+                    <th scope="col" style={{backgroundColor:"pink"}}>Link</th>
+                    <th scope="col" style={{backgroundColor:"pink"}}>Description</th>
+                    <th scope="col" style={{backgroundColor:"pink"}}>Banner</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {items?.company_id.press?.map((i) => {
+                      return (
+                        <tr>
+                          <td scope="col">
+                            {i?.id ?? ''}
+                          </td>
+                          <td scope="col">
+                            {i?.title ?? ''}
+                          </td>
+                          <td scope="col">
+                            {i?.link ?? ''}
+                          </td>
+                          <td scope="col">
+                            {i?.description ?? ''}
+                          </td>
+                          <td scope="col">
+                            {i?.banner ?? ''}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </Modal>
+          </div>
         </td>
-        <td scope="col" style={{ textAlign: "center" }}>
-          {items && items.company_id.peoples.length >= 1
-            ? items.company_id.peoples[0].name
-            : " - "}
-        </td>
-        <td scope="col" style={{ textAlign: "center" }}>
-          {items && items.company_id.peoples.length >= 1
-            ? items.company_id.peoples[0].position
-            : " - "}
-        </td>
-        <td scope="col" style={{ textAlign: "center" }}>
-          {items && items.company_id.peoples.length >= 1
-            ? items.company_id.peoples[0].facebook_link
-            : " - "}
-        </td>
-        <td scope="col" style={{ textAlign: "center" }}>
-          {items && items.company_id.peoples.length >= 1
-            ? items.company_id.peoples[0].instagram_link
-            : " - "}
-        </td>
-        <td scope="col" style={{ textAlign: "center" }}>
-          {items && items.company_id.peoples.length >= 1
-            ? items.company_id.peoples[0].linked_in_link
-            : " - "}
-        </td>
-        <td scope="col" style={{ textAlign: "center" }}>
-          {items && items.company_id.peoples.length >= 1
-            ? items.company_id.peoples[0].description
-            : " - "}
-        </td>
-        <td scope="col" style={{ textAlign: "center" }}>
-          {items && items.company_id.peoples.length >= 1
-            ? items.company_id.peoples[0].profile_image
-            : " - "}
-        </td>
-        <td scope="col" style={{ textAlign: "center" }}>
-          {items && items.company_id.press.length >= 1
-            ? items.company_id.press[0].id
-            : " - "}
-        </td>
-        <td scope="col" style={{ textAlign: "center" }}>
-          {items && items.company_id.press.length >= 1
-            ? items.company_id.press[0].title
-            : " - "}
-        </td>
-        <td scope="col" style={{ textAlign: "center" }}>
-          {items && items.company_id.press.length >= 1
-            ? items.company_id.press[0].link
-            : " - "}
-        </td>
-        <td scope="col" style={{ textAlign: "center" }}>
-          {items && items.company_id.press.length >= 1
-            ? items.company_id.press[0].description
-            : " - "}
-        </td>
-        <td scope="col" style={{ textAlign: "center" }}>
-          {items && items.company_id.press.length >= 1
-            ? items.company_id.press[0].banner
-            : " - "}
-        </td>
+        
 
         <td scope="col-2">{items ? items.status : null}</td>
         <td scope="col-2">{items ? items.youtube_link : null}</td>
@@ -362,7 +501,7 @@ const Listing = (prop) => {
               }}
             >
               <div
-                style={{ width: "100%", height: "100%", background: "white" }}>
+                style={{ width: '80%',height: "100%", background: "white", overflow:'auto' }}>
                 <table
                   className="table table-hover table-bordered"
                   style={{

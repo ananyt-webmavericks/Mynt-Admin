@@ -47,6 +47,8 @@ const CampReward = () =>{
        discounted_price : discounted_price,
 
        product_name : product,
+
+       amount: amount
        }
        
       await authAxios.patch(`${Base_url}/api/rewards/manage`,values);
@@ -58,7 +60,7 @@ const CampReward = () =>{
       const rd = ind?.find(i => i.id == x) ?? {};
       setdiscounted_price(rd?.discounted_price ?? '');
       setProduct(rd?.product_name ?? '');
-      // setAmou(rd?.product ?? '');
+      setAmount(rd?.amount ?? '');
     } 
 
     return(

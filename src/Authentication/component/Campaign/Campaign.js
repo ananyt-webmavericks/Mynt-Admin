@@ -19,7 +19,7 @@ function Campaign() {
   useEffect(() => {
     const getUploadedDocs = async () => {
       try {
-        const response = await authAxios.get(`${Base_url}/api/campaign/manage`);
+        const response = await authAxios.get(`${Base_url}/api/campaign/manage/admin`);
         // console.log(response.data)
         setItems(response.data);
         // console.log(response.data)

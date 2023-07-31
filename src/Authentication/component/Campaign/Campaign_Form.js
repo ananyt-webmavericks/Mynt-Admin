@@ -3,7 +3,7 @@ import Dashboard from "../../Dashboard/Dashboard";
 import { useLocation, useNavigate } from "react-router-dom";
 import Base_url from "../Base_url";
 import { authAxios } from "../../../Services/auth.service";
-
+import { toast } from "react-toastify";
 const Campaign_Form = () => {
   const location1 = useLocation();
   const [comp_id, setComp_id] = useState(location1.state.bio.company_id);
@@ -11,9 +11,9 @@ const Campaign_Form = () => {
     location1.state.bio.youtube_link
   );
   const [ama_date, setAma_date] = useState(location1.state.bio.ama_date);
-  const [ama_meet, setAma_meet] = useState(location1.state.bio.ama_meet);
+  const [ama_meet, setAma_meet] = useState(location1.state.bio.ama_meet_link);
   const [ama_youtube, setAma_youtube] = useState(
-    location1.state.bio.ama_youtube
+    location1.state.bio.ama_youtube_video
   );
   const [status, setStatus] = useState(location1.state.bio.status);
   const [items, setItems] = useState();
@@ -36,6 +36,14 @@ const Campaign_Form = () => {
     setAma_youtube(e.target.value);
   };
   const updatePitch = async (e) => {
+    const allowedFiles = ['pdf'];
+    const fileType = e.target.files?.[0] ? e.target.files?.[0]?.name.split('.').pop() : null
+    if(allowedFiles.indexOf(fileType?.toLowerCase()) === -1 || !fileType){
+      toast.error("Please select valid file");
+      setPitch(null);
+      setPitchUrl(null);
+      return null
+    }
     setPitch(e.target.files?.[0] ?? null);
     if (e.target.files?.[0]) {
       const file = e.target.files[0];
@@ -50,7 +58,7 @@ const Campaign_Form = () => {
         .post(`${Base_url}/api/users/upload-files`, formData)
 
         .then((response) => {
-          setPitchUrl(response.data?.message ?? '');
+          setPitchUrl(response.data?.message ?? "");
         })
         .catch((err) => {
           console.log("error");
@@ -88,6 +96,12 @@ const Campaign_Form = () => {
   }, []);
 
   const gotoAdd = async () => {
+
+    if(!pitchUrl){
+      toast.error("Please select valid file");
+      return
+    }
+
     const values = {
       campaign_id: location1.state.bio.id,
       company_id: comp_id,
@@ -98,7 +112,7 @@ const Campaign_Form = () => {
       pitch: pitchUrl,
       status: status,
     };
-    console.log(values);
+ 
     await authAxios.patch(`${Base_url}/api/campaign/manage`, values);
     console.log("successful");
     navigator("/home/campaign");
@@ -146,7 +160,7 @@ const Campaign_Form = () => {
                         // onClick={() => {
                         //   add(item.user_id);
                         // }}
-                        value={item.user_id}
+                        value={item.id}
                       >
                         {item.company_name}
                       </option>
@@ -210,20 +224,22 @@ const Campaign_Form = () => {
               onChange={updatePitch}
             /> */}
             <label for="exampleInputRegistrationnum" className="form-label">
-                Pitch
+                Pitch (pdf)
               </label>
               <input
                 onChange={updatePitch}
                 type="file"
                 className="form-control"
                 id="exampleInputBranch"
+                accept=".pdf"
+
               />
               <div className="pt-3">
                 <input
                   type="text"
                   className="form-control"
                   id="exampleInputeRegistrationnum"
-                  defaultValue={pitchUrl}
+                  value={pitchUrl}
                   // onChange={updatePitch}
                   disabled
                 />

@@ -4,17 +4,19 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Base_url from '../../Base_url';
 import { authAxios } from '../../../../Services/auth.service';
 import { useState } from 'react';
+import { toast } from "react-toastify";
+
 
 
 
 const CampCampaign = () =>{  
   const location1 = useLocation();
-  const[youtube_link , setYoutube_link] = useState(location1.state.bio.youtube_link);
+  const[youtube_link , setYoutube_link] = useState(location1.state.bio.ama_youtube_link);
   const[ama_date,setAma_date] = useState(location1.state.bio.ama_date);
-  const[ama_meet,setAma_meet] = useState(location1.state.bio.ama_meet);
-  const[ama_youtube,setAma_youtube] = useState(location1.state.bio.ama_youtube);
+  const[ama_meet,setAma_meet] = useState(location1.state.bio.ama_meet_link);
+  const[ama_youtube,setAma_youtube] = useState(location1.state.bio.ama_youtube_video);
   const[pitch,setPitch] = useState(location1.state.bio.pitch);
-  const[status,setStatus] = useState();
+  const[status,setStatus] = useState(location1.state.bio.status);
   const [pitchUrl, setPitchUrl] = useState(location1.state.bio.pitch);
 
  
@@ -40,6 +42,14 @@ const CampCampaign = () =>{
   }
 
   const updatePitch = async (e) => {
+    const allowedFiles = ['pdf'];
+    const fileType = e.target.files?.[0] ? e.target.files?.[0]?.name.split('.').pop() : null
+    if(allowedFiles.indexOf(fileType?.toLowerCase()) === -1 || !fileType){
+      toast.error("Please select valid file");
+      setPitch(null);
+      setPitchUrl(null);
+      return null
+    }
     setPitch(e.target.files?.[0] ?? null);
     if (e.target.files?.[0]) {
       const file = e.target.files[0];
@@ -54,7 +64,7 @@ const CampCampaign = () =>{
         .post(`${Base_url}/api/users/upload-files`, formData)
 
         .then((response) => {
-          setPitchUrl(response.data?.message ?? '');
+          setPitchUrl(response.data?.message ?? "");
         })
         .catch((err) => {
           console.log("error");
@@ -65,6 +75,12 @@ const CampCampaign = () =>{
     }
   };
   const gotoAdd = async() => {
+
+    
+    if(!pitchUrl){
+      toast.error("Please select valid file");
+      return
+    }
     
     const values = { 
        
@@ -80,7 +96,7 @@ const CampCampaign = () =>{
        
        ama_youtube_video : ama_youtube,
        
-       pitch : pitch,
+       pitch : pitchUrl,
        status : status,
        }
     
@@ -121,20 +137,23 @@ const CampCampaign = () =>{
               <input   type="link" className="form-control" id="exampleInputeRegistrationnum" value={ama_youtube} onChange={updateAmayoutube}/>
 
               <label for="exampleInputRegistrationnum" className="form-label">
-                Pitch
+                Pitch (pdf)
+
               </label>
               <input
                 onChange={updatePitch}
                 type="file"
                 className="form-control"
                 id="exampleInputBranch"
+                accept=".jpg,.png,.jpeg"
+
               />
               <div className="pt-3">
                 <input
                   type="text"
                   className="form-control"
                   id="exampleInputeRegistrationnum"
-                  defaultValue={pitchUrl}
+                  value={pitchUrl}
                   // onChange={updatePitch}
                   disabled
                 />

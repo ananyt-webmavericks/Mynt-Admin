@@ -1,22 +1,31 @@
 import React, { useState } from "react";
-import Dashboard from '../../Dashboard/Dashboard';
+import Dashboard from "../../Dashboard/Dashboard";
 import { useNavigate, useLocation } from "react-router-dom";
 import Base_url from "../Base_url";
 import { authAxios } from "../../../Services/auth.service";
+import { toast } from "react-toastify";
 
-
-const User_Form = () =>{
+const User_Form = () => {
   const location1 = useLocation();
   const navigator = useNavigate();
-  const[email , setEmail] = useState(location1.state.bio.email);
-  const[social,setSocial] = useState(location1.state.bio.social_login);
-  const[profile,setProfile] = useState(location1.state.bio.profile_image);
+  const [email, setEmail] = useState(location1.state.bio.email);
+  const [social, setSocial] = useState(location1.state.bio.social_login);
+  const [profile, setProfile] = useState(location1.state.bio.profile_image);
   // const [post, setPost] = React.useState(null);
   const [pitch, setPitch] = useState(null);
-  const [pitchUrl, setPitchUrl] = useState(location1.state.bio.pitch);
-
+  const [pitchUrl, setPitchUrl] = useState(location1.state.bio.profile_image);
 
   const updatePitch = async (e) => {
+    const allowedFiles = ["jpg", "jpeg", "png"];
+    const fileType = e.target.files?.[0]
+      ? e.target.files?.[0]?.name.split(".").pop()
+      : null;
+    if (allowedFiles.indexOf(fileType?.toLowerCase()) === -1 || !fileType) {
+      toast.error("Please select valid file");
+      setPitch(null);
+      setPitchUrl(null);
+      return null;
+    }
     setPitch(e.target.files?.[0] ?? null);
     if (e.target.files?.[0]) {
       const file = e.target.files[0];
@@ -31,7 +40,7 @@ const User_Form = () =>{
         .post(`${Base_url}/api/users/upload-files`, formData)
 
         .then((response) => {
-          setPitchUrl(response.data?.message ?? '');
+          setPitchUrl(response.data?.message ?? "");
         })
         .catch((err) => {
           console.log("error");
@@ -41,44 +50,36 @@ const User_Form = () =>{
       setPitchUrl(null);
     }
   };
- 
-  const updateEmail = (e) =>{
-    setEmail(e.target.value)
-  }
-  const updateSocial = (e) =>{
-    setSocial(e.target.value)
-  }
-  const updateProfile = (e) =>{
-    setProfile(e.target.value)
-  }
+  const updateEmail = (e) => {
+    setEmail(e.target.value);
+  };
+  const updateSocial = (e) => {
+    setSocial(e.target.value);
+  };
+  const updateProfile = (e) => {
+    setProfile(e.target.value);
+  };
 
-
-  const gotoAdd = async() => {
-    
-    const values = {
-
-            
-                  
-       
-      user_id : location1.state.bio.id,
-       
-       
-       email : email,
-       social_login : social,
-       profile_image : pitchUrl,
-
-       
-       }
-       
-      await authAxios.patch(`${Base_url}/api/users/manage`,values);
-      
-     navigator("/home/user")
-    
+  const gotoAdd = async () => {
+    if(!pitchUrl){
+      toast.error("Please select valid file");
+      return
     }
+    const values = {
+      user_id: location1.state.bio.id,
+      email: email,
+      social_login: social,
+      profile_image: pitchUrl,
+    };
 
-    return(
-        <>
-          <div className='container-fluid'>
+    await authAxios.patch(`${Base_url}/api/users/manage`, values);
+
+    navigator("/home/user");
+  };
+
+  return (
+    <>
+      <div className="container-fluid">
         {/* <div className='row'>
           
             <Dashboard
@@ -87,32 +88,60 @@ const User_Form = () =>{
             />
           
         </div> */}
-      <div className="row justify-content-center mb-5">
-        <div style={{ borderRadius: "20px", backgroundColor: "#BACDDB" }} >
-          <form style={{padding:"50px",borderRadius:"20px"}} onSubmit={e => {
-            e.preventDefault();
-            gotoAdd()
-          }}>
-              <h1 style={{textAlign:"center",color:"#070A52" , marginBottom:"20px"}}>Update User Data</h1>
+        <div className="row justify-content-center mb-5">
+          <div style={{ borderRadius: "20px", backgroundColor: "#BACDDB" }}>
+            <form
+              style={{ padding: "50px", borderRadius: "20px" }}
+              onSubmit={(e) => {
+                e.preventDefault();
+                gotoAdd();
+              }}
+            >
+              <h1
+                style={{
+                  textAlign: "center",
+                  color: "#070A52",
+                  marginBottom: "20px",
+                }}
+              >
+                Update User Data
+              </h1>
 
-              <label for="exampleInputRollnum" className="form-label">Email</label>
-              <input  type="email" className="form-control" id="exampleInputRollnum" value={email} onChange={updateEmail}/>
-              
-              <label for="exampleInputRegistrationnum" className="form-label">Social Login</label>
-              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={updateSocial} value={social} >
+              <label for="exampleInputRollnum" className="form-label">
+                Email
+              </label>
+              <input
+                type="email"
+                className="form-control"
+                id="exampleInputRollnum"
+                value={email}
+                onChange={updateEmail}
+              />
+
+              <label for="exampleInputRegistrationnum" className="form-label">
+                Social Login
+              </label>
+              <select
+                class="form-select"
+                id="inputGroupSelect04"
+                aria-label="Example select with button addon"
+                onChange={updateSocial}
+                value={social}
+              >
                 {/* <option   className="active">Social Login</option> */}
                 <option value={true}>True</option>
                 <option value={false}>False</option>
-                </select>
-              
+              </select>
+
               <label for="exampleInputRegistrationnum" className="form-label">
-                Profile Image
+                Profile Image(jpeg, png, jpg)
               </label>
               <input
                 onChange={updatePitch}
                 type="file"
                 className="form-control"
                 id="exampleInputBranch"
+                accept=".jpg,.png,.jpeg"
               />
               <div className="pt-3">
                 <input
@@ -124,14 +153,18 @@ const User_Form = () =>{
                   disabled
                 />
               </div>
-            <button type="submit" className="btn btn-success" style={{marginTop:"30px", backgroundColor: '#1a83ff'}} >Submit</button>
-          </form>
+              <button
+                type="submit"
+                className="btn btn-success"
+                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+              >
+                Submit
+              </button>
+            </form>
+          </div>
         </div>
-        </div>
-    
-            </div>
-      </>
-    )
-}
+      </div>
+    </>
+  );
+};
 export default User_Form;
-

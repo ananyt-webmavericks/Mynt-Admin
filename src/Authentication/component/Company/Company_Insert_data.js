@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Dashboard from '../../Dashboard/Dashboard';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Base_url from "../Base_url";
 import { authAxios } from "../../../Services/auth.service";
+import { toast } from "react-toastify";
+
 
 const Company_Insert_data = () => {
   const [logo, setLogo] = useState();
+  const location1 = useLocation()
+
   const [founder_linked_in_profile, setfounder_linked_in_profile] = useState();
   const [company, setCompany] = useState();
   const [company_linked_in_profile, setcompany_linked_in_profile] = useState()
@@ -20,6 +24,29 @@ const Company_Insert_data = () => {
   const [pitch, setPitch] = useState();
   const [pitchUrl, setPitchUrl] = useState(null);
   const [logoUrl,setLogoUrl] = useState(null)
+  const[company_logo,setcompany_logo] = useState();
+  const [userId, setUserId] = useState('');
+  const [userData, setUserData] = useState([]);
+
+
+
+  useEffect(() => {
+    const getUploadedDocs = async () => {
+      try {
+        const response = await authAxios.get(`${Base_url}/api/users/manage?user_type=FOUNDER`);
+        console.log(response.data);
+        setUserData(response.data);
+        return response.data;
+      } catch (error) {
+        if (error) {
+          console.log(error);
+        }
+        return error;
+      }
+    };
+    getUploadedDocs();
+  }, []);
+
 
   const navigator = useNavigate();
   // const updateLogo = (e) => {
@@ -59,8 +86,16 @@ const Company_Insert_data = () => {
     setExist(e.target.value)
   }
 
-  const updatePitch = async (e) => {
-    setPitch(e.target.files?.[0] ?? null);
+  const uploadFiles = async (e,setter,allowedFiles) => {
+    // const allowedFiles = ['jpg','jpeg','png'];
+    const fileType = e.target.files?.[0] ? e.target.files?.[0]?.name.split('.').pop() : null
+    if(allowedFiles.indexOf(fileType?.toLowerCase()) === -1 || !fileType){
+      toast.error("Please select valid file");
+      setcompany_logo(null);
+      setter(null);
+      return null
+    }
+    setcompany_logo(e.target.files?.[0] ?? null);
     if (e.target.files?.[0]) {
       const file = e.target.files[0];
       const reader = new FileReader();
@@ -74,49 +109,29 @@ const Company_Insert_data = () => {
         .post(`${Base_url}/api/users/upload-files`, formData)
 
         .then((response) => {
-          setPitchUrl(response.data?.message ?? '');
+          setter(response.data?.message ?? "");
         })
         .catch((err) => {
           console.log("error");
-          setPitchUrl(null);
+          setter(null);
         });
     } else {
-      setPitchUrl(null);
+      setter(null);
     }
   };
 
-  const updateLogo = async (e) => {
-    // setPitch(e.target.files?.[0] ?? null);
-    setLogo(e.target.files?.[0] ?? null)
-    if (e.target.files?.[0]) {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-      if (file) {
-        reader.readAsDataURL(file);
-      }
-      const formData = new FormData();
-      formData.append("file", file);
 
-      await authAxios
-        .post(`${Base_url}/api/users/upload-files`, formData)
-
-        .then((response) => {
-          setLogoUrl(response.data?.message ?? '');
-        })
-        .catch((err) => {
-          console.log("error");
-          setLogoUrl(null);
-        });
-    } else {
-      setLogoUrl(null);
-    }
-  };
 
 
   
   const gotoAdd = async (e) => {
 
     e.preventDefault();
+
+    if(!pitchUrl){
+      toast.error("Please select valid file in pitch");
+      return
+    }
 
     await authAxios.post(`${Base_url}/api/company/create`, {
 
@@ -134,6 +149,7 @@ const Company_Insert_data = () => {
       reason_for_mynt: reason_mynt,
       existing_commitments: exist,
       company_pitch: pitchUrl,
+      user_id: userId
 
     },
     )
@@ -156,14 +172,45 @@ const Company_Insert_data = () => {
             <form style={{ padding: "50px", borderRadius: "20px" }}>
               <h1 style={{ textAlign: "center", color: "#070A52" }}>Add Company Data</h1>
 
+
               <label for="exampleInputRegistrationnum" className="form-label">
-                Company Logo
+               User
+              </label>
+              <div class="input-group">
+                <select
+                  class="form-select"
+                  id="inputGroupSelect04"
+                  aria-label="Example select with button addon"
+                  onChange={(e) => setUserId(e.target.value)}
+                  value={userId}
+                >
+                  <option selected className="active">
+                    Select User
+                  </option>
+                  {userData &&
+                    userData.map((item) => {
+                      return (
+                        <option
+                          // onClick={() => {
+                          //   add(item.user_id);
+                          // }}
+                          value={item.id}
+                        >
+                          {`${item.first_name} ${item.last_name}`}
+                        </option>
+                      );
+                    })}
+                </select>
+              </div>
+              <label for="exampleInputRegistrationnum" className="form-label">
+                Company Logo (jpeg, jpg, png)
               </label>
               <input
-                onChange={updateLogo}
+                onChange={(e)=>uploadFiles(e,setLogoUrl,['jpg','png','jpeg'])}
                 type="file"
                 className="form-control"
                 id="exampleInputBranch"
+                accept=".jpg, .jpeg, .png"
               />
               <div className="pt-3">
                 <input
@@ -176,6 +223,8 @@ const Company_Insert_data = () => {
                 />
                 </div>
 
+                
+
               <label for="exampleInputRegistrationnum" className="form-label">Founder LinkedIn Profile</label>
               <input type="link" className="form-control" id="exampleInputeRegistrationnum" value={founder_linked_in_profile} onChange={updatefounder_linked_in_profile} />
 
@@ -184,7 +233,7 @@ const Company_Insert_data = () => {
               <input type="text" className="form-control" id="exampleInputeRegistrationnum" value={company} onChange={updatecompany} />
 
 
-              <label for="exampleInputBranch" className="form-label">Company Linked In Profile</label>
+              <label for="exampleInputBranch" className="form-label">Company LinkedIn Profile</label>
               <input type="link" className="form-control" id="exampleInputBranch" value={company_linked_in_profile} onChange={updatecompany_linked_in_profile} />
 
 
@@ -201,7 +250,7 @@ const Company_Insert_data = () => {
               <input type="text" className="form-control" id="exampleInputBranch" value={traction} onChange={updateTraction} />
 
               <label for="exampleInputBranch" className="form-label">Revenue</label>
-              <input type="text" className="form-control" id="exampleInputBranch" value={revenue} onChange={updateRevenue} />
+              <input type="number" className="form-control" id="exampleInputBranch" value={revenue} onChange={updateRevenue} />
 
               <label for="exampleInputBranch" className="form-label">Reason For Community Round</label>
               <input type="text" className="form-control" id="exampleInputBranch" value={reason_com} onChange={updateReason_com} />
@@ -211,14 +260,17 @@ const Company_Insert_data = () => {
 
               <label for="exampleInputBranch" className="form-label">Existing Commitments</label>
               <input type="text" className="form-control" id="exampleInputBranch" value={exist} onChange={updateExist} />
+              {/* <label for="exampleInputRollnum" className="form-label">
+                Company Logo (jpeg, png, jpg) */}
 
-              <label for="exampleInputBranch" className="form-label">Company Pitch</label>
+              <label for="exampleInputBranch" className="form-label">Company Pitch (pdf)</label>
               {/* <input type="link" className="form-control" id="exampleInputBranch" value={pitch} onChange={updatePitch} /> */}
               <input
-                onChange={updatePitch}
+                onChange={(e)=>uploadFiles(e,setPitchUrl,['pdf'])}
                 type="file"
                 className="form-control"
                 id="exampleInputBranch"
+                accept=".pdf"
               />
               <div className="pt-3">
                 <input
@@ -229,7 +281,7 @@ const Company_Insert_data = () => {
                   // onChange={updatePitch}
                   disabled
                 />
-                </div>
+              </div>
               <button type="submit" className="btn btn-success" style={{ marginTop: "30px", backgroundColor: '#1a83ff' }} onClick={gotoAdd}>Submit</button>
             </form>
           </div>

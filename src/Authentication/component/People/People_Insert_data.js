@@ -3,6 +3,8 @@ import Dashboard from '../../Dashboard/Dashboard';
 import { useNavigate } from "react-router-dom";
 import Base_url from "../Base_url";
 import { authAxios } from "../../../Services/auth.service";
+import { toast } from "react-toastify";
+
 
 const People_Insert_data = () => {
   const [id, setId] = useState();
@@ -26,6 +28,14 @@ const People_Insert_data = () => {
 
 
   const updatePitch = async (e) => {
+    const allowedFiles = ['jpg','jpeg','png'];
+    const fileType = e.target.files?.[0] ? e.target.files?.[0]?.name.split('.').pop() : null
+    if(allowedFiles.indexOf(fileType?.toLowerCase()) === -1 || !fileType){
+      toast.error("Please select valid file");
+      setPitch(null);
+      setPitchUrl(null);
+      return null
+    }
     setPitch(e.target.files?.[0] ?? null);
     if (e.target.files?.[0]) {
       const file = e.target.files[0];
@@ -40,7 +50,7 @@ const People_Insert_data = () => {
         .post(`${Base_url}/api/users/upload-files`, formData)
 
         .then((response) => {
-          setPitchUrl(response.data?.message ?? '');
+          setPitchUrl(response.data?.message ?? "");
         })
         .catch((err) => {
           console.log("error");
@@ -112,6 +122,11 @@ const People_Insert_data = () => {
 
     e.preventDefault();
 
+    if(!pitchUrl){
+      toast.error("Please select valid file");
+      return
+    }
+
     await authAxios.post(`${Base_url}/api/people/manage`, {
 
 
@@ -169,7 +184,7 @@ const People_Insert_data = () => {
             <form style={{ padding: "40px", borderRadius: "20px" }}>
               <h1 style={{ textAlign: "center", color: "#070A52", marginBottom: "20px" }}>Add People Data</h1>
 
-              <label for="exampleInputName" className="form-label">Company Id</label>
+              <label for="exampleInputName" className="form-label">Company Name</label>
               <div class="input-group">
                 <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={(e) => { add(e.target.value) }} value={company_id}>
                   <option selected className="active">Select Company Name</option>
@@ -178,7 +193,7 @@ const People_Insert_data = () => {
                       return (
                         <option
                           // onClick={()=>{add(item.user_id)}}
-                          value={item.user_id}
+                          value={item.id}
                         >{item.company_name}</option>
                       )
                     })
@@ -224,13 +239,15 @@ const People_Insert_data = () => {
 
 
               <label for="exampleInputRegistrationnum" className="form-label">
-                Profile Image
+              Profile Image (jpeg, png, jpg)
               </label>
               <input
                 onChange={updatePitch}
                 type="file"
                 className="form-control"
                 id="exampleInputBranch"
+                accept=".jpg,.png,.jpeg"
+
               />
               <div className="pt-3">
                 <input

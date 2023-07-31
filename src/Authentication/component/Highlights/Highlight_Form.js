@@ -3,6 +3,7 @@ import Dashboard from '../../Dashboard/Dashboard';
 import { useLocation, useNavigate } from "react-router-dom";
 import Base_url from "../Base_url";
 import { authAxios } from "../../../Services/auth.service";
+import { toast } from "react-toastify";
 
 
 const Highlights_Form = () =>{
@@ -13,7 +14,7 @@ const location1 = useLocation();
   const[status,setStatus] = useState(location1.state.bio.status);
   const [campaign_id , setcampaign_id] = useState(location1.state.bio.campaign_id);
   const[items2 , setItems2] =useState([]); 
-  const [highlight_image_url,sethighlightImageUrl] = useState(null)
+  const [highlight_image_url,sethighlightImageUrl] = useState(location1.state.bio.highlight_image)
 
   const updatetitle = (e) =>{
     settitle(e.target.value)
@@ -40,7 +41,7 @@ const location1 = useLocation();
     const getUploaded = async () => {
       
       try {
-          const response = await authAxios.get(`${Base_url}/api/campaign/manage`);
+          const response = await authAxios.get(`${Base_url}/api/campaign/manage/admin`);
           // console.log(response.data)
           setItems2(response.data)
           return response.data;
@@ -71,6 +72,14 @@ const location1 = useLocation();
 
 
     const updateImage = async (e) => {
+      const allowedFiles = ['jpg' , 'jpeg', 'png'];
+      const fileType = e.target.files?.[0] ? e.target.files?.[0]?.name.split('.').pop() : null
+      if(allowedFiles.indexOf(fileType?.toLowerCase()) === -1 || !fileType){
+        toast.error("Please select valid file");
+        sethighlight_image(null);
+        sethighlightImageUrl(null);
+        return null
+      }
       sethighlight_image(e.target.files?.[0] ?? null);
       if (e.target.files?.[0]) {
         const file = e.target.files[0];
@@ -85,7 +94,7 @@ const location1 = useLocation();
           .post(`${Base_url}/api/users/upload-files`, formData)
   
           .then((response) => {
-            sethighlightImageUrl(response.data?.message ?? '');
+            sethighlightImageUrl(response.data?.message ?? "");
           })
           .catch((err) => {
             console.log("error");
@@ -147,13 +156,14 @@ const location1 = useLocation();
               {/* <label for="exampleInputRollnum" className="form-label">HighLight Image</label>
               <input  type="text" className="form-control" id="exampleInputRollnum" value={highlight_image} onChange={updatehighlight_image}/> */}
 
-              <label className="form-label">HighLight Image : </label>
+              <label className="form-label">HighLight Image </label>
               {/* <input type="file" className="form-control" name="myImage" accept="image/png, image/gif, image/jpeg"  value={highlight_image} onChange={updatehighlight_image} /> */}
               <input
                 onChange={updateImage}
                 type="file"
                 className="form-control"
                 id="exampleInputBranch"
+                accept=".jpeg, .png, .jpg"
               />
               <div className="pt-3">
                 <input

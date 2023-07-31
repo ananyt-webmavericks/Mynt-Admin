@@ -4,6 +4,7 @@ import { authAxios } from "../../../Services/auth.service";
 import Base_url from "../Base_url";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const FounderContract = () => {
   const navigator = useNavigate();
@@ -61,6 +62,12 @@ const FounderContract = () => {
   const gotoAdd = async (e) => {
     e.preventDefault();
 
+    if(!pitchUrl){
+      toast.error("Please select valid file");
+      return
+    }
+
+
     await authAxios
       .post(`${Base_url}/api/documents/initiate-contract-with-founder`, {
         company_id:comp_id,
@@ -74,11 +81,13 @@ const FounderContract = () => {
 
       .then((response) => {
         setPost(response.data);
+        if(response.status === 200){
+          navigator("/home/campaign");
+        }
       })
       .catch((err) => {
         console.log("error");
       });
-    navigator("/home/campaign");
   };
 
   const add = (x) => {
@@ -86,6 +95,14 @@ const FounderContract = () => {
   };
 
   const updatePitch = async (e) => {
+    const allowedFiles = ['pdf'];
+    const fileType = e.target.files?.[0] ? e.target.files?.[0]?.name.split('.').pop() : null
+    if(allowedFiles.indexOf(fileType?.toLowerCase()) === -1 || !fileType){
+      toast.error("Please select valid file");
+      setPitch(null);
+      setPitchUrl(null);
+      return null
+    }
     setPitch(e.target.files?.[0] ?? null);
     if (e.target.files?.[0]) {
       const file = e.target.files[0];
@@ -170,7 +187,7 @@ const FounderContract = () => {
                           // onClick={() => {
                           //   add(item.user_id);
                           // }}
-                          value={item.user_id}
+                          value={item.id}
                         >
                           {item.company_name}
                         </option>
@@ -179,13 +196,14 @@ const FounderContract = () => {
                 </select>
               </div>
               <label for="exampleInputRegistrationnum" className="form-label">
-                Upload Document
+                Upload Document (pdf)
               </label>
               <input
                 onChange={updatePitch}
                 type="file"
                 className="form-control"
                 id="exampleInputBranch"
+                accept=".pdf"
               />
               <div className="pt-3">
                 <input

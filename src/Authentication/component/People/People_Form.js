@@ -3,6 +3,8 @@ import Dashboard from '../../Dashboard/Dashboard';
 import { useLocation, useNavigate } from "react-router-dom";
 import Base_url from "../Base_url";
 import { authAxios } from "../../../Services/auth.service";
+import { toast } from "react-toastify";
+
 
 const People_Form = () =>{
   const location1 = useLocation();
@@ -17,10 +19,18 @@ const People_Form = () =>{
   const[description , setDescription] = useState(location1.state.bio.description);
   const[profile,setProfile] = useState(location1.state.bio.profile_image);
   const[items, setItems] = useState();
-  const [pitchUrl, setPitchUrl] = useState(null);
+  const [pitchUrl, setPitchUrl] = useState(location1.state.bio.profile_image);
   const [pitch, setPitch] = useState();
 
   const updatePitch = async (e) => {
+    const allowedFiles = ['jpg','jpeg','png'];
+    const fileType = e.target.files?.[0] ? e.target.files?.[0]?.name.split('.').pop() : null
+    if(allowedFiles.indexOf(fileType?.toLowerCase()) === -1 || !fileType){
+      toast.error("Please select valid file");
+      setPitch(null);
+      setPitchUrl(null);
+      return null
+    }
     setPitch(e.target.files?.[0] ?? null);
     if (e.target.files?.[0]) {
       const file = e.target.files[0];
@@ -35,7 +45,7 @@ const People_Form = () =>{
         .post(`${Base_url}/api/users/upload-files`, formData)
 
         .then((response) => {
-          setPitchUrl(response.data?.message ?? '');
+          setPitchUrl(response.data?.message ?? "");
         })
         .catch((err) => {
           console.log("error");
@@ -45,7 +55,7 @@ const People_Form = () =>{
       setPitchUrl(null);
     }
   };
-
+  
   const updateType = (e) =>{
     setType(e.target.value)
   }
@@ -96,6 +106,11 @@ getUploadedDocs();
   },[])
 
   const gotoAdd = async() => {
+
+    if(!pitchUrl){
+      toast.error("Please select valid file");
+      return
+    }
     
     const values = {           
        
@@ -110,7 +125,7 @@ getUploadedDocs();
        instagram_link : insta,
        linked_in_link : linked,
        description : description,
-       profile_image:profile,
+       profile_image:pitchUrl,
        }
        
       await authAxios.patch(`${Base_url}/api/people/manage`,values);
@@ -152,10 +167,14 @@ getUploadedDocs();
                 </div>
             
             
-              <label for="exampleInputRollnum" className="form-label">Type</label>
-              <input  type="text" className="form-control" id="exampleInputRollnum" value={type} onChange={updateType}/>
-            
-            
+                <label for="exampleInputRollnum" className="form-label">Type</label>
+
+              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" value={type} onChange={updateType} >
+                <option selected className="active">Type</option>
+                <option value={"TEAM"}>TEAM</option>
+                <option value={"INVESTOR"}>INVESTOR</option>
+                <option value={"ADVISOR"}>ADVISOR</option>
+              </select>
               <label for="exampleInputRegistrationnum" className="form-label">Name</label>
               <input  type="text" className="form-control" id="exampleInputeRegistrationnum" value={name} onChange={updateName}/>
             
@@ -181,20 +200,22 @@ getUploadedDocs();
 
               
               <label for="exampleInputRegistrationnum" className="form-label">
-                Profile Image
+              Profile Image (jpeg, png, jpg)
               </label>
               <input
                 onChange={updatePitch}
                 type="file"
                 className="form-control"
                 id="exampleInputBranch"
+                accept=".jpg,.png,.jpeg"
+
               />
               <div className="pt-3">
                 <input
                   type="text"
                   className="form-control"
                   id="exampleInputeRegistrationnum"
-                  defaultValue={pitchUrl}
+                  value={pitchUrl}
                   // onChange={updatePitch}
                   disabled
                 />

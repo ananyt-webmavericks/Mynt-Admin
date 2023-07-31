@@ -3,6 +3,8 @@ import Dashboard from "../../Dashboard/Dashboard";
 import { useNavigate } from "react-router-dom";
 import Base_url from "../Base_url";
 import { authAxios } from "../../../Services/auth.service";
+import { toast } from "react-toastify";
+
 
 const Documents_insert_data = () => {
   const [id, setid] = useState();
@@ -44,6 +46,14 @@ const Documents_insert_data = () => {
   };
 
   const updateDocument = async (e) => {
+    const allowedFiles = ['pdf'];
+    const fileType = e.target.files?.[0] ? e.target.files?.[0]?.name.split('.').pop() : null
+    if(allowedFiles.indexOf(fileType?.toLowerCase()) === -1 || !fileType){
+      toast.error("Please select valid file");
+      setdocument(null);
+      setdocumentUrl(null);
+      return null
+    }
     setdocument(e.target.files?.[0] ?? null);
     if (e.target.files?.[0]) {
       const file = e.target.files[0];
@@ -58,7 +68,7 @@ const Documents_insert_data = () => {
         .post(`${Base_url}/api/users/upload-files`, formData)
 
         .then((response) => {
-          setdocumentUrl(response.data?.message ?? '');
+          setdocumentUrl(response.data?.message ?? "");
         })
         .catch((err) => {
           console.log("error");
@@ -70,7 +80,6 @@ const Documents_insert_data = () => {
   };
 
   const add = (x) => {
-    console.log(x);
     setcompany_id(x);
   };
 
@@ -78,7 +87,6 @@ const Documents_insert_data = () => {
     const getUploadedDocs = async () => {
       try {
         const response = await authAxios.get(`${Base_url}/api/company/manage`);
-        console.log(response.data);
         setItems(response.data);
         return response.data;
       } catch (error) {
@@ -94,6 +102,10 @@ const Documents_insert_data = () => {
   const gotoAdd = async (e) => {
     e.preventDefault();
 
+    if(!document_url){
+      toast.error("Please select valid file");
+      return
+    }
     const values = {
       // document_id: +id,
       company_id: company_id,
@@ -157,7 +169,7 @@ const Documents_insert_data = () => {
                           // onClick={() => {
                           //   add(item.user_id);
                           // }}
-                          value={item.user_id}
+                          value={item.id}
                         >
                           {item.company_name}
                         </option>
@@ -231,13 +243,15 @@ const Documents_insert_data = () => {
                 </select>
 
                 <label for="exampleInputRegistrationnum" className="form-label">
-                Document
+                Document (pdf)
               </label>
               <input
                 onChange={updateDocument}
                 type="file"
                 className="form-control"
                 id="exampleInputBranch"
+                accept=".pdf"
+
               />
               <div className="pt-3">
                 <input
