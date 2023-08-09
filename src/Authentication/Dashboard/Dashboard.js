@@ -90,51 +90,29 @@ function Dashboard(props) {
                 </h1>
               </div>
 
-              <div
-                class=" rounded-circle dropdown "
-                type="button"
-                id="dropdownMenuButton"
-                data-mdb-toggle="dropdown"
-                aria-expanded="false"
-                style={{
-                  backgroundColor: "orange",
-                  height: "40px",
-                  width: "40px",
-                  marginRight: "60px",
-                }}
-              >
-                <p
-                  style={{
-                    justifyContent: "center",
-                    padding: "7px 0px 0px 12px",
-                    color: "white",
-                    textDecoration: "none",
-                  }}
-                >
-                  N
-                </p>
-                <ul
-                  class="dropdown-menu"
-                  aria-labelledby="dropdownMenuButton"
-                  style={{ marginTop: "-5px" }}
-                >
-                  <li>
-                    <a class="dropdown-item" href="/" onClick={logout}>
-                      Logout
-                    </a>
-                  </li>
-                </ul>
+              <div class="logout-dropdown">
+                <button class="logout-button">A</button>
+                <div class="dropdown-content">
+                  <a href="/">Logout</a>
+                </div>
               </div>
             </div>
           </nav>
         </div>
       </div>
 
-      <div className="row" >
-        <div className="col-lg-8" >
+      <div className="row">
+        <div className="col-lg-8">
           <IconContext.Provider value={{ color: "#fff" }}>
             <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
-              <ul className="nav-menu-items" style={{overflowY:'auto',overflowX: 'hidden', marginBottom : '100px'}}>
+              <ul
+                className="nav-menu-items"
+                style={{
+                  overflowY: "auto",
+                  overflowX: "hidden",
+                  marginBottom: "100px",
+                }}
+              >
                 <li
                   key={0}
                   className={SidebarData[0].cName}

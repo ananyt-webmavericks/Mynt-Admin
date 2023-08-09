@@ -1,96 +1,112 @@
 import React, { useState, useEffect } from "react";
-import Dashboard from '../../Dashboard/Dashboard';
+import Dashboard from "../../Dashboard/Dashboard";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Base_url from "../Base_url";
 import { authAxios } from "../../../Services/auth.service";
 
 const Deal_Term_Insert_data = () => {
-  const location1 = useLocation()
+  const location1 = useLocation();
   const [campaign_id, setCampaign_id] = useState();
   const [security_type, setSecurity_type] = useState();
   const [discount, setDiscount] = useState();
   const [valuation_cap, setValuation_cap] = useState();
   const [min_subscription, setMin_subscription] = useState();
   const [target, setTarget] = useState();
+  const [enable_offline, setenable_offline] = useState();
   const [end_date, setEnd_date] = useState();
+  const [bank_name, setBank_name] = useState();
+  const [account_no, setAccount_no] = useState();
+  const [account_name, setAccount_name] = useState();
+  const [ifsc_code, setIfsc_code] = useState();
   const [items, setItems] = useState([]);
   const [items2, setItems2] = useState([]);
 
   const navigator = useNavigate();
 
-  const updateSecurity = (e) =>{
-    setSecurity_type(e)
-  }
+  const updateSecurity = (e) => {
+    setSecurity_type(e);
+  };
   const updateDiscount = (e) => {
-    setDiscount(e.target.value)
-  }
+    setDiscount(e.target.value);
+  };
   const updateValue = (e) => {
-    setValuation_cap(e.target.value)
-  }
+    setValuation_cap(e.target.value);
+  };
   const updateMin = (e) => {
-    setMin_subscription(e.target.value)
-  }
+    setMin_subscription(e.target.value);
+  };
   const updateTarget = (e) => {
-    setTarget(e.target.value)
-  }
+    setTarget(e.target.value);
+  };
   const updateEnd = (e) => {
-    setEnd_date(e.target.value)
-  }
+    setEnd_date(e.target.value);
+  };
+  const updateBankName = (e) => {
+    setBank_name(e.target.value);
+  };
+  const updateAccountNo = (e) => {
+    setAccount_no(e.target.value);
+  };
+  const updateAccountName = (e) => {
+    setAccount_name(e.target.value);
+  };
+  const updateIfscCode = (e) => {
+    setIfsc_code(e.target.value);
+  };
 
+  const updateEnable_offline = (e) => {
+    setenable_offline(e.target.value);
+  };
 
   const add = (x) => {
     console.log(x);
     setCampaign_id(x);
-  }
+  };
 
   const add1 = (x) => {
     console.log(x);
     setSecurity_type(x);
-  }
+  };
   useEffect(() => {
     const getUploadedDocs = async () => {
-
       try {
-        const response = await authAxios.get(`${Base_url}/api/deal_type/manage`);
-        console.log(response.data)
-        setItems(response.data)
+        const response = await authAxios.get(
+          `${Base_url}/api/deal_type/manage`
+        );
+        console.log(response.data);
+        setItems(response.data);
         return response.data;
-      }
-      catch (error) {
+      } catch (error) {
         if (error) {
-          console.log(error)
+          console.log(error);
         }
         return error;
       }
-    }
+    };
     getUploadedDocs();
     const getUploaded = async () => {
-
       try {
-        const response = await authAxios.get(`${Base_url}/api/campaign/manage/admin`);
-        console.log(response.data)
-        setItems2(response.data)
+        const response = await authAxios.get(
+          `${Base_url}/api/campaign/manage/admin`
+        );
+        console.log(response.data);
+        setItems2(response.data);
         return response.data;
-      }
-      catch (error) {
+      } catch (error) {
         if (error) {
-          console.log(error)
+          console.log(error);
         }
         return error;
       }
-    }
+    };
     getUploaded();
-  }, [])
+  }, []);
 
   const gotoAdd = async (e) => {
-
     e.preventDefault();
 
-
-
     const values = {
-
       campaign_id: +campaign_id,
 
       security_type_id: security_type,
@@ -104,83 +120,212 @@ const Deal_Term_Insert_data = () => {
       target: target,
 
       end_date: end_date,
-
-    }
+      enable_offline: enable_offline,
+      bank_name: bank_name,
+      account_no: account_no,
+      ifsc_code: ifsc_code,
+      account_name: account_name,
+    };
     console.log(values);
     await authAxios.post(`${Base_url}/api/deal_terms/manage`, values);
-    navigator("/home/deal_term")
-  }
+    navigator("/home/deal_term");
+  };
   return (
     <>
-      <div className='container-fluid'>
+      <div className="container-fluid">
         {/* <div className='row'>
             <Dashboard 
             f1 = {true}
             f2 = {false}
             />
         </div> */}
-        <div className='row justify-content-center mb-5'>
-          <div style={{
+        <div className="row justify-content-center mb-5">
+          <div
+            style={{
               borderRadius: "20px",
               backgroundColor: "#BACDDB",
-            }}>
+            }}
+          >
             <form style={{ padding: "40px" }}>
-              <h1 style={{ textAlign: "center", color: "#070A52" }}>Add  Deal Term Data</h1>
+              <h1 style={{ textAlign: "center", color: "#070A52" }}>
+                Add Deal Term Data
+              </h1>
 
-
-              <label for="exampleInputName" className="form-label">Campaign Id</label>
+              <label for="exampleInputName" className="form-label">
+                Campaign Id
+              </label>
               <div class="input-group">
-                <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={(e)=>{add(e.target.value)}} value={campaign_id}>
-                  <option selected className="active">Select campaign id</option>
-                  {
-                    items2 && items2.map((item) => {
+                <select
+                  class="form-select"
+                  id="inputGroupSelect04"
+                  aria-label="Example select with button addon"
+                  onChange={(e) => {
+                    add(e.target.value);
+                  }}
+                  value={campaign_id}
+                >
+                  <option selected className="active">
+                    Select campaign id
+                  </option>
+                  {items2 &&
+                    items2.map((item) => {
                       return (
-                        <option 
-                        // onClick={() => { add(item.id) }}
-                        value={item.id}
-                         >{item.id}</option>
-                      )
-                    })
-                  }
+                        <option
+                          // onClick={() => { add(item.id) }}
+                          value={item.id}
+                        >
+                          {item.id}
+                        </option>
+                      );
+                    })}
                 </select>
               </div>
-              <label for="exampleInputName" className="form-label">Security Type</label>
+              <label for="exampleInputName" className="form-label">
+                Security Type
+              </label>
               <div class="input-group">
-                <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={(e)=>{updateSecurity(e.target.value)}} value={security_type}>
-                  <option selected className="active">Select security type</option>
-                  {
-                    items && items.map((item) => {
-                      return (
-                        <option value={item.id} >{item.deal_name}</option>
-                      )
-                    })
-                  }
+                <select
+                  class="form-select"
+                  id="inputGroupSelect04"
+                  aria-label="Example select with button addon"
+                  onChange={(e) => {
+                    updateSecurity(e.target.value);
+                  }}
+                  value={security_type}
+                >
+                  <option selected className="active">
+                    Select security type
+                  </option>
+                  {items &&
+                    items.map((item) => {
+                      return <option value={item.id}>{item.deal_name}</option>;
+                    })}
                 </select>
               </div>
-              <label for="exampleInputRollnum" className="form-label">Discount</label>
-              <input type="number" className="form-control" id="exampleInputRollnum" value={discount} onChange={updateDiscount} />
+              <label for="exampleInputRollnum" className="form-label">
+                Discount
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                id="exampleInputRollnum"
+                value={discount}
+                onChange={updateDiscount}
+              />
 
+              <label for="exampleInputRegistrationnum" className="form-label">
+                Valuation Cap
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                id="exampleInputeRegistrationnum"
+                value={valuation_cap}
+                onChange={updateValue}
+              />
 
-              <label for="exampleInputRegistrationnum" className="form-label">Valuation Cap</label>
-              <input type="number" className="form-control" id="exampleInputeRegistrationnum" value={valuation_cap} onChange={updateValue} />
+              <label for="exampleInputBranch" className="form-label">
+                Min Subscription
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                id="exampleInputBranch"
+                value={min_subscription}
+                onChange={updateMin}
+              />
+              <label for="exampleInputBranch" className="form-label">
+                Bank Name
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="exampleInputBranch"
+                value={bank_name}
+                onChange={updateBankName}
+              />
+              <label for="exampleInputBranch" className="form-label">
+                Account Name
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="exampleInputBranch"
+                value={account_name}
+                onChange={updateAccountName}
+              />
+              <label for="exampleInputBranch" className="form-label">
+                Account Number
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                id="exampleInputBranch"
+                value={account_no}
+                onChange={updateAccountNo}
+              />
+              <label for="exampleInputBranch" className="form-label">
+                IFSC Code
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="exampleInputBranch"
+                value={ifsc_code}
+                onChange={updateIfscCode}
+              />
 
+              <label for="exampleInputpassword" className="form-label">
+                Target
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                id="exampleInputPassword1"
+                value={target}
+                onChange={updateTarget}
+              />
 
-              <label for="exampleInputBranch" className="form-label">Min Subscription</label>
-              <input type="number" className="form-control" id="exampleInputBranch" value={min_subscription} onChange={updateMin} />
+              <label for="exampleInputBranch" className="form-label">
+                End Date
+              </label>
+              <input
+                type="date"
+                className="form-control"
+                id="exampleInputBranch"
+                value={end_date}
+                onChange={updateEnd}
+              />
 
-
-              <label for="exampleInputpassword" className="form-label">Target</label>
-              <input type="number" className="form-control" id="exampleInputPassword1" value={target} onChange={updateTarget} />
-
-              <label for="exampleInputBranch" className="form-label">End Date</label>
-              <input type="date" className="form-control" id="exampleInputBranch" value={end_date} onChange={updateEnd} />
-
-              <button type="submit" className="btn btn-success" style={{ marginTop: "30px" }} onClick={gotoAdd}>Submit</button>
+              <label for="exampleInputpassword" className="form-label">
+                Enable Offline
+              </label>
+              <select
+                class="form-select"
+                id="inputGroupSelect04"
+                aria-label="Example select with button addon"
+                value={enable_offline}
+                onChange={updateEnable_offline}
+              >
+                <option selected className="active">
+                  Select an Option
+                </option>
+                <option value={true}>True</option>
+                <option value={false}>False</option>
+              </select>
+              <button
+                type="submit"
+                className="btn btn-success"
+                style={{ marginTop: "30px" }}
+                onClick={gotoAdd}
+              >
+                Submit
+              </button>
             </form>
           </div>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 export default Deal_Term_Insert_data;

@@ -59,24 +59,30 @@ import CampCampaign from "./Authentication/component/CampUnderReview/CampaignRel
 import Dashboard from "./Authentication/Dashboard/Dashboard";
 import FounderContract from "./Authentication/component/founderContract";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
+import PaymentForm from "./Authentication/Payments/Payments_form";
 
 const App = () => {
   const location = useLocation();
   return (
-    
     <div className="row" style={{ overflowX: "hidden" }}>
-      <div className={location.pathname!=='/' ? "col-3 pe-0" : ''} style={{ width: "23%" }}>
+      <div
+        className={location.pathname !== "/" ? "col-3 pe-0" : ""}
+        style={{ width: "23%" }}
+      >
         <Dashboard />
       </div>
-      
-      <div className={location.pathname!=='/' ? "col-9 pe-0" : ''} style={{ marginTop: location.pathname!=='/' ? "100px": "0" }}>
-      <ToastContainer
-        position="top-right" 
-        autoClose={4000} 
-        // style={{position:'absolute',top: '100px'}} 
-        containerId="toaster"
-      />
+
+      <div
+        className={location.pathname !== "/" ? "col-9 pe-0" : ""}
+        style={{ marginTop: location.pathname !== "/" ? "100px" : "0" }}
+      >
+        <ToastContainer
+          position="top-right"
+          autoClose={4000}
+          // style={{position:'absolute',top: '100px'}}
+          containerId="toaster"
+        />
         <Routes>
           <Route path="/" element={<Emailv />} exact />
           <Route path="/home" element={<Home />} exact />
@@ -184,6 +190,8 @@ const App = () => {
             exact
           />
           <Route path="/home/payments" element={<Payments />} exact />
+          <Route path="/home/paymentForm/:id" element={<PaymentForm />} exact />
+
           <Route path="/home/user-invest" element={<User_Invest />} exact />
           <Route
             path="/home/user-invest/insert"

@@ -80,11 +80,45 @@
     margin-left: 16px;
   }
 
-  .dropdown:hover>.dropdown-menu {
+
+
+  .logout-dropdown {
+    position: relative;
+    display: inline-block;
+    margin: 20px;
+}
+
+.logout-button {
+    background-color: #ffac13;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    z-index: 1;
+    min-width: 150px;
+}
+
+.dropdown-content a {
     display: block;
-  }
-  
-  .dropdown>.dropdown-toggle:active {
-    /*Without this, clicking will make it sticky*/
-      pointer-events: none;
-  }
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.3s;
+}
+
+.dropdown-content a:hover {
+    background-color: #f2f2f2;
+}
+
+.logout-dropdown:hover .dropdown-content {
+    display: block;
+}
