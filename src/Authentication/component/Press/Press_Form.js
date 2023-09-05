@@ -19,12 +19,23 @@ const Press_Form = () => {
   const [pitchUrl, setPitchUrl] = useState(null);
   const [pitch, setPitch] = useState();
 
-  
-  const [banner1, setBanner1] = useState(Array.isArray(location1.state.bio.banner_images) ? location1.state.bio?.banner_images?.[0] ?? '' : location1.state.bio?.banner_images);
-  const [banner2, setBanner2] = useState(Array.isArray(location1.state.bio.banner_images) ? location1.state.bio.banner_images?.[1] ?? '' : '');
-  const [banner3, setBanner3] = useState(Array.isArray(location1.state.bio.banner_images) ? location1.state.bio.banner_images?.[2] ?? '' : '');
+  const [banner1, setBanner1] = useState(
+    Array.isArray(location1.state.bio.banner_images)
+      ? location1.state.bio?.banner_images?.[0] ?? ""
+      : location1.state.bio?.banner_images
+  );
+  const [banner2, setBanner2] = useState(
+    Array.isArray(location1.state.bio.banner_images)
+      ? location1.state.bio.banner_images?.[1] ?? ""
+      : ""
+  );
+  const [banner3, setBanner3] = useState(
+    Array.isArray(location1.state.bio.banner_images)
+      ? location1.state.bio.banner_images?.[2] ?? ""
+      : ""
+  );
 
-  const updateBannerImage = async (e,setter) => {
+  const updateBannerImage = async (e, setter) => {
     const allowedFiles = ["jpg", "jpeg", "png"];
     const fileType = e.target.files?.[0]
       ? e.target.files?.[0]?.name.split(".").pop()
@@ -59,6 +70,11 @@ const Press_Form = () => {
       setter(null);
     }
   };
+
+  const back = () => {
+    navigator("/home/press");
+  };
+
   const updateTitle = (e) => {
     setTitle(e.target.value);
   };
@@ -199,7 +215,7 @@ const Press_Form = () => {
                 onChange={updateDescription}
               />
 
-<label for="exampleInputRegistrationnum" className="form-label">
+              <label for="exampleInputRegistrationnum" className="form-label">
                 Banners (jpeg, png, jpg)
               </label>
               <input
@@ -256,9 +272,21 @@ const Press_Form = () => {
               <button
                 type="submit"
                 className="btn btn-success"
-                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+                style={{
+                  marginTop: "30px",
+                  backgroundColor: "#1a83ff",
+                  marginRight: "20px",
+                }}
               >
                 Submit
+              </button>
+              <button
+                type="button"
+                onClick={back}
+                className="btn btn-success"
+                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+              >
+                Back
               </button>
             </form>
           </div>

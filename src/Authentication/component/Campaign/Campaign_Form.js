@@ -20,8 +20,11 @@ const Campaign_Form = () => {
   const [pitch, setPitch] = useState(null);
   const [pitchUrl, setPitchUrl] = useState(location1.state.bio.pitch);
 
-
   const navigator = useNavigate();
+
+  const back = () => {
+    navigator("/home/campaign");
+  };
 
   const updateYoutube = (e) => {
     setYoutube_link(e.target.value);
@@ -29,6 +32,7 @@ const Campaign_Form = () => {
   const updateAmadate = (e) => {
     setAma_date(e.target.value);
   };
+
   const updateAmameet = (e) => {
     setAma_meet(e.target.value);
   };
@@ -36,13 +40,15 @@ const Campaign_Form = () => {
     setAma_youtube(e.target.value);
   };
   const updatePitch = async (e) => {
-    const allowedFiles = ['pdf'];
-    const fileType = e.target.files?.[0] ? e.target.files?.[0]?.name.split('.').pop() : null
-    if(allowedFiles.indexOf(fileType?.toLowerCase()) === -1 || !fileType){
+    const allowedFiles = ["pdf"];
+    const fileType = e.target.files?.[0]
+      ? e.target.files?.[0]?.name.split(".").pop()
+      : null;
+    if (allowedFiles.indexOf(fileType?.toLowerCase()) === -1 || !fileType) {
       toast.error("Please select valid file");
       setPitch(null);
       setPitchUrl(null);
-      return null
+      return null;
     }
     setPitch(e.target.files?.[0] ?? null);
     if (e.target.files?.[0]) {
@@ -96,10 +102,9 @@ const Campaign_Form = () => {
   }, []);
 
   const gotoAdd = async () => {
-
-    if(!pitchUrl){
+    if (!pitchUrl) {
       toast.error("Please select valid file");
-      return
+      return;
     }
 
     const values = {
@@ -112,108 +117,110 @@ const Campaign_Form = () => {
       pitch: pitchUrl,
       status: status,
     };
- 
+
     await authAxios.patch(`${Base_url}/api/campaign/manage`, values);
     console.log("successful");
     navigator("/home/campaign");
   };
   return (
     <>
-    <div className="container-fluid">
-      <div className="row justify-content-center mb-5">
-        <div style={{ borderRadius: "20px", backgroundColor: "#BACDDB" }} >
-          <form
-            style={{ padding: "40px", borderRadius: "20px" }}
-            onSubmit={(e) => {
-              e.preventDefault();
-              gotoAdd();
-            }}
-          >
-            <h1
-              style={{
-                textAlign: "center",
-                color: "#070A52",
-                marginBottom: "20px",
+      <div className="container-fluid">
+        <div className="row justify-content-center mb-5">
+          <div style={{ borderRadius: "20px", backgroundColor: "#BACDDB" }}>
+            <form
+              style={{ padding: "40px", borderRadius: "20px" }}
+              onSubmit={(e) => {
+                e.preventDefault();
+                gotoAdd();
               }}
             >
-              Update Campaign Data
-            </h1>
-
-            <label for="exampleInputName" className="form-label">
-              Company Name
-            </label>
-            <div class="input-group">
-              <select
-                class="form-select"
-                id="inputGroupSelect04"
-                aria-label="Example select with button addon"
-                onChange={(e)=>{add(e.target.value)}}
-                value={comp_id}
+              <h1
+                style={{
+                  textAlign: "center",
+                  color: "#070A52",
+                  marginBottom: "20px",
+                }}
               >
-                <option selected className="active">
-                  Select Company Name
-                </option>
-                {items &&
-                  items.map((item) => {
-                    return (
-                      <option
-                        // onClick={() => {
-                        //   add(item.user_id);
-                        // }}
-                        value={item.id}
-                      >
-                        {item.company_name}
-                      </option>
-                    );
-                  })}
-              </select>
-            </div>
+                Update Campaign Data
+              </h1>
 
-            <label for="exampleInput" className="form-label">
-              Youtube Link
-            </label>
-            <input
-              type="link"
-              className="form-control"
-              id="exampleInputeRegistrationnum"
-              value={youtube_link}
-              onChange={updateYoutube}
-            />
+              <label for="exampleInputName" className="form-label">
+                Company Name
+              </label>
+              <div class="input-group">
+                <select
+                  class="form-select"
+                  id="inputGroupSelect04"
+                  aria-label="Example select with button addon"
+                  onChange={(e) => {
+                    add(e.target.value);
+                  }}
+                  value={comp_id}
+                >
+                  <option selected className="active">
+                    Select Company Name
+                  </option>
+                  {items &&
+                    items.map((item) => {
+                      return (
+                        <option
+                          // onClick={() => {
+                          //   add(item.user_id);
+                          // }}
+                          value={item.id}
+                        >
+                          {item.company_name}
+                        </option>
+                      );
+                    })}
+                </select>
+              </div>
 
-            <label for="exampleInputRegistrationnum" className="form-label">
-              Ama date
-            </label>
-            <input
-              type="date"
-              className="form-control"
-              id="exampleInputeRegistrationnum"
-              value={ama_date}
-              onChange={updateAmadate}
-            />
+              <label for="exampleInput" className="form-label">
+                Youtube Link
+              </label>
+              <input
+                type="link"
+                className="form-control"
+                id="exampleInputeRegistrationnum"
+                value={youtube_link}
+                onChange={updateYoutube}
+              />
 
-            <label for="exampleInputRegistrationnum" className="form-label">
-              Ama Meet Link
-            </label>
-            <input
-              type="link"
-              className="form-control"
-              id="exampleInputeRegistrationnum"
-              value={ama_meet}
-              onChange={updateAmameet}
-            />
+              <label for="exampleInputRegistrationnum" className="form-label">
+                Ama date
+              </label>
+              <input
+                type="date"
+                className="form-control"
+                id="exampleInputeRegistrationnum"
+                value={ama_date}
+                onChange={updateAmadate}
+              />
 
-            <label for="exampleInputRegistrationnum" className="form-label">
-              Ama Youtube
-            </label>
-            <input
-              type="link"
-              className="form-control"
-              id="exampleInputeRegistrationnum"
-              value={ama_youtube}
-              onChange={updateAmayoutube}
-            />
+              <label for="exampleInputRegistrationnum" className="form-label">
+                Ama Meet Link
+              </label>
+              <input
+                type="link"
+                className="form-control"
+                id="exampleInputeRegistrationnum"
+                value={ama_meet}
+                onChange={updateAmameet}
+              />
 
-            {/* <label for="exampleInputRegistrationnum" className="form-label">
+              <label for="exampleInputRegistrationnum" className="form-label">
+                Ama Youtube
+              </label>
+              <input
+                type="link"
+                className="form-control"
+                id="exampleInputeRegistrationnum"
+                value={ama_youtube}
+                onChange={updateAmayoutube}
+              />
+
+              {/* <label for="exampleInputRegistrationnum" className="form-label">
               Pitch
             </label>
             <input
@@ -223,7 +230,7 @@ const Campaign_Form = () => {
               value={pitch}
               onChange={updatePitch}
             /> */}
-            <label for="exampleInputRegistrationnum" className="form-label">
+              <label for="exampleInputRegistrationnum" className="form-label">
                 Pitch (pdf)
               </label>
               <input
@@ -232,7 +239,6 @@ const Campaign_Form = () => {
                 className="form-control"
                 id="exampleInputBranch"
                 accept=".pdf"
-
               />
               <div className="pt-3">
                 <input
@@ -245,40 +251,52 @@ const Campaign_Form = () => {
                 />
               </div>
 
-            <label for="exampleInput" className="form-label">
-              Status
-            </label>
-            <div class="input-group">
-              <select
-                class="form-select"
-                id="inputGroupSelect04"
-                aria-label="Example select with button addon"
-                onChange={updateStatus}
-                value={status}
+              <label for="exampleInput" className="form-label">
+                Status
+              </label>
+              <div class="input-group">
+                <select
+                  class="form-select"
+                  id="inputGroupSelect04"
+                  aria-label="Example select with button addon"
+                  onChange={updateStatus}
+                  value={status}
+                >
+                  <option selected className="active">
+                    Select Option
+                  </option>
+                  <option value="CREATED">CREATED</option>
+                  <option value="UNDER REVIEW">UNDER REVIEW</option>
+                  <option value="CHANGES REQUESTED">CHANGES REQUESTED</option>
+                  <option value="APPROVED">APPROVED</option>
+                  <option value="LIVE">LIVE</option>
+                  <option value="COMPLETED">COMPLETED</option>
+                  <option value="REFUNDED">REFUNDED</option>
+                  <option value="CLOSED">CLOSED</option>
+                </select>
+              </div>
+              <button
+                type="submit"
+                className="btn btn-success"
+                style={{
+                  marginTop: "30px",
+                  backgroundColor: "#1a83ff",
+                  marginRight: "20px",
+                }}
               >
-                <option selected className="active">
-                  Select Option
-                </option>
-                <option  value="CREATED">CREATED</option>
-                <option value="UNDER REVIEW">UNDER REVIEW</option>
-                <option value="CHANGES REQUESTED">CHANGES REQUESTED</option>
-                <option value="APPROVED">APPROVED</option>
-                <option value="LIVE">LIVE</option>
-                <option value="COMPLETED">COMPLETED</option>
-                <option value="REFUNDED">REFUNDED</option>
-                <option value="CLOSED">CLOSED</option>
-              </select>
-            </div>
-            <button
-              type="submit"
-              className="btn btn-success"
-              style={{ marginTop: "30px" , backgroundColor: '#1a83ff'}}
-            >
-              Submit
-            </button>
-          </form>
+                Submit
+              </button>
+              <button
+                type="button"
+                onClick={back}
+                className="btn btn-success"
+                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+              >
+                Back
+              </button>
+            </form>
+          </div>
         </div>
-      </div>
       </div>
     </>
   );

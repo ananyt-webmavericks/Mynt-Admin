@@ -8,12 +8,22 @@ import { toast } from "react-toastify";
 
 const CampDocument = () => {
   const location1 = useLocation();
-  const [document_type, setdocument_type] = useState();
-  const [document_name, setdocument_name] = useState();
-  const [agreement_status, setagreement_status] = useState();
-  const [document_id, setDocument_id] = useState();
+  const [document_type, setdocument_type] = useState(
+    location1.state.bio.document_type
+  );
+  const [document_name, setdocument_name] = useState(
+    location1.state.bio.document_name
+  );
+  const [agreement_status, setagreement_status] = useState(
+    location1.state.bio.agreement_status
+  );
+  const [document_id, setDocument_id] = useState(
+    location1.state.bio.company_id
+  );
   const [ind, setInd] = useState();
-  const [document_url, setdocumentUrl] = useState();
+  const [document_url, setdocumentUrl] = useState(
+    location1.state.bio.document_url
+  );
   const [document, setdocument] = useState();
 
   const updatedocument_type = (e) => {
@@ -25,6 +35,7 @@ const CampDocument = () => {
   const updateagreement_status = (e) => {
     setagreement_status(e.target.value);
   };
+
   const navigator = useNavigate();
 
   useEffect(() => {
@@ -72,9 +83,9 @@ const CampDocument = () => {
     }
   };
   const gotoAdd = async () => {
-    if(!document_url){
+    if (!document_url) {
       toast.error("Please select valid file");
-      return
+      return;
     }
     const values = {
       document_id: document_id,
@@ -87,7 +98,9 @@ const CampDocument = () => {
 
     await authAxios.patch(`${Base_url}/api/documents/manage`, values);
 
-    navigator(`/home/under-update/${location1.state.bio.id}`);
+    navigator(`/home/under-update/${location1.state.bio.id}`, {
+      state: { bio: location1.state.bio },
+    });
   };
   const add1 = (x) => {
     setDocument_id(x);
@@ -97,7 +110,11 @@ const CampDocument = () => {
     setdocumentUrl(dt?.document_url ?? "");
     setagreement_status(dt?.agreement_status ?? "");
   };
-
+  const back = () => {
+    navigator(`/home/under-update/${location1.state.bio.id}`, {
+      state: { bio: location1.state.bio },
+    });
+  };
   return (
     <>
       <div className="container-fluid">
@@ -181,7 +198,7 @@ const CampDocument = () => {
                 onChange={updatedocument_name}
               />
 
-<label for="exampleInputRegistrationnum" className="form-label">
+              <label for="exampleInputRegistrationnum" className="form-label">
                 Agreement Status
               </label>
 
@@ -227,9 +244,21 @@ const CampDocument = () => {
               <button
                 type="submit"
                 className="btn btn-success"
-                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+                style={{
+                  marginTop: "30px",
+                  backgroundColor: "#1a83ff",
+                  marginRight: "20px",
+                }}
               >
                 Submit
+              </button>
+              <button
+                type="button"
+                onClick={back}
+                className="btn btn-success"
+                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+              >
+                Back
               </button>
             </form>
           </div>

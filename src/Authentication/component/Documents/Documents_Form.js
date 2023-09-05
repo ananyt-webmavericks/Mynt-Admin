@@ -5,9 +5,9 @@ import Base_url from "../Base_url";
 import { authAxios } from "../../../Services/auth.service";
 import { toast } from "react-toastify";
 
-
 const Documents_Form = () => {
   const location1 = useLocation();
+
   const [document_type, setdocumentType] = useState(
     location1.state.bio.document_type
   );
@@ -23,15 +23,20 @@ const Documents_Form = () => {
   );
   const [items, setItems] = useState([]);
   const [document, setdocument] = useState();
+  const back = () => {
+    navigator("/home/documents");
+  };
 
   const updateDocument = async (e) => {
-    const allowedFiles = '.pdf';
-    const fileType = e.target.files?.[0] ? e.target.files?.[0]?.name.split('.').pop() : null
-    if(allowedFiles.indexOf(fileType?.toLowerCase()) === -1 || !fileType){
+    const allowedFiles = ".pdf";
+    const fileType = e.target.files?.[0]
+      ? e.target.files?.[0]?.name.split(".").pop()
+      : null;
+    if (allowedFiles.indexOf(fileType?.toLowerCase()) === -1 || !fileType) {
       toast.error("Please select valid file");
       setdocument(null);
       setdocumentUrl(null);
-      return null
+      return null;
     }
     setdocument(e.target.files?.[0] ?? null);
     if (e.target.files?.[0]) {
@@ -93,9 +98,9 @@ const Documents_Form = () => {
   }, []);
 
   const gotoAdd = async () => {
-    if(!document_url){
+    if (!document_url) {
       toast.error("Please select valid file");
-      return
+      return;
     }
     const values = {
       company_id: Number(company_id),
@@ -214,7 +219,7 @@ const Documents_Form = () => {
               />
 
               <label for="exampleInputRegistrationnum" className="form-label">
-              Document (pdf)
+                Document (pdf)
               </label>
               <input
                 onChange={updateDocument}
@@ -222,7 +227,6 @@ const Documents_Form = () => {
                 className="form-control"
                 id="exampleInputBranch"
                 accept=".pdf"
-
               />
               <div className="pt-3">
                 <input
@@ -238,9 +242,21 @@ const Documents_Form = () => {
               <button
                 type="submit"
                 className="btn btn-success"
-                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+                style={{
+                  marginTop: "30px",
+                  backgroundColor: "#1a83ff",
+                  marginRight: "20px",
+                }}
               >
                 Submit
+              </button>
+              <button
+                type="button"
+                onClick={back}
+                className="btn btn-success"
+                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+              >
+                Back
               </button>
             </form>
           </div>

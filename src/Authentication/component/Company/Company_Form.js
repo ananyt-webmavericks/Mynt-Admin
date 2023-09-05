@@ -11,8 +11,10 @@ const Company_Form = () => {
   const [status, setstatus] = useState(location1.state.bio.status);
   const [company_logo, setcompany_logo] = useState(null);
 
-  const [logoUrl,setLogoUrl] = useState(location1.state.bio.company_logo)
-
+  const [logoUrl, setLogoUrl] = useState(location1.state.bio.company_logo);
+  const back = () => {
+    navigator("/home/company");
+  };
   const [founder_linked_in_profile, setfounder_linked_in_profile] = useState(
     location1.state.bio.founder_linked_in_profile
   );
@@ -44,6 +46,7 @@ const Company_Form = () => {
   const [existing_commitments, setexisting_commitments] = useState(
     location1.state.bio.existing_commitments
   );
+
   const [country, setcountry] = useState(location1.state.bio.country);
   const [state, setstate] = useState(location1.state.bio.state);
   const [city, setcity] = useState(location1.state.bio.city);
@@ -65,7 +68,7 @@ const Company_Form = () => {
   const [incorporation_type, setincorporation_type] = useState(
     location1.state.bio.incorporation_type
   );
-  const [sector, setsector] = useState(location1.state.bio.sector);
+  const [sector, setsector] = useState(location1.state.bio.sector.split(", "));
   const [invested_so_far, setinvested_so_far] = useState(
     location1.state.bio.invested_so_far
   );
@@ -147,8 +150,15 @@ const Company_Form = () => {
     setincorporation_type(e.target.value);
   };
   const updatesector = (e) => {
-    setsector(e.target.value);
+    const selectedOptions = Array.from(
+      e.target.selectedOptions,
+      (option) => option.value
+    );
+
+    console.log(selectedOptions);
+    setsector(selectedOptions);
   };
+
   const updateinvested_so_far = (e) => {
     setinvested_so_far(e.target.value);
   };
@@ -156,14 +166,35 @@ const Company_Form = () => {
     setnumber_of_employees(e.target.value);
   };
 
+  const options = [
+    { label: "HealthTech", value: "HealthTech" },
+    { label: "Artificial Intelligence", value: "Artificial Intelligence" },
+    { label: "Blockchain", value: "Blockchain" },
+    { label: "Electric Vehicles", value: "Electric Vehicles" },
+    { label: "AgriTech", value: "AgriTech" },
+    { label: "EdTech", value: "EdTech" },
+    { label: "Augmented Reality", value: "Augmented Reality" },
+    { label: "E-commerce", value: "E-commerce" },
+    { label: "Foods & Beverages", value: "Foods & Beverages" },
+    { label: "SaaS", value: "SaaS" },
+    { label: "FinTech", value: "FinTech" },
+    { label: "Virtual Reality", value: "Virtual Reality" },
+    { label: "InsurTech", value: "InsurTech" },
+    { label: "Cryptocurrency", value: "Cryptocurrency" },
+    { label: "Entertainment", value: "Entertainment" },
+    { label: "Other", value: "Other" },
+  ];
+
   const updateLogo = async (e) => {
-    const allowedFiles = ['jpg','jpeg','png'];
-    const fileType = e.target.files?.[0] ? e.target.files?.[0]?.name.split('.').pop() : null
-    if(allowedFiles.indexOf(fileType?.toLowerCase()) === -1 || !fileType){
+    const allowedFiles = ["jpg", "jpeg", "png"];
+    const fileType = e.target.files?.[0]
+      ? e.target.files?.[0]?.name.split(".").pop()
+      : null;
+    if (allowedFiles.indexOf(fileType?.toLowerCase()) === -1 || !fileType) {
       toast.error("Please select valid file");
       setcompany_logo(null);
       setLogoUrl(null);
-      return null
+      return null;
     }
     setcompany_logo(e.target.files?.[0] ?? null);
     if (e.target.files?.[0]) {
@@ -190,10 +221,9 @@ const Company_Form = () => {
     }
   };
   const gotoAdd = async () => {
-
-    if(!logoUrl){
+    if (!logoUrl) {
       toast.error("Please select valid file");
-      return
+      return;
     }
 
     await authAxios.patch(`${Base_url}/api/company/manage`, {
@@ -219,16 +249,17 @@ const Company_Form = () => {
       facebook_link: facebook_link,
       instagram_link: instagram_link,
       legal_name: legal_name,
-      cin: +cin,
+      cin: cin,
       date_of_incorporation: date_of_incorporation,
       incorporation_type: incorporation_type,
-      sector: sector,
+      sector: sector.join(", "),
       invested_so_far: invested_so_far,
       number_of_employees: +number_of_employees,
       status: status,
     });
     navigator("/home/company");
   };
+
   return (
     <>
       <div className="container-fluid">
@@ -270,7 +301,7 @@ const Company_Form = () => {
                 </select>
               </div>
               <label for="exampleInputRollnum" className="form-label">
-              Company Logo (jpeg, png, jpg)
+                Company Logo (jpeg, png, jpg)
               </label>
               {/* <input type="text" className="form-control" id="exampleInputRollnum" value={company_logo} onChange={updatecompany_logo} /> */}
               <input
@@ -279,7 +310,6 @@ const Company_Form = () => {
                 className="form-control"
                 id="exampleInputBranch"
                 accept=".jpg,.png,.jpeg"
-
               />
               <div className="pt-3">
                 <input
@@ -505,7 +535,7 @@ const Company_Form = () => {
                 Cin
               </label>
               <input
-                type="number"
+                type="text"
                 className="form-control"
                 id="exampleInputBranch"
                 value={cin}
@@ -537,13 +567,42 @@ const Company_Form = () => {
               <label for="exampleInputBranch" className="form-label">
                 Sector
               </label>
-              <input
-                type="text"
-                className="form-control"
-                id="exampleInputBranch"
+
+              <select
+                multiple
+                class="form-select"
+                id="inputGroupSelect04"
+                aria-label="Example select with button addon"
                 value={sector}
                 onChange={updatesector}
-              />
+              >
+                {options.map((option, index) => (
+                  <option key={index} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+              {/* <option selected className="active">
+                  Select Option
+                </option>
+                <option value={"HealthTech"}>HealthTech</option>
+                <option value={"Artificial Intelligence"}>
+                  Artificial Intelligence
+                </option>
+                <option value={"Blockchain"}> Blockchain</option>
+                <option value={"Electric Vehicles"}>Electric Vehicles</option>
+                <option value={"AgriTech"}>AgriTech</option>
+                <option value={"EdTech"}>EdTech</option>
+                <option value={"Augmented Reality"}>Augmented Reality</option>
+                <option value={"c"}>E-commerce</option>
+                <option value={"Foods & Beverages"}>Foods & Beverages</option>
+                <option value={"SaaS"}>SaaS</option>
+                <option value={"FinTech"}>FinTech</option>
+                <option value={"Virtual Reality"}>Virtual Reality</option>
+                <option value={"InsurTech"}>InsurTech</option>
+                <option value={"Cryptocurrency"}>Cryptocurrency</option>
+                <option value={"Entertainment"}>Entertainment</option>
+                <option value={"Other"}>Other</option> */}
 
               <label for="exampleInputBranch" className="form-label">
                 Invested So far
@@ -570,9 +629,21 @@ const Company_Form = () => {
               <button
                 type="submit"
                 className="btn btn-success"
-                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+                style={{
+                  marginTop: "30px",
+                  backgroundColor: "#1a83ff",
+                  marginRight: "20px",
+                }}
               >
                 Submit
+              </button>
+              <button
+                type="button"
+                onClick={back}
+                className="btn btn-success"
+                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+              >
+                Back
               </button>
             </form>
           </div>

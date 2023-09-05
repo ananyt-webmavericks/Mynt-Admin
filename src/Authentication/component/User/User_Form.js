@@ -50,6 +50,11 @@ const User_Form = () => {
       setPitchUrl(null);
     }
   };
+
+  const back = () => {
+    navigator("/home/user");
+  };
+
   const updateEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -61,9 +66,9 @@ const User_Form = () => {
   };
 
   const gotoAdd = async () => {
-    if(!pitchUrl){
+    if (!pitchUrl) {
       toast.error("Please select valid file");
-      return
+      return;
     }
     const values = {
       user_id: location1.state.bio.id,
@@ -156,9 +161,21 @@ const User_Form = () => {
               <button
                 type="submit"
                 className="btn btn-success"
-                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+                style={{
+                  marginTop: "30px",
+                  backgroundColor: "#1a83ff",
+                  marginRight: "20px",
+                }}
               >
                 Submit
+              </button>
+              <button
+                type="button"
+                onClick={back}
+                className="btn btn-success"
+                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+              >
+                Back
               </button>
             </form>
           </div>

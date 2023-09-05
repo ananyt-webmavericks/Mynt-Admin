@@ -15,10 +15,10 @@ const CampPress = () => {
   const [banner, setBanner] = useState();
   const [press_id, setPress_id] = useState();
   const [ind, setInd] = useState();
-  // 
-  const [banner1,setBanner1] = useState(null);
-  const [banner2,setBanner2] = useState(null);
-  const [banner3,setBanner3] = useState(null);
+  //
+  const [banner1, setBanner1] = useState(null);
+  const [banner2, setBanner2] = useState(null);
+  const [banner3, setBanner3] = useState(null);
 
   const updateTitle = (e) => {
     setTitle(e.target.value);
@@ -31,6 +31,11 @@ const CampPress = () => {
   };
   const updateBanner = (e) => {
     setBanner(e.target.value);
+  };
+  const back = () => {
+    navigator(`/home/under-update/${location1.state.bio.id}`, {
+      state: { bio: location1.state.bio },
+    });
   };
 
   useEffect(() => {
@@ -46,7 +51,7 @@ const CampPress = () => {
     getUploadedDocs();
   }, []);
 
-  const updateBannerImage = async (e,setter) => {
+  const updateBannerImage = async (e, setter) => {
     const allowedFiles = ["jpg", "jpeg", "png"];
     const fileType = e.target.files?.[0]
       ? e.target.files?.[0]?.name.split(".").pop()
@@ -81,21 +86,22 @@ const CampPress = () => {
   };
 
   const gotoAdd = async () => {
-
-    const banner = [banner1,banner2,banner3]
+    const banner = [banner1, banner2, banner3];
 
     const values = {
       press_id: press_id,
       title: title,
       link: link,
       description: description,
-      banner: banner.filter(i => i),
+      banner: banner.filter((i) => i),
       company_id: location1.state.bio.company_id.press[0].company_id,
     };
 
     await authAxios.patch(`${Base_url}/api/press/manage`, values);
 
-    navigator(`/home/under-update/${location1.state.bio.id}`);
+    navigator(`/home/under-update/${location1.state.bio.id}`, {
+      state: { bio: location1.state.bio },
+    });
   };
 
   const add1 = (x) => {
@@ -104,11 +110,11 @@ const CampPress = () => {
     setTitle(ps?.title ?? "");
     setLink(ps?.link ?? "");
     setDescription(ps?.description ?? "");
-    if(Array.isArray(ps?.banner_images)){
+    if (Array.isArray(ps?.banner_images)) {
       setBanner1(ps?.banner_images?.[0] ?? "");
       setBanner2(ps?.banner_images?.[1] ?? "");
       setBanner3(ps?.banner_images?.[2] ?? "");
-    }else{
+    } else {
       setBanner1(ps?.banner_images ?? "");
     }
   };
@@ -206,7 +212,7 @@ const CampPress = () => {
               Banners (jpeg, png, jpg)
             </label>
             <input
-              onChange={(e) => updateBannerImage(e,setBanner1)}
+              onChange={(e) => updateBannerImage(e, setBanner1)}
               type="file"
               className="form-control"
               id="exampleInputBranch"
@@ -223,7 +229,7 @@ const CampPress = () => {
               />
             </div>
             <input
-              onChange={(e) => updateBannerImage(e,setBanner2)}
+              onChange={(e) => updateBannerImage(e, setBanner2)}
               type="file"
               className="form-control"
               id="exampleInputBranch"
@@ -240,7 +246,7 @@ const CampPress = () => {
               />
             </div>
             <input
-              onChange={(e) => updateBannerImage(e,setBanner3)}
+              onChange={(e) => updateBannerImage(e, setBanner3)}
               type="file"
               className="form-control"
               id="exampleInputBranch"
@@ -259,9 +265,21 @@ const CampPress = () => {
             <button
               type="submit"
               className="btn btn-success"
-              style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+              style={{
+                marginTop: "30px",
+                backgroundColor: "#1a83ff",
+                marginRight: "20px",
+              }}
             >
               Submit
+            </button>
+            <button
+              type="button"
+              onClick={back}
+              className="btn btn-success"
+              style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+            >
+              Back
             </button>
           </form>
         </div>

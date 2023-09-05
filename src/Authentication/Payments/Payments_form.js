@@ -21,6 +21,10 @@ const PaymentForm = () => {
     setStatus(e.target.value);
   };
 
+  const back = () => {
+    navigator("/home/payments");
+  };
+
   const gotoAdd = async () => {
     const values = {
       transaction_id: transaction_id,
@@ -81,13 +85,24 @@ const PaymentForm = () => {
                 <option value={"COMPLETED"}>Completed</option>
                 <option value={"PENDING"}>Pending</option>
               </select>
-
               <button
                 type="submit"
                 className="btn btn-success"
-                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+                style={{
+                  marginTop: "30px",
+                  backgroundColor: "#1a83ff",
+                  marginRight: "20px",
+                }}
               >
                 Submit
+              </button>
+              <button
+                type="button"
+                onClick={back}
+                className="btn btn-success"
+                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+              >
+                Back
               </button>
             </form>
           </div>

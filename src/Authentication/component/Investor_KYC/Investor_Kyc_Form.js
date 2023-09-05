@@ -18,9 +18,13 @@ const Investor_Kyc_Form = () => {
   const [items, setItems] = useState([]);
   const [aadhaar_card_verified, setaadhaar_card_verify] = useState();
   const [bank_account_verified, setbank_account_verify] = useState();
-  const [mobile_number_verified, setmobile_number_verified] = useState();
+  const [mobile_number_verified, setmobile_number_verified] = useState(
+    location1.state.bio.mobile_number_verified
+  );
   const [pan_card_verified, setpan_card_verify] = useState();
-  const [mobile_number, setmobile_number] = useState();
+  const [mobile_number, setmobile_number] = useState(
+    location1.state.bio.mobile_number
+  );
   const [country, setCountry] = useState(location1.state.bio.country);
 
   const [aadhaar_card_number, setaadhaar_card_number] = useState(
@@ -97,6 +101,10 @@ const Investor_Kyc_Form = () => {
   };
   const updateifsc_code = (e) => {
     setifsc_code(e.target.value);
+  };
+
+  const back = () => {
+    navigator("/home/investor_kyc");
   };
 
   const update_mobilenumber = (e) => {
@@ -393,9 +401,21 @@ const Investor_Kyc_Form = () => {
               <button
                 type="submit"
                 className="btn btn-success"
-                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+                style={{
+                  marginTop: "30px",
+                  backgroundColor: "#1a83ff",
+                  marginRight: "20px",
+                }}
               >
                 Submit
+              </button>
+              <button
+                type="button"
+                onClick={back}
+                className="btn btn-success"
+                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+              >
+                Back
               </button>
             </form>
           </div>

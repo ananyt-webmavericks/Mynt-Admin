@@ -16,7 +16,7 @@ const CampPeople = () => {
   const [insta, setinsta] = useState();
   const [linked, setLinked] = useState();
   const [description, setDescription] = useState();
-  const [profile, setProfile] = useState();
+  const [profile_image, setProfile] = useState();
   const [people_id, setPeople_id] = useState();
   const [ind, setInd] = useState();
   const [pitchUrl, setPitchUrl] = useState(null);
@@ -82,6 +82,11 @@ const CampPeople = () => {
   const updateProfile = (e) => {
     setProfile(e.target.value);
   };
+  const back = () => {
+    navigator(`/home/under-update/${location.state.bio.id}`, {
+      state: { bio: location.state.bio },
+    });
+  };
 
   const add1 = (x) => {
     setPeople_id(x);
@@ -126,11 +131,13 @@ const CampPeople = () => {
       instagram_link: insta,
       linked_in_link: linked,
       description: description,
-      profile_image: pitchUrl,
+      profile_image: pitchUrl === "true" ? true : false,
     };
 
     await authAxios.patch(`${Base_url}/api/people/manage`, values);
-    navigator(`/home/under-update/${location.state.bio.id}`);
+    navigator(`/home/under-update/${location.state.bio.id}`, {
+      state: { bio: location.state.bio },
+    });
   };
   return (
     <>
@@ -282,17 +289,39 @@ const CampPeople = () => {
                 type="text"
                 className="form-control"
                 id="exampleInputeRegistrationnum"
-                value={pitchUrl}
+                value={profile_image}
                 // onChange={updatePitch}
                 disabled
               />
             </div>
+            <img
+              src={profile_image}
+              style={{
+                height: "150px",
+                width: "150px",
+                borderRadius: "5%",
+                marginTop: "30px",
+                display: "block",
+              }}
+            />
             <button
               type="submit"
               className="btn btn-success"
-              style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+              style={{
+                marginTop: "30px",
+                backgroundColor: "#1a83ff",
+                marginRight: "20px",
+              }}
             >
               Submit
+            </button>
+            <button
+              type="button"
+              onClick={back}
+              className="btn btn-success"
+              style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+            >
+              Back
             </button>
           </form>
         </div>

@@ -77,6 +77,10 @@ const Deal_Term_Form = () => {
     setCampaign_id(e);
   };
 
+  const back = () => {
+    navigator("/home/deal_terms");
+  };
+
   useEffect(() => {
     const getUploadedDocs = async () => {
       try {
@@ -334,9 +338,21 @@ const Deal_Term_Form = () => {
             <button
               type="submit"
               className="btn btn-success"
-              style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+              style={{
+                marginTop: "30px",
+                backgroundColor: "#1a83ff",
+                marginRight: "20px",
+              }}
             >
               Submit
+            </button>
+            <button
+              type="button"
+              onClick={back}
+              className="btn btn-success"
+              style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+            >
+              Back
             </button>
           </form>
         </div>
