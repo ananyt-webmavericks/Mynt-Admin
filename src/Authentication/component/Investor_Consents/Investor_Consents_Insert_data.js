@@ -15,6 +15,10 @@ const Investor_Consents_Insert_data = () => {
 
   const navigator = useNavigate();
 
+  const back = () => {
+    navigator("/home/campaign");
+  };
+
   const updateRisk = (e) => {
     setRisk(e.target.value);
   };
@@ -57,15 +61,15 @@ const Investor_Consents_Insert_data = () => {
     await authAxios.post(`${Base_url}/api/investor-consent/manage`, {
       user_id: Number(user_id),
 
-      risk_consent: risk === 'true' ? true : false,
+      risk_consent: risk === "true" ? true : false,
 
-      limited_transfer_consent: limited === 'true' ? true : false,
+      limited_transfer_consent: limited === "true" ? true : false,
 
-      diversification_consent: diversification === 'true' ? true : false,
+      diversification_consent: diversification === "true" ? true : false,
 
-      cancellation_consent: cancel === 'true' ? true : false,
+      cancellation_consent: cancel === "true" ? true : false,
 
-      research_consent: research === 'true' ? true : false,
+      research_consent: research === "true" ? true : false,
     });
 
     navigator("/home/investor_consents");
@@ -217,9 +221,21 @@ const Investor_Consents_Insert_data = () => {
               <button
                 type="submit"
                 className="btn btn-success"
-                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+                style={{
+                  marginTop: "30px",
+                  backgroundColor: "#1a83ff",
+                  marginRight: "20px",
+                }}
               >
                 Submit
+              </button>
+              <button
+                type="button"
+                onClick={back}
+                className="btn btn-success"
+                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+              >
+                Back
               </button>
             </form>
           </div>

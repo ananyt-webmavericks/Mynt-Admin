@@ -5,13 +5,12 @@ import Base_url from "../Base_url";
 import { authAxios } from "../../../Services/auth.service";
 import { toast } from "react-toastify";
 
-
 const Documents_insert_data = () => {
   const [id, setid] = useState();
   const [company_id, setcompany_id] = useState();
-  const [document_type, setdocumentType] = useState('AGREEMENTS');
+  const [document_type, setdocumentType] = useState("AGREEMENTS");
   const [document_name, setdocumentName] = useState();
-  const [agreement_status, setagreementStatus] = useState('SIGNED BY ADMIN');
+  const [agreement_status, setagreementStatus] = useState("SIGNED BY ADMIN");
   const [document_url, setdocumentUrl] = useState();
   const [document, setdocument] = useState();
   const [items, setItems] = useState([]);
@@ -20,6 +19,9 @@ const Documents_insert_data = () => {
 
   const updateid = (e) => {
     setid(e.target.value);
+  };
+  const back = () => {
+    navigator("/home/campaign");
   };
 
   const updatecompany_id = (e) => {
@@ -34,7 +36,7 @@ const Documents_insert_data = () => {
   const updateagreement_status = (e) => {
     setagreementStatus(e.target.value);
   };
- 
+
   // const updatedocument_url1 = (e) => {
   //   setdocument_url1(e.target.value);
   // };
@@ -46,13 +48,15 @@ const Documents_insert_data = () => {
   };
 
   const updateDocument = async (e) => {
-    const allowedFiles = ['pdf'];
-    const fileType = e.target.files?.[0] ? e.target.files?.[0]?.name.split('.').pop() : null
-    if(allowedFiles.indexOf(fileType?.toLowerCase()) === -1 || !fileType){
+    const allowedFiles = ["pdf"];
+    const fileType = e.target.files?.[0]
+      ? e.target.files?.[0]?.name.split(".").pop()
+      : null;
+    if (allowedFiles.indexOf(fileType?.toLowerCase()) === -1 || !fileType) {
       toast.error("Please select valid file");
       setdocument(null);
       setdocumentUrl(null);
-      return null
+      return null;
     }
     setdocument(e.target.files?.[0] ?? null);
     if (e.target.files?.[0]) {
@@ -102,9 +106,9 @@ const Documents_insert_data = () => {
   const gotoAdd = async (e) => {
     e.preventDefault();
 
-    if(!document_url){
+    if (!document_url) {
       toast.error("Please select valid file");
-      return
+      return;
     }
     const values = {
       // document_id: +id,
@@ -114,7 +118,7 @@ const Documents_insert_data = () => {
           document_type: document_type,
           document_name: document_name,
           agreement_status: agreement_status,
-          document_url : document_url
+          document_url: document_url,
         },
       ],
     };
@@ -157,7 +161,7 @@ const Documents_insert_data = () => {
                   id="inputGroupSelect04"
                   aria-label="Example select with button addon"
                   value={company_id}
-                  onChange={(e)=>add(e.target.value)}
+                  onChange={(e) => add(e.target.value)}
                 >
                   <option selected className="active">
                     Select Company Name
@@ -189,19 +193,19 @@ const Documents_insert_data = () => {
                 onChange={updatedocument_type_1}
               /> */}
               <select
-                  class="form-select"
-                  id="inputGroupSelect04"
-                  aria-label="Example select with button addon"
-                  value={document_type}
-                  onChange={updatedocument_type_1}
-                >
-                  <option  className="active" value={"AGREEMENTS"}>
+                class="form-select"
+                id="inputGroupSelect04"
+                aria-label="Example select with button addon"
+                value={document_type}
+                onChange={updatedocument_type_1}
+              >
+                <option className="active" value={"AGREEMENTS"}>
                   AGREEMENTS
-                  </option>
-                  <option  className="active" value={"DOCUMENTS"}>
+                </option>
+                <option className="active" value={"DOCUMENTS"}>
                   DOCUMENTS
-                  </option>
-                </select>
+                </option>
+              </select>
 
               <label for="exampleInputRegistrationnum" className="form-label">
                 Document Name
@@ -224,25 +228,25 @@ const Documents_insert_data = () => {
                 value={agreement_status}
                 onChange={updateagreement_status_1}
               /> */}
-               <select
-                  class="form-select"
-                  id="inputGroupSelect04"
-                  aria-label="Example select with button addon"
-                  value={agreement_status}
-                  onChange={updateagreement_status}
-                >
-                  <option  className="active" value={"SIGNED BY ADMIN"}>
+              <select
+                class="form-select"
+                id="inputGroupSelect04"
+                aria-label="Example select with button addon"
+                value={agreement_status}
+                onChange={updateagreement_status}
+              >
+                <option className="active" value={"SIGNED BY ADMIN"}>
                   SIGNED BY ADMIN
-                  </option>
-                  <option  className="active" value={"SIGNED BY FOUNDER"}>
+                </option>
+                <option className="active" value={"SIGNED BY FOUNDER"}>
                   SIGNED BY FOUNDER
-                  </option>
-                  <option  className="active" value={"UPLOADED BY ADMIN"}>
+                </option>
+                <option className="active" value={"UPLOADED BY ADMIN"}>
                   UPLOADED BY ADMIN
-                  </option>
-                </select>
+                </option>
+              </select>
 
-                <label for="exampleInputRegistrationnum" className="form-label">
+              <label for="exampleInputRegistrationnum" className="form-label">
                 Document (pdf)
               </label>
               <input
@@ -251,7 +255,6 @@ const Documents_insert_data = () => {
                 className="form-control"
                 id="exampleInputBranch"
                 accept=".pdf"
-
               />
               <div className="pt-3">
                 <input
@@ -267,9 +270,21 @@ const Documents_insert_data = () => {
               <button
                 type="submit"
                 className="btn btn-success"
-                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+                style={{
+                  marginTop: "30px",
+                  backgroundColor: "#1a83ff",
+                  marginRight: "20px",
+                }}
               >
                 Submit
+              </button>
+              <button
+                type="button"
+                onClick={back}
+                className="btn btn-success"
+                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+              >
+                Back
               </button>
             </form>
           </div>

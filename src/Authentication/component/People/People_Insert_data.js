@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Dashboard from '../../Dashboard/Dashboard';
+import Dashboard from "../../Dashboard/Dashboard";
 import { useNavigate } from "react-router-dom";
 import Base_url from "../Base_url";
 import { authAxios } from "../../../Services/auth.service";
 import { toast } from "react-toastify";
-
 
 const People_Insert_data = () => {
   const [id, setId] = useState();
@@ -22,19 +21,22 @@ const People_Insert_data = () => {
   const [pitchUrl, setPitchUrl] = useState(null);
   const [pitch, setPitch] = useState();
 
-
   const navigator = useNavigate();
 
-
+  const back = () => {
+    navigator("/home/campaign");
+  };
 
   const updatePitch = async (e) => {
-    const allowedFiles = ['jpg','jpeg','png'];
-    const fileType = e.target.files?.[0] ? e.target.files?.[0]?.name.split('.').pop() : null
-    if(allowedFiles.indexOf(fileType?.toLowerCase()) === -1 || !fileType){
+    const allowedFiles = ["jpg", "jpeg", "png"];
+    const fileType = e.target.files?.[0]
+      ? e.target.files?.[0]?.name.split(".").pop()
+      : null;
+    if (allowedFiles.indexOf(fileType?.toLowerCase()) === -1 || !fileType) {
       toast.error("Please select valid file");
       setPitch(null);
       setPitchUrl(null);
-      return null
+      return null;
     }
     setPitch(e.target.files?.[0] ?? null);
     if (e.target.files?.[0]) {
@@ -62,115 +64,99 @@ const People_Insert_data = () => {
   };
 
   const updateId = (e) => {
-    setId(e.target.value)
-  }
+    setId(e.target.value);
+  };
   const updateCompany_id = (e) => {
-    setCompany_id(e.target.value)
-  }
+    setCompany_id(e.target.value);
+  };
   const updateType = (e) => {
-    setType(e.target.value)
-  }
+    setType(e.target.value);
+  };
   const updateName = (e) => {
-    setName(e.target.value)
-  }
+    setName(e.target.value);
+  };
   const updatePosition = (e) => {
-    setPosition(e.target.value)
-  }
+    setPosition(e.target.value);
+  };
   const updateFacebook = (e) => {
-    setFacebook(e.target.value)
-  }
+    setFacebook(e.target.value);
+  };
   const updateInsta = (e) => {
-    setinsta(e.target.value)
-  }
+    setinsta(e.target.value);
+  };
   const updateLinked = (e) => {
-    setLinked(e.target.value)
-  }
+    setLinked(e.target.value);
+  };
   const updateDescription = (e) => {
-    setDescription(e.target.value)
-  }
+    setDescription(e.target.value);
+  };
   const updateProfile = (e) => {
-    setProfile(e.target.value)
-  }
-
+    setProfile(e.target.value);
+  };
 
   const add = (x) => {
     console.log(x);
     setCompany_id(x);
-  }
+  };
 
   useEffect(() => {
     const getUploadedDocs = async () => {
-
       try {
         const response = await authAxios.get(`${Base_url}/api/company/manage`);
-        console.log(response.data)
-        setItems(response.data)
+        console.log(response.data);
+        setItems(response.data);
         return response.data;
-      }
-      catch (error) {
+      } catch (error) {
         if (error) {
-          console.log(error)
+          console.log(error);
         }
         return error;
       }
-    }
+    };
     getUploadedDocs();
-  }, [])
-
+  }, []);
 
   const gotoAdd = async (e) => {
-
     e.preventDefault();
 
-    if(!pitchUrl){
+    if (!pitchUrl) {
       toast.error("Please select valid file");
-      return
+      return;
     }
 
-    await authAxios.post(`${Base_url}/api/people/manage`, {
+    await authAxios
+      .post(`${Base_url}/api/people/manage`, {
+        id: id,
 
+        company_id: company_id,
 
-      id: id,
+        type: type,
 
-      company_id: company_id,
+        name: name,
 
-      type: type,
+        position: position,
 
-      name: name,
+        facebook_link: facebook,
 
-      position: position,
+        instagram_link: insta,
 
-      facebook_link: facebook,
+        linked_in_link: linked,
 
-      instagram_link: insta,
+        description: description,
 
-      linked_in_link: linked,
-
-      description: description,
-
-      profile_image: pitchUrl,
-
-
-    },
-    )
+        profile_image: pitchUrl,
+      })
 
       .then((response) => {
-
         setPost(response.data);
+      });
 
-      }
-      )
-
-
-    navigator("/home/people")
-
-
-
-  }
+    navigator("/home/people");
+  };
 
   return (
     <>
-      <div className='container-fluid'>
+      <div className="container-fluid">
         {/* <div className='row'>
           
             <Dashboard 
@@ -180,66 +166,135 @@ const People_Insert_data = () => {
           
         </div> */}
         <div className="row justify-content-center mb-5">
-          <div style={{ borderRadius: "20px", backgroundColor: "#BACDDB", }}>
+          <div style={{ borderRadius: "20px", backgroundColor: "#BACDDB" }}>
             <form style={{ padding: "40px", borderRadius: "20px" }}>
-              <h1 style={{ textAlign: "center", color: "#070A52", marginBottom: "20px" }}>Add People Data</h1>
+              <h1
+                style={{
+                  textAlign: "center",
+                  color: "#070A52",
+                  marginBottom: "20px",
+                }}
+              >
+                Add People Data
+              </h1>
 
-              <label for="exampleInputName" className="form-label">Company Name</label>
+              <label for="exampleInputName" className="form-label">
+                Company Name
+              </label>
               <div class="input-group">
-                <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" onChange={(e) => { add(e.target.value) }} value={company_id}>
-                  <option selected className="active">Select Company Name</option>
-                  {
-                    items && items.map((item) => {
+                <select
+                  class="form-select"
+                  id="inputGroupSelect04"
+                  aria-label="Example select with button addon"
+                  onChange={(e) => {
+                    add(e.target.value);
+                  }}
+                  value={company_id}
+                >
+                  <option selected className="active">
+                    Select Company Name
+                  </option>
+                  {items &&
+                    items.map((item) => {
                       return (
                         <option
                           // onClick={()=>{add(item.user_id)}}
                           value={item.id}
-                        >{item.company_name}</option>
-                      )
-                    })
-                  }
+                        >
+                          {item.company_name}
+                        </option>
+                      );
+                    })}
                 </select>
               </div>
 
-              <label for="exampleInputRollnum" className="form-label">Type</label>
+              <label for="exampleInputRollnum" className="form-label">
+                Type
+              </label>
 
-              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" value={type} onChange={updateType} >
-                <option selected className="active">Type</option>
+              <select
+                class="form-select"
+                id="inputGroupSelect04"
+                aria-label="Example select with button addon"
+                value={type}
+                onChange={updateType}
+              >
+                <option selected className="active">
+                  Type
+                </option>
                 <option value={"TEAM"}>TEAM</option>
                 <option value={"INVESTOR"}>INVESTOR</option>
                 <option value={"ADVISOR"}>ADVISOR</option>
               </select>
 
+              <label for="exampleInputRegistrationnum" className="form-label">
+                Name
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="exampleInputeRegistrationnum"
+                value={name}
+                onChange={updateName}
+              />
 
+              <label for="exampleInputBranch" className="form-label">
+                Position
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="exampleInputBranch"
+                value={position}
+                onChange={updatePosition}
+              />
 
+              <label for="exampleInputBranch" className="form-label">
+                Facebook Link
+              </label>
+              <input
+                type="link"
+                className="form-control"
+                id="exampleInputBranch"
+                value={facebook}
+                onChange={updateFacebook}
+              />
 
+              <label for="exampleInputBranch" className="form-label">
+                Instagram Link
+              </label>
+              <input
+                type="link"
+                className="form-control"
+                id="exampleInputBranch"
+                value={insta}
+                onChange={updateInsta}
+              />
 
-              <label for="exampleInputRegistrationnum" className="form-label">Name</label>
-              <input type="text" className="form-control" id="exampleInputeRegistrationnum" value={name} onChange={updateName} />
+              <label for="exampleInputBranch" className="form-label">
+                LinkedIn Link
+              </label>
+              <input
+                type="link"
+                className="form-control"
+                id="exampleInputBranch"
+                value={linked}
+                onChange={updateLinked}
+              />
 
-
-              <label for="exampleInputBranch" className="form-label">Position</label>
-              <input type="text" className="form-control" id="exampleInputBranch" value={position} onChange={updatePosition} />
-
-
-              <label for="exampleInputBranch" className="form-label">Facebook Link</label>
-              <input type="link" className="form-control" id="exampleInputBranch" value={facebook} onChange={updateFacebook} />
-
-
-              <label for="exampleInputBranch" className="form-label">Instagram Link</label>
-              <input type="link" className="form-control" id="exampleInputBranch" value={insta} onChange={updateInsta} />
-
-
-              <label for="exampleInputBranch" className="form-label">LinkedIn Link</label>
-              <input type="link" className="form-control" id="exampleInputBranch" value={linked} onChange={updateLinked} />
-
-
-              <label for="exampleInputBranch" className="form-label">Description</label>
-              <input type="text" className="form-control" id="exampleInputBranch" value={description} onChange={updateDescription} />
-
+              <label for="exampleInputBranch" className="form-label">
+                Description
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="exampleInputBranch"
+                value={description}
+                onChange={updateDescription}
+              />
 
               <label for="exampleInputRegistrationnum" className="form-label">
-              Profile Image (jpeg, png, jpg)
+                Profile Image (jpeg, png, jpg)
               </label>
               <input
                 onChange={updatePitch}
@@ -247,7 +302,6 @@ const People_Insert_data = () => {
                 className="form-control"
                 id="exampleInputBranch"
                 accept=".jpg,.png,.jpeg"
-
               />
               <div className="pt-3">
                 <input
@@ -259,12 +313,32 @@ const People_Insert_data = () => {
                   disabled
                 />
               </div>
-              <button type="submit" className="btn btn-success" style={{ marginTop: "30px", backgroundColor: '#1a83ff' }} onClick={gotoAdd}>Submit</button>
+
+              <button
+                type="submit"
+                className="btn btn-success"
+                style={{
+                  marginTop: "30px",
+                  backgroundColor: "#1a83ff",
+                  marginRight: "20px",
+                }}
+                onClick={gotoAdd}
+              >
+                Submit
+              </button>
+              <button
+                type="button"
+                onClick={back}
+                className="btn btn-success"
+                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+              >
+                Back
+              </button>
             </form>
           </div>
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 export default People_Insert_data;

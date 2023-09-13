@@ -119,6 +119,11 @@ const Campaign_Form = () => {
       return;
     }
 
+    if(total_raised > 100){
+      toast.error("Total raise should be less than or equals to 100");
+      return 
+    }
+
     const values = {
       campaign_id: location1.state.bio.id,
       company_id: comp_id,

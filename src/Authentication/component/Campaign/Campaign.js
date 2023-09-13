@@ -96,7 +96,7 @@ function Campaign() {
                           <td scope="col">{item.ama_meet_link}</td>
                           <td scope="col">{item.ama_youtube_video}</td>
                           <td scope="col">{item.pitch}</td>
-                          <td scope="col">{item.total_investor}</td>
+                          <td scope="col">{item.total_investors}</td>
                           <td scope="col">{item.total_raised}</td>
                           <td scope="col-2">
                             <button className="btn btn1">

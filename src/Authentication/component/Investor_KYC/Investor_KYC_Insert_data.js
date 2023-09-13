@@ -31,6 +31,9 @@ const Investor_KYC_Insert_data = () => {
   const updatepan_card = (e) => {
     setpan_card(e.target.value);
   };
+  const back = () => {
+    navigator("/home/campaign");
+  };
 
   const updateaadhaar_card_verify = (e) => {
     setaadhaar_card_verify(e.target.value);
@@ -427,9 +430,21 @@ const Investor_KYC_Insert_data = () => {
               <button
                 type="submit"
                 className="btn btn-success"
-                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+                style={{
+                  marginTop: "30px",
+                  backgroundColor: "#1a83ff",
+                  marginRight: "20px",
+                }}
               >
                 Submit
+              </button>
+              <button
+                type="button"
+                onClick={back}
+                className="btn btn-success"
+                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+              >
+                Back
               </button>
             </form>
           </div>

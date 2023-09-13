@@ -55,6 +55,10 @@ const Deal_Term_Insert_data = () => {
     setIfsc_code(e.target.value);
   };
 
+  const back = () => {
+    navigator("/home/campaign");
+  };
+
   const updateEnable_offline = (e) => {
     setenable_offline(e.target.value);
   };
@@ -316,10 +320,18 @@ const Deal_Term_Insert_data = () => {
               <button
                 type="submit"
                 className="btn btn-success"
-                style={{ marginTop: "30px" }}
+                style={{ marginTop: "30px", marginRight: "20px" }}
                 onClick={gotoAdd}
               >
                 Submit
+              </button>
+              <button
+                type="button"
+                onClick={back}
+                className="btn btn-success"
+                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+              >
+                Back
               </button>
             </form>
           </div>

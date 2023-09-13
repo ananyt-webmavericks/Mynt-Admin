@@ -20,6 +20,11 @@ const Campaign_Insert_data = () => {
   const updateId = (e) => {
     setId(e.target.value);
   };
+
+  const back = () => {
+    navigator("/home/campaign");
+  };
+
   const updateC_id = (e) => {
     setC_id(e.target.value);
   };
@@ -94,6 +99,11 @@ const Campaign_Insert_data = () => {
     e.preventDefault();
     if (!pitchUrl) {
       toast.error("Please select valid file");
+      return;
+    }
+
+    if (total_raised > 100) {
+      toast.error("Total raise should be less than or equals to 100");
       return;
     }
 
@@ -204,10 +214,26 @@ const Campaign_Insert_data = () => {
               <button
                 type="submit"
                 className="btn btn-success"
-                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
+                style={{
+                  marginTop: "30px",
+                  backgroundColor: "#1a83ff",
+                  marginRight: "20px",
+                }}
                 onClick={gotoAdd}
               >
                 Submit
+              </button>
+              <button
+                type="button"
+                onClick={back}
+                className="btn btn-success"
+                style={{
+                  marginTop: "30px",
+                  backgroundColor: "#1a83ff",
+                  marginRight: "20px",
+                }}
+              >
+                Back
               </button>
             </form>
           </div>
