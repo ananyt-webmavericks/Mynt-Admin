@@ -420,6 +420,21 @@ function Dashboard(props) {
                     <span>{SidebarData[17].title}</span>
                   </Link>
                 </li>
+                <li
+                  key={18}
+                  className={SidebarData[18].cName}
+                  style={
+                    currentLocation === SidebarData[18].path ||
+                    currentLocation === SidebarData[18].path1
+                      ? { backgroundColor: "#1a83ff", borderRadius: "15px" }
+                      : null
+                  }
+                >
+                  <Link to={SidebarData[18].path}>
+                    {SidebarData[18].icon}
+                    <span>{SidebarData[18].title}</span>
+                  </Link>
+                </li>
 
                 {/* {SidebarData.map((item, index) => {
                 return (

@@ -5,13 +5,14 @@ import Base_url from "../Base_url";
 import { authAxios } from "../../../Services/auth.service";
 import { toast } from "react-toastify";
 
-
 const Campaign_Insert_data = () => {
   const [id, setId] = useState();
   const [c_id, setC_id] = useState();
   const [items, setItems] = useState([]);
   const [status, setStatus] = useState();
   const [pitch, setPitch] = useState();
+  const [total_investors, setTotalInvestors] = useState();
+  const [total_raised, setTotalRaised] = useState();
   const [post, setPost] = React.useState(null);
   const [pitchUrl, setPitchUrl] = useState(null);
 
@@ -22,18 +23,26 @@ const Campaign_Insert_data = () => {
   const updateC_id = (e) => {
     setC_id(e.target.value);
   };
+  const updateTotalInvestor = (e) => {
+    setTotalInvestors(e.target.value);
+  };
+  const updateRaised = (e) => {
+    setTotalRaised(e.target.value);
+  };
   const updateStatus = (e) => {
     console.log(e.target.value);
     setStatus(e.target.value);
   };
   const updatePitch = async (e) => {
-    const allowedFiles = ['pdf'];
-    const fileType = e.target.files?.[0] ? e.target.files?.[0]?.name.split('.').pop() : null
-    if(allowedFiles.indexOf(fileType?.toLowerCase()) === -1 || !fileType){
+    const allowedFiles = ["pdf"];
+    const fileType = e.target.files?.[0]
+      ? e.target.files?.[0]?.name.split(".").pop()
+      : null;
+    if (allowedFiles.indexOf(fileType?.toLowerCase()) === -1 || !fileType) {
       toast.error("Please select valid file");
       setPitch(null);
       setPitchUrl(null);
-      return null
+      return null;
     }
     setPitch(e.target.files?.[0] ?? null);
     if (e.target.files?.[0]) {
@@ -60,7 +69,6 @@ const Campaign_Insert_data = () => {
     }
   };
 
-
   const add = (x) => {
     setC_id(x);
   };
@@ -84,9 +92,9 @@ const Campaign_Insert_data = () => {
 
   const gotoAdd = async (e) => {
     e.preventDefault();
-    if(!pitchUrl){
+    if (!pitchUrl) {
       toast.error("Please select valid file");
-      return
+      return;
     }
 
     await authAxios
@@ -94,11 +102,13 @@ const Campaign_Insert_data = () => {
         company_id: c_id,
         pitch: pitchUrl,
         status: status,
+        total_investors: total_investors,
+        total_raised: total_raised,
       })
 
       .then((response) => {
         setPost(response.data);
-        if(response.status === 200 || response.status === 201) {
+        if (response.status === 200 || response.status === 201) {
           navigator("/home/campaign");
         }
       })
@@ -111,10 +121,7 @@ const Campaign_Insert_data = () => {
     <>
       <div className="container-fluid">
         <div className="row justify-content-center mb-5">
-          <div
-            style={{ borderRadius: "20px", backgroundColor: "#BACDDB" }}
-
-          >
+          <div style={{ borderRadius: "20px", backgroundColor: "#BACDDB" }}>
             <form style={{ padding: "50px", borderRadius: "20px" }}>
               <h1
                 style={{
@@ -174,10 +181,30 @@ const Campaign_Insert_data = () => {
                   disabled
                 />
               </div>
+              <label for="exampleInputName" className="form-label">
+                Total Investors
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                id="exampleInputName"
+                value={total_investors}
+                onChange={updateTotalInvestor}
+              />
+              <label for="exampleInputName" className="form-label">
+                Total Raised
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                id="exampleInputName"
+                value={total_raised}
+                onChange={updateRaised}
+              />
               <button
                 type="submit"
                 className="btn btn-success"
-                style={{ marginTop: "30px", backgroundColor: '#1a83ff' }}
+                style={{ marginTop: "30px", backgroundColor: "#1a83ff" }}
                 onClick={gotoAdd}
               >
                 Submit

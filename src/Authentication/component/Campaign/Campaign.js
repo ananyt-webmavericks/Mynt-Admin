@@ -19,7 +19,9 @@ function Campaign() {
   useEffect(() => {
     const getUploadedDocs = async () => {
       try {
-        const response = await authAxios.get(`${Base_url}/api/campaign/manage/admin`);
+        const response = await authAxios.get(
+          `${Base_url}/api/campaign/manage/admin`
+        );
         // console.log(response.data)
         setItems(response.data);
         // console.log(response.data)
@@ -75,6 +77,8 @@ function Campaign() {
                   <th scope="col">Ama Meet Link</th>
                   <th scope="col">Ama Youtube Video</th>
                   <th scope="col">Pitch</th>
+                  <th scope="col">Total Investor</th>
+                  <th scope="col">Total Raised</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
@@ -92,6 +96,8 @@ function Campaign() {
                           <td scope="col">{item.ama_meet_link}</td>
                           <td scope="col">{item.ama_youtube_video}</td>
                           <td scope="col">{item.pitch}</td>
+                          <td scope="col">{item.total_investor}</td>
+                          <td scope="col">{item.total_raised}</td>
                           <td scope="col-2">
                             <button className="btn btn1">
                               <CreateIcon

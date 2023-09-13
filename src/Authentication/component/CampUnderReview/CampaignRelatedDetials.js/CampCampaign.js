@@ -31,12 +31,24 @@ const CampCampaign = () => {
   const updateAmameet = (e) => {
     setAma_meet(e.target.value);
   };
+  const [total_investors, setTotalInvestors] = useState(
+    location1.state.bio.total_investors
+  );
+  const [total_raised, setTotalRaised] = useState(
+    location1.state.bio.total_raised
+  );
   const updateAmayoutube = (e) => {
     setAma_youtube(e.target.value);
   };
 
   const updateStatus = (e) => {
     setStatus(e.target.value);
+  };
+  const updateTotalInvestor = (e) => {
+    setTotalInvestors(e.target.value);
+  };
+  const updateRaised = (e) => {
+    setTotalRaised(e.target.value);
   };
 
   const back = () => {
@@ -101,6 +113,8 @@ const CampCampaign = () => {
 
       pitch: pitchUrl,
       status: status,
+      total_investors: total_investors,
+      total_raised: total_raised,
     };
 
     await authAxios.patch(`${Base_url}/api/campaign/manage`, values);
@@ -219,6 +233,26 @@ const CampCampaign = () => {
                   <option value={"CLOSED"}>CLOSED</option>
                 </select>
               </div>
+              <label for="exampleInputName" className="form-label">
+                Total Investors
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                id="exampleInputName"
+                value={total_investors}
+                onChange={updateTotalInvestor}
+              />
+              <label for="exampleInputName" className="form-label">
+                Total Raised
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                id="exampleInputName"
+                value={total_raised}
+                onChange={updateRaised}
+              />
               <button
                 type="submit"
                 className="btn btn-success"

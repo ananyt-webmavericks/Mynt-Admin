@@ -15,6 +15,12 @@ const Campaign_Form = () => {
   const [ama_youtube, setAma_youtube] = useState(
     location1.state.bio.ama_youtube_video
   );
+  const [total_investors, setTotalInvestors] = useState(
+    location1.state.bio.total_investors
+  );
+  const [total_raised, setTotalRaised] = useState(
+    location1.state.bio.total_raised
+  );
   const [status, setStatus] = useState(location1.state.bio.status);
   const [items, setItems] = useState();
   const [pitch, setPitch] = useState(null);
@@ -38,6 +44,12 @@ const Campaign_Form = () => {
   };
   const updateAmayoutube = (e) => {
     setAma_youtube(e.target.value);
+  };
+  const updateTotalInvestor = (e) => {
+    setTotalInvestors(e.target.value);
+  };
+  const updateRaised = (e) => {
+    setTotalRaised(e.target.value);
   };
   const updatePitch = async (e) => {
     const allowedFiles = ["pdf"];
@@ -116,6 +128,8 @@ const Campaign_Form = () => {
       ama_youtube_video: ama_youtube,
       pitch: pitchUrl,
       status: status,
+      total_investors: total_investors,
+      total_raised: total_raised,
     };
 
     await authAxios.patch(`${Base_url}/api/campaign/manage`, values);
@@ -275,6 +289,26 @@ const Campaign_Form = () => {
                   <option value="CLOSED">CLOSED</option>
                 </select>
               </div>
+              <label for="exampleInputName" className="form-label">
+                Total Investors
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                id="exampleInputName"
+                value={total_investors}
+                onChange={updateTotalInvestor}
+              />
+              <label for="exampleInputName" className="form-label">
+                Total Raised
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                id="exampleInputName"
+                value={total_raised}
+                onChange={updateRaised}
+              />
               <button
                 type="submit"
                 className="btn btn-success"

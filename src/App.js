@@ -58,6 +58,8 @@ import CampFaqs from "./Authentication/component/CampUnderReview/CampaignRelated
 import CampCampaign from "./Authentication/component/CampUnderReview/CampaignRelatedDetials.js/CampCampaign";
 import Dashboard from "./Authentication/Dashboard/Dashboard";
 import FounderContract from "./Authentication/component/founderContract";
+import Interest from "./Authentication/component/Interest/Interest";
+import Interest_insert_data from "./Authentication/component/Interest/Interest_insert_data";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PaymentForm from "./Authentication/Payments/Payments_form";
@@ -252,6 +254,12 @@ const App = () => {
           <Route
             path="/home/contract-with-founder"
             element={<FounderContract />}
+            exact
+          />
+          <Route path="/home/interest" element={<Interest />} exact />
+          <Route
+            path="/home/interest_insert_data"
+            element={<Interest_insert_data />}
             exact
           />
         </Routes>
