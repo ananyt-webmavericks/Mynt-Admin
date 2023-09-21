@@ -10,10 +10,19 @@ const Deal_Type_Insert_data = () => {
   const [id, setId] = useState();
   const [name, setName] = useState();
   const [post, setPost] = React.useState(null);
+  const [description, setDescription] = useState();
+  const [tagline, setTagline] = useState();
+
   const navigator = useNavigate();
 
   const updateId = (e) => {
     setId(e.target.value);
+  };
+  const updateDescription = (e) => {
+    setDescription(e.target.value);
+  };
+  const updateTagline = (e) => {
+    setTagline(e.target.value);
   };
   const updateName = (e) => {
     setName(e.target.value);
@@ -70,7 +79,28 @@ const Deal_Type_Insert_data = () => {
                 value={name}
                 onChange={updateName}
               />
-
+              <label for="exampleInputName" className="form-label">
+                Deal Description
+              </label>
+              <input
+                type="text"
+                defaultValue={description}
+                className="form-control"
+                id="exampleInputName"
+                value={description}
+                onChange={updateDescription}
+              />
+              <label for="exampleInputName" className="form-label">
+                Deal Tagline
+              </label>
+              <input
+                type="text"
+                defaultValue={tagline}
+                className="form-control"
+                id="exampleInputName"
+                value={tagline}
+                onChange={updateTagline}
+              />
               <button
                 type="submit"
                 className="btn btn-success"

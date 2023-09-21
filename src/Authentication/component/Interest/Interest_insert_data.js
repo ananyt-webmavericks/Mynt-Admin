@@ -14,6 +14,7 @@ const Interest_insert_data = () => {
   const [investor_last_name, setInvestorLastName] = useState();
   const [investor_mobile_number, setMobileNumber] = useState();
   const [investor_email, setInvestorEmail] = useState();
+  const [amount, setAmount] = useState();
 
   const [post, setPost] = React.useState(null);
   const navigator = useNavigate();
@@ -25,6 +26,9 @@ const Interest_insert_data = () => {
   };
   const updateCampaignId = (e) => {
     setCampaignId(e.target.value);
+  };
+  const updateAmount = (e) => {
+    setAmount(e.target.value);
   };
   const updateCompanyName = (e) => {
     setCampaignName(e.target.value);
@@ -54,6 +58,7 @@ const Interest_insert_data = () => {
         investor_last_name: investor_last_name,
         investor_mobile_number: investor_mobile_number,
         investor_email: investor_email,
+        amount: amount,
       })
 
       .then((response) => {
@@ -148,6 +153,16 @@ const Interest_insert_data = () => {
               </label>
               <input
                 type="text"
+                className="form-control"
+                id="exampleInputName"
+                value={amount}
+                onChange={updateAmount}
+              />
+              <label for="exampleInputName" className="form-label">
+                Amount
+              </label>
+              <input
+                type="number"
                 className="form-control"
                 id="exampleInputName"
                 value={investor_email}

@@ -10,7 +10,7 @@ import { authAxios } from "../../../Services/auth.service";
 import AddIcon from "@mui/icons-material/Add";
 import Button from "@mui/material/Button";
 import "../../Comp_css/Component.css";
-
+import moment from "moment";
 function Interest() {
   const navigator = useNavigate();
   const [items, setItems] = useState();
@@ -75,9 +75,8 @@ function Interest() {
                   <th scope="col">Investor Last Name</th>
                   <th scope="col">Investor mobile</th>
                   <th scope="col">Investor email </th>
+                  <th scope="col">Amount</th>
                   <th scope="col">Applied date</th>
-                  <th scope="col">Created date</th>
-                  <th scope="col">Updated date</th>
                 </tr>
               </thead>
               <tbody>
@@ -93,9 +92,10 @@ function Interest() {
                           <td scope="col">{item.investor_last_name} </td>
                           <td scope="col">{item.investor_mobile_number} </td>
                           <td scope="col">{item.investor_email} </td>
-                          <td scope="col">{item.applied_date} </td>
-                          <td scope="col">{item.created_at} </td>
-                          <td scope="col">{item.updated_at} </td>
+                          <td scope="col">{item.amount} </td>
+                          <td scope="col">
+                            {moment(item.applied_date).format("Do MMMM YYYY")}
+                          </td>
                         </tr>
                       </>
                     );
