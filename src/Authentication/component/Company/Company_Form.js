@@ -68,7 +68,7 @@ const Company_Form = () => {
   const [incorporation_type, setincorporation_type] = useState(
     location1.state.bio.incorporation_type
   );
-  const [sector, setsector] = useState(location1.state.bio.sector.split(", "));
+  const [sector, setsector] = useState(location1.state.bio.sector ? location1.state.bio.sector.split(", ") : []);
   const [invested_so_far, setinvested_so_far] = useState(
     location1.state.bio.invested_so_far
   );
