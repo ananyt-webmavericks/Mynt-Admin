@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 const CampUnderUpdate = () => {
   const navigator = useNavigate();
   const location = useLocation();
+  console.log('location services', location.state)
   const goToList = () => {
     navigator("/home/under-review");
   };

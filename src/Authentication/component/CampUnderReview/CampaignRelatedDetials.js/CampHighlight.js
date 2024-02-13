@@ -31,16 +31,17 @@ const CampHighlight = () => {
   };
   const navigator = useNavigate();
 
+  console.log('location highlight', location1.state)
   const back = () => {
-    navigator(`/home/under-update/${location1.state.bio.id}`);
+    navigator(`/home/under-update/${location1.state.bio.id}`, { state: { bio: location1.state.bio } });
   };
   useEffect(() => {
     const getUploaded = async () => {
       setInd(
         location1.state.bio
           ? location1.state.bio.higlights.filter((val) => {
-              return val.campaign_id === location1.state.bio.id;
-            })
+            return val.campaign_id === location1.state.bio.id;
+          })
           : []
       );
     };
