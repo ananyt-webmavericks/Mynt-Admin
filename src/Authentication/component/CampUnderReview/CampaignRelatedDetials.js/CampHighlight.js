@@ -59,7 +59,8 @@ const CampHighlight = () => {
     };
 
     await authAxios.patch(`${Base_url}/api/highlights/manage`, values);
-    navigator(`/home/under-update/${location1.state.bio.id}`);
+    navigator(`/home/under-update/${location1.state.bio.id}`, { state: { bio: location1.state.bio } });
+    // navigator(`/home/under-update/${location1.state.bio.id}`);
   };
 
   const add1 = (x) => {

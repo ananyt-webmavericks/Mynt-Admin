@@ -98,9 +98,9 @@ const CampCampaign = () => {
       return;
     }
 
-    if(total_raised > 100){
+    if (total_raised > 100) {
       toast.error("Total raise should be less than or equals to 100");
-      return 
+      return
     }
 
     const values = {
@@ -258,6 +258,7 @@ const CampCampaign = () => {
                 value={total_raised}
                 onChange={updateRaised}
               />
+              <div style={{ fontSize: '12px' }}>Note: Total Raised should be in percentage</div>
               <button
                 type="submit"
                 className="btn btn-success"
